@@ -51,6 +51,11 @@
                             <label for="drop-2" class="toggle">Категории <span class="fa fa-angle-down" aria-hidden="true" ></span> </label>
                             <a href="#">Категории <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                            <li><a href="{% url 'admin:index' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Администратор</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'account_logout' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Выход</a></li>
+                        {% else %}
+                        <li><a href="{% url 'account_login' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Вход</a></li>
+                    {% endif %}
                     </ul>
                 </nav>
                 <!-- //nav -->

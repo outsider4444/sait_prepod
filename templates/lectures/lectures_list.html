@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    {{ lecture }}
+    {% for lec in lecture %}
+        {{ lec }}
+    {% endfor %}
 {% endblock content %}

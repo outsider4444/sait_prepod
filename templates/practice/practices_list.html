@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-    {{ practice }}
+    {% for prac in practice %}
+        {{ prac }}
+    {% endfor %}
+
+
 {% endblock content %}
