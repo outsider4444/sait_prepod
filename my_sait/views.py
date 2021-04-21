@@ -14,9 +14,14 @@ def main(request):
 
 def trpo_lecture(request):
     lectures = Lectures.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
-    practice = Practices.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
-    context = {"lectures": lectures, "practice": practice, }
+    context = {"lectures": lectures,}
     return render(request, 'items/trpo/lectures_list.html', context)
+
+
+def trpo_practice(request):
+    practice = Practices.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
+    context = {"practice": practice,}
+    return render(request, 'items/trpo/practices_list.html', context)
 
 
 def pp0201(request):
