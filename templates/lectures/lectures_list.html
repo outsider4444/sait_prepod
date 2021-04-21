@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
+
+
 {% block content %}
-    {% for lec in lecture %}
-        {{ lec }}
+    {% for lectures in lectures_list %}
+        <a href="{{ lectures.id }}">{{ lectures.name }}</a>
     {% endfor %}
+
 {% endblock content %}

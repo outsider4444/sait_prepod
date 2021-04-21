@@ -15,7 +15,7 @@ class Items(models.Model):
 
 class Lectures(models.Model):
 	"""Лекции"""
-	file = models.FileField("Лекции")
+	file = models.FileField("Файл", upload_to='lectures')
 	name = models.CharField("Имя лекции", max_length=100)
 	items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
 
@@ -29,7 +29,7 @@ class Lectures(models.Model):
 
 class Practices(models.Model):
 	"""Практики"""
-	file = models.FileField("Практики")
+	file = models.FileField("Файл", upload_to='practices')
 	name = models.CharField("Имя практики", max_length=100)
 	items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
 
