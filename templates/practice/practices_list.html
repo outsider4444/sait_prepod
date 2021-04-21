@@ -1,8 +1,13 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'items/base.html' %}
+
+{% if user.is_authenticated %}
+{% block items %}
     {% for prac in practice %}
         {{ prac }}
     {% endfor %}
 
 
-{% endblock content %}
+{% endblock items %}
+    {% else %}
+    Вы не авторизированы
+{% endif %}

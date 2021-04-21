@@ -1,9 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'items/base.html' %}
+
+{% if user.is_authenticated %}
+    {% block items %}
+        {% if user.is_superuser %}
+
+            {% for lectures in lectures_list %}
+
+                <a href="{{ lectures.id }}">{{ lectures.name }}</a> <br>
+            {% endfor %}
 
 
-{% block content %}
-    {% for lectures in lectures_list %}
-        <a href="{{ lectures.id }}">{{ lectures.name }}</a>
-    {% endfor %}
-
-{% endblock content %}
+        {% endif %}
+    {% endblock items %}
+{% else %}
+    Вы не авторизированы
+{% endif %}

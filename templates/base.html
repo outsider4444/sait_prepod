@@ -36,7 +36,7 @@
                 <!-- nav -->
                 <nav class="py-4">
                     <div id="logo">
-                        <h1> <a href="#" class="editContent" style="outline: none; outline-offset: -2px;
+                        <h1> <a href="{% url 'main' %}" class="editContent" style="outline: none; outline-offset: -2px;
                              color: rgb(255, 255, 255); font-size: 40px;
                               background-color: rgba(0, 0, 0, 0); font-family: &quot;Source Sans Pro&quot;
                               , sans-serif;">Пример сайта</a></h1>
@@ -47,9 +47,6 @@
                     <ul class="menu mt-2">
                         <li class="active"><a href="#">Главная</a></li>
                         <li>
-                            <!-- First Tier Drop Down -->
-                            <label for="drop-2" class="toggle">Категории <span class="fa fa-angle-down" aria-hidden="true" ></span> </label>
-                            <a href="#">Категории <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                            <li><a href="{% url 'admin:index' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Администратор</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'account_logout' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Выход</a></li>
@@ -64,7 +61,11 @@
         <!-- //header -->
         <!--/banner-->
         <div class="banner-info">
-            {#                        <p class="editContent" ></p>#}
+                <p class="editContent" style="color: black">
+                    {% block header_text %}
+                            Сделать разделение
+                    {% endblock header_text%}
+                </p>
 
             {#        <div class="ban-buttons">#}
             {##}

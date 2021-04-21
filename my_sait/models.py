@@ -41,11 +41,23 @@ class Practices(models.Model):
 		verbose_name_plural = 'Практики'
 
 
+class Groups(models.Model):
+	"""Группы"""
+	code = models.IntegerField("Код группы", default=None)
+
+	def __str__(self):
+		return self.code
+
+	class Meta:
+		verbose_name = "Группа"
+		verbose_name_plural = 'Группы'
+
+
 class Users(models.Model):
 	"""Пользователи"""
 	name = models.CharField("Имя пользователя", max_length=30, default=None)
 	surname = models.CharField("Фамилия пользователя", max_length=30)
-	group = models.IntegerField('Группа')
+	group = models.ForeignKey(Groups, verbose_name="Группа", on_delete=models.PROTECT)
 	login = models.CharField("Логин пользователя", max_length=30)
 	password = models.CharField("Пароль пользователя", max_length=30)
 
@@ -61,8 +73,9 @@ class Calendar(models.Model):
 	"""Календарь"""
 	date = models.DateField('Дата')
 	items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
-	mark = models.IntegerField('Оценка')
+	group = models.ForeignKey(Groups, verbose_name="Группа", on_delete=models.PROTECT)
 	users_code = models.ForeignKey(Users, verbose_name="Код пользователя", on_delete=models.CASCADE)
+	mark = models.IntegerField('Оценка')
 
 	def __str__(self):
 		return str(self.date)
