@@ -1,0 +1,12 @@
+{% extends 'items/base.html' %}
+
+{% if user.is_authenticated %}
+    {% block items %}
+        {% if user.is_superuser %}
+            <button class="btn btn-success">Лекции</button>
+            <button class="btn btn-success">Практики</button>
+        {% endif %}
+    {% endblock items %}
+{% else %}
+    Вы не авторизированы
+{% endif %}

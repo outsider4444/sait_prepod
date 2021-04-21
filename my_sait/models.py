@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 
 class Items(models.Model):
@@ -18,6 +19,7 @@ class Lectures(models.Model):
 	file = models.FileField("Файл", upload_to='lectures')
 	name = models.CharField("Имя лекции", max_length=100)
 	items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
+	date = models.DateField('Дата')
 
 	def __str__(self):
 		return self.name
@@ -32,6 +34,7 @@ class Practices(models.Model):
 	file = models.FileField("Файл", upload_to='practices')
 	name = models.CharField("Имя практики", max_length=100)
 	items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
+	date = models.DateField('Дата')
 
 	def __str__(self):
 		return self.name

@@ -4,7 +4,7 @@
     {% block items %}
         {% if user.is_superuser %}
 
-            {% for lectures in lectures_list %}
+            {% for lecture in lec %}
 
                 <a href="{{ lectures.id }}">{{ lectures.name }}</a> <br>
             {% endfor %}

@@ -1,0 +1,15 @@
+{% extends 'items/base.html' %}
+
+{% if user.is_authenticated %}
+    {% block items %}
+            <div style="width: 80%; margin-left: 10%">
+                <button class="btn btn-success btn-lg">Лекции</button>
+                <button class="btn btn-success btn-lg">Практики</button>
+            </div>
+            {% for lec in lectures %}
+                {{ lec.items_code.name }}: <a href="{{ lec.id }}">{{ lec.name }}</a> Дата: {{ lec.date }}
+            {% endfor %}
+    {% endblock items %}
+{% else %}
+    Вы не авторизированы
+{% endif %}

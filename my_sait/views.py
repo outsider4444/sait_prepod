@@ -12,23 +12,26 @@ def main(request):
     return render(request, 'main/main.html',)
 
 
-def trpo(request):
-    return render(request, 'items/base.html',)
+def trpo_lecture(request):
+    lectures = Lectures.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
+    practice = Practices.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
+    context = {"lectures": lectures, "practice": practice, }
+    return render(request, 'items/trpo/lectures_list.html', context)
 
 
 def pp0201(request):
-    return render(request, 'items/base.html',)
+    return render(request, 'items/pp0201/lectures_list.html',)
 
 
 def pp0102(request):
-    return render(request, 'items/base.html',)
+    return render(request, 'items/pp0102/lectures_list.html',)
 
 
 class LecturesListView(ListView):
     """Список лекций"""
     model = Lectures
     queryset = Lectures.objects.all()
-    template_name = 'lectures/lectures_list.html'
+    template_name = 'items/pp0102/lectures/../templates/items/pp0102/lectures_list.html'
 
 
 def download_lecture(request, pk):
@@ -42,7 +45,7 @@ class PracticesListView(ListView):
     """Список практик"""
     model = Practices
     queryset = Practices.objects.all()
-    template_name = 'practice/practices_list.html'
+    template_name = 'items/pp0102/practice/../templates/items/pp0102/practices_list.html'
 
 
 class UsersListView(ListView):
