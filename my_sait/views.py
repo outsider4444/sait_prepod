@@ -1,42 +1,93 @@
 import os
 from django.conf import settings
 from django.http import HttpResponse, Http404, FileResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic import ListView, DetailView, View, CreateView, UpdateView, DeleteView
 
-from .forms import CalendarForm
+from .forms import CalendarForm, TrpoLecturesForm
 from .models import *
 
 
 def main(request):
     return render(request, 'main/main.html',)
 
+# ТРПО
 
+# Лекции
 def trpo_lecture(request):
     lectures = Lectures.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
     context = {"lectures": lectures,}
     return render(request, 'items/trpo/lectures_list.html', context)
 
 
+def trpo_New_lecture(request):
+    # lecture_list = Lectures.objects.all()
+    lecture_item = Items.objects.get(name='МДК.02.01. Технология разработки программного обеспечения')
+    form = TrpoLecturesForm()
+    error = ""
+    if request.method == "POST":
+        form = TrpoLecturesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('trpo_lectures'))
+        else:
+            error = "Форма неверно заполнена"
+    return render(request, "items/trpo/forms/lecture_new.html", {"form": form, "error": error, "lecture_item": lecture_item})
+
+
+# Практики
 def trpo_practice(request):
     practice = Practices.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
     context = {"practice": practice,}
     return render(request, 'items/trpo/practices_list.html', context)
 
 
-def pp0201(request):
-    return render(request, 'items/pp0201/lectures_list.html',)
+def trpo_New_practice(request):
+    practice_item = Items.objects.get(name='МДК.02.01. Технология разработки программного обеспечения')
+    form = TrpoLecturesForm()
+    error = ""
+    if request.method == "POST":
+        form = TrpoLecturesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('trpo_lectures'))
+        else:
+            error = "Форма неверно заполнена"
+    return render(request, "items/trpo/forms/lecture_new.html", {"form": form, "error": error, "practice_item": practice_item})
 
 
-def pp0102(request):
-    return render(request, 'items/pp0102/lectures_list.html',)
+# ПП.02.01
+
+# Лекции
+def pp0201_lecture(request):
+    lectures = Lectures.objects.filter(items_code__name="ПП.02.01. Прикладное программирование")
+    context = {"lectures": lectures, }
+    return render(request, 'items/pp0201/lectures_list.html', context)
 
 
-class LecturesListView(ListView):
-    """Список лекций"""
-    model = Lectures
-    queryset = Lectures.objects.all()
-    template_name = 'items/pp0102/lectures/../templates/items/pp0102/lectures_list.html'
+# Практики
+def pp0201_practice(request):
+    practice = Practices.objects.filter(items_code__name="ПП.02.01. Прикладное программирование")
+    context = {"practice": practice,}
+    return render(request, 'items/pp0201/practices_list.html', context)
+
+
+# ПП.01.02
+
+# Лекции
+def pp0102_lecture(request):
+    lectures = Lectures.objects.filter(items_code__name="ПП.01.02. Прикладное программирование")
+    context = {"lectures": lectures, }
+    return render(request, 'items/pp0102/lectures_list.html', context)
+
+
+# Практики
+def pp0102_practice(request):
+    practice = Practices.objects.filter(items_code__name="ПП.01.02. Прикладное программирование")
+    context = {"practice": practice,}
+    return render(request, 'items/pp0102/practices_list.html', context)
+
 
 
 def download_lecture(request, pk):
@@ -44,13 +95,6 @@ def download_lecture(request, pk):
     filename = obj.file.path
     response = FileResponse(open(filename, 'rb'))
     return response
-
-
-class PracticesListView(ListView):
-    """Список практик"""
-    model = Practices
-    queryset = Practices.objects.all()
-    template_name = 'items/pp0102/practice/../templates/items/pp0102/practices_list.html'
 
 
 class UsersListView(ListView):

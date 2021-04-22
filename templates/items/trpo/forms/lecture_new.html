@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="" method="post">
+        Название предмета: {{ form.items_code }}
+        Название лекции: {{ form.name }} <br>
+        Файл лекции: {{ form.file }} <br>
+        Дата: {{ form.date }} <br>
+
+    <button type="submit" class="btn btn-success">Подтвердить</button>
+    </form>
+
+
+    <script>
+    //Скрытый <select> для редактирования календаря
+    let items_code = document.getElementById("id_items_code");
+    for(i=0; i<items_code.options.length; i++){
+        if(items_code.options[i].value == "{{ lecture_item.id }}"){
+            items_code.selectedIndex = i;
+        }
+    }
+    </script>
+{% endblock %}

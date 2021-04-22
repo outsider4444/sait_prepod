@@ -6,9 +6,16 @@
                 <a href="{% url 'trpo_lectures' %}" class="btn btn-success btn-lg">Лекции</a>
                 <a href="{% url 'trpo_practice' %}" class="btn btn-success btn-lg">Практики</a>
             </div>
-            {% for lec in lectures %}
-                {{ lec.items_code.name }}: <a href="{{ lec.id }}">{{ lec.name }}</a> Дата: {{ lec.date }}
+        <a href="{% url 'trpo_new_lecture' %}" class="btn btn-info">Создать новую лекцию</a>
+
+        <table border="1px">
+        {% for lec in lectures %}
+            <tr>
+            <td><a href="{{ lec.id }}">{{ lec.name }}</a></td> <td>Дата: {{ lec.date }}</td>
+            </tr>
             {% endfor %}
+        </table>
+
     {% endblock items %}
 {% else %}
     Вы не авторизированы

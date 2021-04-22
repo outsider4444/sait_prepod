@@ -2,15 +2,20 @@
 
 {% if user.is_authenticated %}
     {% block items %}
-        {% if user.is_superuser %}
+            <div style="width: 40%; margin-left: 30%">
+                <a href="{% url 'pp0102_lecture' %}" class="btn btn-success btn-lg">Лекции</a>
+                <a href="#" class="btn btn-success btn-lg">Практики</a>
+            </div>
+        <a href="#" class="btn btn-info">Создать новую лекцию</a>
 
-            {% for lecture in lec %}
-
-                <a href="{{ lectures.id }}">{{ lectures.name }}</a> <br>
+        <table border="1px">
+        {% for lec in lectures %}
+            <tr>
+            <td><a href="{{ lec.id }}">{{ lec.name }}</a></td> <td>Дата: {{ lec.date }}</td>
+            </tr>
             {% endfor %}
+        </table>
 
-
-        {% endif %}
     {% endblock items %}
 {% else %}
     Вы не авторизированы

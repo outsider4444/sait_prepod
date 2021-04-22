@@ -10,19 +10,18 @@ urlpatterns = [
     # path('pp0201/practices_list/', views.trpo_lecture, name="pp0201"),
     # path('pp0102/<int:pk>', views.trpo_lecture, name="pp0102"),
     # path('pp0102/practices_list/<int:pk>', views.trpo_lecture, name="pp0102"),
+    # Создание новой лекции
+    path('trpo/trpo_new_lecture', views.trpo_New_lecture, name="trpo_new_lecture"),
 
-    # список лекций и практик
-    # path('trpo/practices_list', views.trpo_practice, name="trpo_practice"),
-    # path('pp0201/practices_list', views.trpo_lecture, name="pp0201"),
-    # path('pp0102/practices_list', views.trpo_lecture, name="pp0102"),
+
     # список практик
     path('trpo/trpo_pracrice', views.trpo_practice, name="trpo_practice"),
 
 
-    # главная_переход_к_предмету
+    # главная_переход_к_предмету_ЛЕКЦИИ
     path('trpo/', views.trpo_lecture, name="trpo_lectures"),
-    path('pp0201/', views.trpo_lecture, name="pp0201"),
-    path('pp0102/', views.trpo_lecture, name="pp0102"),
+    path('pp0102/', views.pp0102_lecture, name="pp0102_lecture"),
+    path('pp0201/', views.pp0201_lecture, name="pp0201_lecture"),
 
 
     path('accounts/', include("allauth.urls")),
