@@ -154,13 +154,6 @@ def download_lecture(request, pk):
     return response
 
 
-class UsersListView(ListView):
-    """Список студентов"""
-    model = Users
-    queryset = Users.objects.all()
-    template_name = 'users/users_list.html'
-
-
 def download_practices(request, pk):
     obj = Practices.objects.get(id=pk)
     filename = obj.file.path
@@ -168,8 +161,10 @@ def download_practices(request, pk):
     return response
 
 
-def calendar_form(request):
-    form = CalendarForm()
+def users_marks_list(request):
+    """Список студентов"""
+    model = Users
+    queryset = Users.objects.all()
+    template_name = 'users/users_list.html'
 
-    context = {"form": form}
-    return render(request, 'calendar/calendar.html', context)
+

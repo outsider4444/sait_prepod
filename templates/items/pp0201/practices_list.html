@@ -2,14 +2,18 @@
 
 {% if user.is_authenticated %}
 {% block items %}
-    <div style="width: 40%; margin-left: 30%">
+    <div style="text-align: center">
                 <a href="{% url 'pp0201_lecture' %}" class="btn btn-success btn-lg">Лекции</a>
                 <a href="{% url 'pp0201_practice' %}" class="btn btn-success btn-lg">Практики</a>
             </div>
         <a href="{% url 'pp0201_new_practice' %}" class="btn btn-info">Создать новую практику</a>
+    <table border="1px">
             {% for prac in practice %}
-                {{ prac.items_code.name }}: <a href="{{ prac.id }}">{{ prac.name }}</a> Дата: {{ prac.date }}
+                 <tr>
+                <td><a href="{{ prac.id }}">{{ prac.name }}</a></td> <td>Дата: {{ prac.date }}</td>
+                </tr>
             {% endfor %}
+    </table>
 
 {% endblock items %}
     {% else %}
