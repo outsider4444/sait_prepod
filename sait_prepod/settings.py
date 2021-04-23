@@ -39,9 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    'allauth',
-    'allauth.account',
-
     "my_sait",
 ]
 
@@ -124,10 +121,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_REDIRECT_URL = "/"
+AUTH_USER_MODEL = 'my_sait.UserProfile'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 

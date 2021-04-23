@@ -32,6 +32,8 @@ urlpatterns = [
     path('pp0201_lectures_list/', views.pp0201_lecture, name="pp0201_lecture"),
     path('pp0102_lectures_list/', views.pp0102_lecture, name="pp0102_lecture"),
 
-    path('accounts/', include("allauth.urls")),
+    path('login/', views.loginPage, name="login"),
+    path('logout/', views.logoutUser, name="logout"),
+    path('register/', views.registerPage, name="register"),
     path("", views.main, name="main"),
 ]

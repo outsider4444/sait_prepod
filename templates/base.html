@@ -31,7 +31,7 @@
     <!-- main-content -->
 
         <!-- header -->
-        <header class="header">
+        <header class="header bg-dark" >
             <div class="container-fluid px-lg-5">
                 <!-- nav -->
                 <nav class="py-4">
@@ -45,15 +45,8 @@
                     <label for="drop" class="toggle">Menu</label>
                     <input type="checkbox" id="drop">
                     <ul class="menu mt-2">
-                        <li class="active"><a href="#">Главная</a></li>
-                        <li>
-                           <li><a href="{% url 'admin:index' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Администратор</a></li>
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'account_logout' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Выход</a></li>
-                        {% else %}
-                        <li><a href="{% url 'account_login' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Вход</a></li>
-                    {% endif %}
-                    </ul>
+                        <li>{% include 'accounts/navbar.html' %}</li>
+                        </ul>
                 </nav>
                 <!-- //nav -->
             </div>

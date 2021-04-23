@@ -1,5 +1,38 @@
 from django.db import models
-from datetime import datetime
+from django.contrib.auth.models import User, AbstractUser
+
+
+class Groups(models.Model):
+	"""Группы"""
+	code = models.IntegerField("Код группы", default=None)
+
+	def __str__(self):
+		return str(self.code)
+
+	class Meta:
+		verbose_name = "Группа"
+		verbose_name_plural = 'Группы'
+
+
+class UserProfile(AbstractUser):
+	"""Пользователи"""
+	name = models.CharField('Имя', max_length=100)
+	surname = models.CharField('Фамилия', max_length=100)
+	username = models.CharField(blank=True, null=True, max_length=150)
+	group = models.OneToOneField(Groups, verbose_name='Группа', blank=True, null=True, on_delete=models.PROTECT)
+	email = models.EmailField('Почта', max_length=100, unique=True)
+	password1 = models.CharField('Пароль1', max_length=100)
+	password2 = models.CharField('Пароль2', max_length=100)
+
+	USERNAME_FIELD = 'email'
+	REQUIRED_FIELDS = ['name', 'surname', 'username', 'group']
+
+	def __str__(self):
+		return self.email
+
+	class Meta:
+		verbose_name = "Пользователь"
+		verbose_name_plural = 'Пользователи'
 
 
 class Items(models.Model):
@@ -104,40 +137,12 @@ class PP0102Practices(models.Model):
 		verbose_name_plural = 'ПП.01.02. Практики'
 
 
-class Groups(models.Model):
-	"""Группы"""
-	code = models.IntegerField("Код группы", default=None)
-
-	def __str__(self):
-		return str(self.code)
-
-	class Meta:
-		verbose_name = "Группа"
-		verbose_name_plural = 'Группы'
-
-
-class Users(models.Model):
-	"""Пользователи"""
-	name = models.CharField("Имя пользователя", max_length=30, default=None)
-	surname = models.CharField("Фамилия пользователя", max_length=30)
-	group = models.ForeignKey(Groups, verbose_name="Группа", on_delete=models.PROTECT)
-	login = models.CharField("Логин пользователя", max_length=30)
-	password = models.CharField("Пароль пользователя", max_length=30)
-
-	def __str__(self):
-		return self.name
-
-	class Meta:
-		verbose_name = "Пользователь"
-		verbose_name_plural = 'Пользователи'
-
-
 class Marks(models.Model):
 	"""Календарь"""
 	date = models.DateField('Дата')
 	items_code = models.ForeignKey(Items, verbose_name="Предмет", on_delete=models.CASCADE)
 	group = models.ForeignKey(Groups, verbose_name="Группа", on_delete=models.PROTECT)
-	users_code = models.ForeignKey(Users, verbose_name="Код пользователя", on_delete=models.CASCADE)
+	users_code = models.ForeignKey(UserProfile, verbose_name="Код пользователя", on_delete=models.CASCADE)
 	mark = models.IntegerField('Оценка')
 
 	def __str__(self):

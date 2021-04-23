@@ -1,12 +1,13 @@
-import os
-from django.db.models import Q
-from django.conf import settings
-from django.http import HttpResponse, Http404, FileResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, View, CreateView, UpdateView, DeleteView
+from django.db.models import Q
+from django.http import HttpResponse, Http404, FileResponse
 import locale
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 from .forms import *
 from .models import *
@@ -25,18 +26,65 @@ def days_cur_month(strdate):
     return [(d1 + timedelta(days=i)).strftime(strdate) for i in range(delta.days + 1)]
 
 
+def registerPage(request):
+    """Регистрация"""
+    if request.user.is_authenticated:
+        return redirect('main')
+    else:
+        form = CreateUserForm()
+        if request.method == 'POST':
+            form = CreateUserForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data.get('name')
+                usersurname = form.cleaned_data.get('surname')
+                messages.success(request, 'Пользователь ' + username + '' + usersurname + ' был создан')
+                return redirect('login')
+        context = {"form": form}
+        return render(request, 'accounts/register.html', context)
+
+
+def loginPage(request):
+    """Авторизация"""
+    if request.user.is_authenticated:
+        return redirect('main')
+    else:
+        if request.method == 'POST':
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('main')
+            else:
+                messages.info(request, 'Почта ИЛИ пароль не верны')
+        context = {}
+        return render(request, 'accounts/login.html', context)
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
+
+
+@login_required(login_url='login')
 def main(request):
-    return render(request, 'main/main.html',)
+    users = UserProfile.objects.all()
+    context = {"users": users}
+    return render(request, 'main/main.html', context)
+
 
 # ТРПО
 
 # Лекции
+@login_required(login_url='login')
 def trpo_lecture(request):
     lectures = TrpoLectures.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
     context = {"lectures": lectures,}
     return render(request, 'items/trpo/lectures_list.html', context)
 
 
+@login_required(login_url='login')
 def trpo_New_lecture(request):
     # lecture_list = Lectures.objects.all()
     item = Items.objects.get(name='МДК.02.01. Технология разработки программного обеспечения')
@@ -53,12 +101,14 @@ def trpo_New_lecture(request):
 
 
 # Практики
+@login_required(login_url='login')
 def trpo_practice(request):
     practice = TrpoPractices.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
     context = {"practice": practice,}
     return render(request, 'items/trpo/practices_list.html', context)
 
 
+@login_required(login_url='login')
 def trpo_New_practice(request):
     item = Items.objects.get(name='МДК.02.01. Технология разработки программного обеспечения')
     form = TrpoPracticesForm()
@@ -76,12 +126,14 @@ def trpo_New_practice(request):
 # ПП.02.01
 
 # Лекции
+@login_required(login_url='login')
 def pp0201_lecture(request):
     lectures = PP0201Lectures.objects.filter(items_code__name="ПП.02.01. Прикладное программирование")
     context = {"lectures": lectures, }
     return render(request, 'items/pp0201/lectures_list.html', context)
 
 
+@login_required(login_url='login')
 def pp0201_New_lecture(request):
     # lecture_list = Lectures.objects.all()
     item = Items.objects.get(name='ПП.02.01. Прикладное программирование')
@@ -98,12 +150,14 @@ def pp0201_New_lecture(request):
 
 
 # Практики
+@login_required(login_url='login')
 def pp0201_practice(request):
     practice = PP0201Practices.objects.filter(items_code__name="ПП.02.01. Прикладное программирование")
     context = {"practice": practice,}
     return render(request, 'items/pp0201/practices_list.html', context)
 
 
+@login_required(login_url='login')
 def pp0201_New_practice(request):
     item = Items.objects.get(name='ПП.02.01. Прикладное программирование')
     form = Pp0201PracticesForm()
@@ -121,12 +175,14 @@ def pp0201_New_practice(request):
 # ПП.01.02
 
 # Лекции
+@login_required(login_url='login')
 def pp0102_lecture(request):
     lectures = PP0102Lectures.objects.filter(items_code__name="ПП.01.02. Прикладное программирование")
     context = {"lectures": lectures, }
     return render(request, 'items/pp0102/lectures_list.html', context)
 
 
+@login_required(login_url='login')
 def pp0102_New_lecture(request):
     # lecture_list = Lectures.objects.all()
     item = Items.objects.get(name="ПП.01.02. Прикладное программирование")
@@ -143,12 +199,14 @@ def pp0102_New_lecture(request):
 
 
 # Практики
+@login_required(login_url='login')
 def pp0102_practice(request):
     practice = PP0102Practices.objects.filter(items_code__name="ПП.01.02. Прикладное программирование")
     context = {"practice": practice,}
     return render(request, 'items/pp0102/practices_list.html', context)
 
 
+@login_required(login_url='login')
 def pp0102_New_practice(request):
     item = Items.objects.get(name="ПП.01.02. Прикладное программирование")
     form = Pp0102LecturesForm()
@@ -163,6 +221,7 @@ def pp0102_New_practice(request):
     return render(request, "items/pp0102/forms/practice_new.html", {"form": form, "error": error, "item": item})
 
 
+@login_required(login_url='login')
 def trpo_download_lecture(request, pk):
     obj = TrpoLectures.objects.get(id=pk)
     filename = obj.file.path
@@ -170,6 +229,7 @@ def trpo_download_lecture(request, pk):
     return response
 
 
+@login_required(login_url='login')
 def trpo_download_practice(request, pk):
     obj = TrpoPractices.objects.get(id=pk)
     filename = obj.file.path
@@ -177,6 +237,7 @@ def trpo_download_practice(request, pk):
     return response
 
 
+@login_required(login_url='login')
 def pp0201_download_lecture(request, pk):
     obj = PP0201Lectures.objects.get(id=pk)
     filename = obj.file.path
@@ -184,6 +245,7 @@ def pp0201_download_lecture(request, pk):
     return response
 
 
+@login_required(login_url='login')
 def pp0201_download_practice(request, pk):
     obj = PP0201Practices.objects.get(id=pk)
     filename = obj.file.path
@@ -191,6 +253,7 @@ def pp0201_download_practice(request, pk):
     return response
 
 
+@login_required(login_url='login')
 def pp0102_download_lecture(request, pk):
     obj = PP0102Lectures.objects.get(id=pk)
     filename = obj.file.path
@@ -198,6 +261,7 @@ def pp0102_download_lecture(request, pk):
     return response
 
 
+@login_required(login_url='login')
 def pp0102_download_practice(request, pk):
     obj = PP0102Practices.objects.get(id=pk)
     filename = obj.file.path
@@ -205,11 +269,11 @@ def pp0102_download_practice(request, pk):
     return response
 
 
-
+@login_required(login_url='login')
 def trpo_users_marks_list(request):
     """Оценки за ТРПО"""
     marks = Marks.objects.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
-    students = Users.objects.all().distinct()
+    students = UserProfile.objects.all().distinct()
     # получение всех дат текущего месяца
     delta_date = days_cur_month(strdate='%d %B %Yг.')
     # месяц
