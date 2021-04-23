@@ -11,8 +11,8 @@ class CalendarForm(forms.ModelForm):
         fields = '__all__'
 
 
-# ТРПО лекции
-class TrpoLecturesForm(forms.ModelForm):
+#  Лекции
+class LecturesForm(forms.ModelForm):
     """Форма создания новой лекции"""
 
     class Meta:
@@ -20,8 +20,8 @@ class TrpoLecturesForm(forms.ModelForm):
         fields = '__all__'
 
 
-# ТРПО практики
-class TrpoPracticeForm(forms.ModelForm):
+# Практики
+class PracticeForm(forms.ModelForm):
     """Форма создания новой лекции"""
 
     class Meta:

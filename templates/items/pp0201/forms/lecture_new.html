@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+
+    <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        Название предмета: {{ form.items_code }}
+        Название лекции: {{ form.name }} <br>
+        Файл лекции: {{ form.file }} <br>
+        Дата: {{ form.date }} <br>
+    <span>{{ error }}</span>
+    <button type="submit" class="btn btn-success">Подтвердить</button>
+    </form>
+
+
+    <script>
+    //Скрытый <select> для редактирования календаря
+    let items_code = document.getElementById("id_items_code");
+    for(i=0; i<items_code.options.length; i++){
+        if(items_code.options[i].value == "{{ item.id }}"){
+            items_code.selectedIndex = i;
+        }
+    }
+    </script>
+{% endblock %}
