@@ -144,7 +144,7 @@ def pp0102_New_lecture(request):
 
 # Практики
 def pp0102_practice(request):
-    practice = PP0102Lectures.objects.filter(items_code__name="ПП.01.02. Прикладное программирование")
+    practice = PP0102Practices.objects.filter(items_code__name="ПП.01.02. Прикладное программирование")
     context = {"practice": practice,}
     return render(request, 'items/pp0102/practices_list.html', context)
 
