@@ -3,6 +3,7 @@ from django.contrib import admin
 
 
 admin.site.register(Lectures)
+admin.site.register(Groups)
 admin.site.register(Users)
 admin.site.register(Practices)
 admin.site.register(Marks)
