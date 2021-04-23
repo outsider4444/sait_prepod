@@ -23,9 +23,9 @@ urlpatterns = [
     path('trpo/students_marks/', views.trpo_users_marks_list, name="trpo_students_marks"),
 
     # список практик
-    path('trpo_trpo_pracrice/', views.trpo_practice, name="trpo_practice"),
-    path('pp0201_trpo_pracrice/', views.pp0201_practice, name="pp0201_practice"),
-    path('pp0102_trpo_pracrice/', views.pp0102_practice, name="pp0102_practice"),
+    path('trpo_practices_list/', views.trpo_practice, name="trpo_practice"),
+    path('pp0201_lectures_list/', views.pp0201_practice, name="pp0201_practice"),
+    path('pp0102_lectures_list/', views.pp0102_practice, name="pp0102_practice"),
 
     # список лекций
     path('trpo_lectures_list/', views.trpo_lecture, name="trpo_lectures"),
