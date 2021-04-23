@@ -14,9 +14,9 @@ class Items(models.Model):
 		verbose_name_plural = 'Предметы'
 
 
-class Lectures(models.Model):
+class TrpoLectures(models.Model):
 	"""Лекции"""
-	file = models.FileField("Файл", upload_to='lectures')
+	file = models.FileField("Файл", upload_to='trpo/lectures')
 	name = models.CharField("Имя лекции", max_length=100)
 	items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
 	date = models.DateField('Дата')
@@ -25,14 +25,14 @@ class Lectures(models.Model):
 		return self.name
 
 	class Meta:
-		verbose_name = "Лекция"
-		verbose_name_plural = 'Лекции'
+		verbose_name = "ТРПО Лекция"
+		verbose_name_plural = 'ТРПО Лекции'
 
 
-class Practices(models.Model):
-	"""Практики"""
-	file = models.FileField("Файл", upload_to='practices')
-	name = models.CharField("Имя практики", max_length=100)
+class PP0201Lectures(models.Model):
+	"""Лекции"""
+	file = models.FileField("Файл", upload_to='pp0201/lectures')
+	name = models.CharField("Имя лекции", max_length=100)
 	items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
 	date = models.DateField('Дата')
 
@@ -40,8 +40,68 @@ class Practices(models.Model):
 		return self.name
 
 	class Meta:
-		verbose_name = "Практика"
-		verbose_name_plural = 'Практики'
+		verbose_name = "ПП.02.01. Лекция"
+		verbose_name_plural = 'ПП.02.01. Лекции'
+
+
+class PP0102Lectures(models.Model):
+	"""Лекции"""
+	file = models.FileField("Файл", upload_to='pp0102/lectures')
+	name = models.CharField("Имя лекции", max_length=100)
+	items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
+	date = models.DateField('Дата')
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		verbose_name = "ПП.01.02. Лекция"
+		verbose_name_plural = 'ПП.01.02. Лекции'
+
+
+class TrpoPractices(models.Model):
+	"""Лекции"""
+	file = models.FileField("Файл", upload_to='trpo/practices')
+	name = models.CharField("Имя лекции", max_length=100)
+	items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
+	date = models.DateField('Дата')
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		verbose_name = "ТРПО Практика"
+		verbose_name_plural = 'ТРПО Практики'
+
+
+class PP0201Practices(models.Model):
+	"""Лекции"""
+	file = models.FileField("Файл", upload_to='pp0201/practices')
+	name = models.CharField("Имя лекции", max_length=100)
+	items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
+	date = models.DateField('Дата')
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		verbose_name = "ПП.02.01. Практика"
+		verbose_name_plural = 'ПП.02.01. Практики'
+
+
+class PP0102Practices(models.Model):
+	"""Лекции"""
+	file = models.FileField("Файл", upload_to='pp0102/practices')
+	name = models.CharField("Имя лекции", max_length=100)
+	items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
+	date = models.DateField('Дата')
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		verbose_name = "ПП.01.02. Практика"
+		verbose_name_plural = 'ПП.01.02. Практики'
 
 
 class Groups(models.Model):
@@ -84,5 +144,5 @@ class Marks(models.Model):
 		return str(self.date)
 
 	class Meta:
-		verbose_name = "Календарь"
-		verbose_name_plural = 'Календарь'
+		verbose_name = "Оценка"
+		verbose_name_plural = 'Оценки'

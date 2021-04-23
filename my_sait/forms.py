@@ -2,28 +2,51 @@ from django import forms
 from .models import *
 
 
-# Изделия
-class CalendarForm(forms.ModelForm):
-    """Форма календаря выставки оценок"""
-
-    class Meta:
-        model = Marks
-        fields = '__all__'
-
-
 #  Лекции
-class LecturesForm(forms.ModelForm):
-    """Форма создания новой лекции"""
+class TrpoLecturesForm(forms.ModelForm):
+    """Форма создания новой трпо лекции"""
 
     class Meta:
-        model = Lectures
+        model = TrpoLectures
         fields = '__all__'
 
 
-# Практики
-class PracticeForm(forms.ModelForm):
-    """Форма создания новой лекции"""
+class Pp0201LecturesForm(forms.ModelForm):
+    """Форма создания новой пп0201 лекции"""
 
     class Meta:
-        model = Practices
+        model = PP0201Lectures
+        fields = '__all__'
+
+
+class Pp0102LecturesForm(forms.ModelForm):
+    """Форма создания новой пп0102 лекции"""
+
+    class Meta:
+        model = PP0102Lectures
+        fields = '__all__'
+
+
+#  Практики
+class TrpoPracticesForm(forms.ModelForm):
+    """Форма создания новой трпо практики"""
+
+    class Meta:
+        model = TrpoPractices
+        fields = '__all__'
+
+
+class Pp0201PracticesForm(forms.ModelForm):
+    """Форма создания новой пп0201 практики"""
+
+    class Meta:
+        model = PP0201Practices
+        fields = '__all__'
+
+
+class Pp0102PracticesForm(forms.ModelForm):
+    """Форма создания новой пп0102 практики"""
+
+    class Meta:
+        model = PP0102Practices
         fields = '__all__'

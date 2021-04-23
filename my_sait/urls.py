@@ -4,12 +4,12 @@ from . import views
 
 urlpatterns = [
     # Скачать лекцию/практику
-    path('trpo/<int:pk>', views.download_lecture, name="trpo_lectures_download"),
-    path('trpo/practices_list/<int:pk>', views.download_practices, name="trpo_practice_download"),
-    path('pp0201/<int:pk>', views.download_lecture, name="trpo_lectures_download"),
-    path('pp0201/practices_list/<int:pk>', views.download_practices, name="trpo_practice_download"),
-    path('pp0102/<int:pk>', views.download_lecture, name="trpo_lectures_download"),
-    path('pp0102/practices_list/<int:pk>', views.download_practices, name="trpo_practice_download"),
+    path('trpo/<int:pk>', views.trpo_download_lecture, name="trpo_lectures_download"),
+    path('trpo/practices_list/<int:pk>', views.trpo_download_practice, name="trpo_practice_download"),
+    path('pp0201/<int:pk>', views.pp0201_download_lecture, name="pp0201_lectures_download"),
+    path('pp0201/practices_list/<int:pk>', views.pp0201_download_practice, name="pp0201_practice_download"),
+    path('pp0102/<int:pk>', views.pp0102_download_lecture, name="pp0102_lectures_download"),
+    path('pp0102/practices_list/<int:pk>', views.pp0102_download_practice, name="pp0102_practice_download"),
 
     # Создание новой лекции
     path('trpo/trpo_new_lecture', views.trpo_New_lecture, name="trpo_new_lecture"),

@@ -8,7 +8,7 @@ from django.views.generic import ListView, DetailView, View, CreateView, UpdateV
 import locale
 from datetime import date, timedelta
 
-from .forms import CalendarForm, PracticeForm, LecturesForm
+from .forms import *
 from .models import *
 
 
@@ -32,7 +32,7 @@ def main(request):
 
 # Лекции
 def trpo_lecture(request):
-    lectures = Lectures.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
+    lectures = TrpoLectures.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
     context = {"lectures": lectures,}
     return render(request, 'items/trpo/lectures_list.html', context)
 
@@ -40,10 +40,10 @@ def trpo_lecture(request):
 def trpo_New_lecture(request):
     # lecture_list = Lectures.objects.all()
     item = Items.objects.get(name='МДК.02.01. Технология разработки программного обеспечения')
-    form = LecturesForm()
+    form = TrpoLecturesForm()
     error = ""
     if request.method == "POST":
-        form = LecturesForm(request.POST, request.FILES)
+        form = TrpoLecturesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect(reverse('trpo_lectures'))
@@ -54,20 +54,20 @@ def trpo_New_lecture(request):
 
 # Практики
 def trpo_practice(request):
-    practice = Practices.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
+    practice = TrpoPractices.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
     context = {"practice": practice,}
     return render(request, 'items/trpo/practices_list.html', context)
 
 
 def trpo_New_practice(request):
     item = Items.objects.get(name='МДК.02.01. Технология разработки программного обеспечения')
-    form = PracticeForm()
+    form = TrpoPracticesForm()
     error = ""
     if request.method == "POST":
-        form = PracticeForm(request.POST, request.FILES)
+        form = TrpoPracticesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('trpo_lectures'))
+            return redirect(reverse('trpo_practice'))
         else:
             error = "Форма неверно заполнена"
     return render(request, "items/trpo/forms/practice_new.html", {"form": form, "error": error, "item": item})
@@ -77,7 +77,7 @@ def trpo_New_practice(request):
 
 # Лекции
 def pp0201_lecture(request):
-    lectures = Lectures.objects.filter(items_code__name="ПП.02.01. Прикладное программирование")
+    lectures = PP0201Lectures.objects.filter(items_code__name="ПП.02.01. Прикладное программирование")
     context = {"lectures": lectures, }
     return render(request, 'items/pp0201/lectures_list.html', context)
 
@@ -85,10 +85,10 @@ def pp0201_lecture(request):
 def pp0201_New_lecture(request):
     # lecture_list = Lectures.objects.all()
     item = Items.objects.get(name='ПП.02.01. Прикладное программирование')
-    form = LecturesForm()
+    form = Pp0201LecturesForm()
     error = ""
     if request.method == "POST":
-        form = LecturesForm(request.POST, request.FILES)
+        form = Pp0201LecturesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect(reverse('pp0201_lectures'))
@@ -99,17 +99,17 @@ def pp0201_New_lecture(request):
 
 # Практики
 def pp0201_practice(request):
-    practice = Practices.objects.filter(items_code__name="ПП.02.01. Прикладное программирование")
+    practice = PP0201Practices.objects.filter(items_code__name="ПП.02.01. Прикладное программирование")
     context = {"practice": practice,}
     return render(request, 'items/pp0201/practices_list.html', context)
 
 
 def pp0201_New_practice(request):
     item = Items.objects.get(name='ПП.02.01. Прикладное программирование')
-    form = PracticeForm()
+    form = Pp0201PracticesForm()
     error = ""
     if request.method == "POST":
-        form = PracticeForm(request.POST, request.FILES)
+        form = Pp0201PracticesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect(reverse('pp0201_lectures'))
@@ -122,7 +122,7 @@ def pp0201_New_practice(request):
 
 # Лекции
 def pp0102_lecture(request):
-    lectures = Lectures.objects.filter(items_code__name="ПП.01.02. Прикладное программирование")
+    lectures = PP0102Lectures.objects.filter(items_code__name="ПП.01.02. Прикладное программирование")
     context = {"lectures": lectures, }
     return render(request, 'items/pp0102/lectures_list.html', context)
 
@@ -130,10 +130,10 @@ def pp0102_lecture(request):
 def pp0102_New_lecture(request):
     # lecture_list = Lectures.objects.all()
     item = Items.objects.get(name="ПП.01.02. Прикладное программирование")
-    form = LecturesForm()
+    form = Pp0102LecturesForm()
     error = ""
     if request.method == "POST":
-        form = LecturesForm(request.POST, request.FILES)
+        form = Pp0102LecturesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect(reverse('pp0102_lectures'))
@@ -144,17 +144,17 @@ def pp0102_New_lecture(request):
 
 # Практики
 def pp0102_practice(request):
-    practice = Practices.objects.filter(items_code__name="ПП.01.02. Прикладное программирование")
+    practice = PP0102Lectures.objects.filter(items_code__name="ПП.01.02. Прикладное программирование")
     context = {"practice": practice,}
     return render(request, 'items/pp0102/practices_list.html', context)
 
 
 def pp0102_New_practice(request):
     item = Items.objects.get(name="ПП.01.02. Прикладное программирование")
-    form = PracticeForm()
+    form = Pp0102LecturesForm()
     error = ""
     if request.method == "POST":
-        form = PracticeForm(request.POST, request.FILES)
+        form = Pp0102LecturesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect(reverse('pp0102_lectures'))
@@ -163,18 +163,47 @@ def pp0102_New_practice(request):
     return render(request, "items/pp0102/forms/practice_new.html", {"form": form, "error": error, "item": item})
 
 
-def download_lecture(request, pk):
-    obj = Lectures.objects.get(id=pk)
+def trpo_download_lecture(request, pk):
+    obj = TrpoLectures.objects.get(id=pk)
     filename = obj.file.path
     response = FileResponse(open(filename, 'rb'))
     return response
 
 
-def download_practices(request, pk):
-    obj = Practices.objects.get(id=pk)
+def trpo_download_practice(request, pk):
+    obj = TrpoPractices.objects.get(id=pk)
     filename = obj.file.path
     response = FileResponse(open(filename, 'rb'))
     return response
+
+
+def pp0201_download_lecture(request, pk):
+    obj = PP0201Lectures.objects.get(id=pk)
+    filename = obj.file.path
+    response = FileResponse(open(filename, 'rb'))
+    return response
+
+
+def pp0201_download_practice(request, pk):
+    obj = PP0201Practices.objects.get(id=pk)
+    filename = obj.file.path
+    response = FileResponse(open(filename, 'rb'))
+    return response
+
+
+def pp0102_download_lecture(request, pk):
+    obj = PP0102Lectures.objects.get(id=pk)
+    filename = obj.file.path
+    response = FileResponse(open(filename, 'rb'))
+    return response
+
+
+def pp0102_download_practice(request, pk):
+    obj = PP0102Practices.objects.get(id=pk)
+    filename = obj.file.path
+    response = FileResponse(open(filename, 'rb'))
+    return response
+
 
 
 def trpo_users_marks_list(request):

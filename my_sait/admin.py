@@ -2,10 +2,13 @@ from .models import *
 from django.contrib import admin
 
 
-admin.site.register(Lectures)
+admin.site.register(TrpoPractices)
+admin.site.register(TrpoLectures)
+admin.site.register(PP0102Lectures)
+admin.site.register(PP0102Practices)
+admin.site.register(PP0201Lectures)
+admin.site.register(PP0201Practices)
 admin.site.register(Groups)
 admin.site.register(Users)
-admin.site.register(Practices)
 admin.site.register(Marks)
 admin.site.register(Items)
-# Register your models here.
