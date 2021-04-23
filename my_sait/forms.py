@@ -7,7 +7,7 @@ class CalendarForm(forms.ModelForm):
     """Форма календаря выставки оценок"""
 
     class Meta:
-        model = Calendar
+        model = Marks
         fields = '__all__'
 
 

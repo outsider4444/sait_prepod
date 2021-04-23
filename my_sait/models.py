@@ -72,10 +72,10 @@ class Users(models.Model):
 		verbose_name_plural = 'Пользователи'
 
 
-class Calendar(models.Model):
+class Marks(models.Model):
 	"""Календарь"""
 	date = models.DateField('Дата')
-	items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
+	items_code = models.ForeignKey(Items, verbose_name="Предмет", on_delete=models.CASCADE)
 	group = models.ForeignKey(Groups, verbose_name="Группа", on_delete=models.PROTECT)
 	users_code = models.ForeignKey(Users, verbose_name="Код пользователя", on_delete=models.CASCADE)
 	mark = models.IntegerField('Оценка')

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table border="1px">
+        <tr><td>Дата</td>
+            {% for date in delta_date %}
+                <td>{{ date }}</td>
+            {% endfor %}
+        </tr>
+    </table>
+{% endblock %}

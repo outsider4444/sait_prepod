@@ -20,6 +20,9 @@ urlpatterns = [
     path('pp0201/trpo_new_practice', views.pp0201_New_practice, name="pp0201_new_practice"),
     path('pp0102/trpo_new_practice', views.pp0102_New_practice, name="pp0102_new_practice"),
 
+
+    path('trpo/students_marks/', views.trpo_users_marks_list, name="trpo_students_marks"),
+
     # список практик
     path('trpo/trpo_pracrice', views.trpo_practice, name="trpo_practice"),
     path('pp0201/trpo_pracrice', views.pp0201_practice, name="pp0201_practice"),
