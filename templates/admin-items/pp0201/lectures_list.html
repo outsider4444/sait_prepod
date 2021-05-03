@@ -1,12 +1,12 @@
-{% extends 'items/base.html' %}
+{% extends 'admin-items/base.html' %}
 
 {% if user.is_authenticated %}
     {% block items %}
             <div style="text-align: center">
-                <a href="{% url 'pp0201_lecture' %}" class="btn btn-success btn-lg">Лекции</a>
-                <a href="{% url 'pp0201_practice' %}" class="btn btn-success btn-lg">Практики</a>
+                <a href="{% url 'admin-pp0201_lecture' %}" class="btn btn-success btn-lg">Лекции</a>
+                <a href="{% url 'admin-pp0201_practice' %}" class="btn btn-success btn-lg">Практики</a>
             </div>
-        <a href="{% url 'pp0201_new_lecture' %}" class="btn btn-info">Создать новую лекцию</a>
+        <a href="{% url 'admin-pp0201_new_lecture' %}" class="btn btn-info">Создать новую лекцию</a>
 
         <table border="1px">
         {% for lec in lectures %}

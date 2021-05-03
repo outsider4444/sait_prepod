@@ -1,0 +1,20 @@
+{% extends 'admin-items/base.html' %}
+
+{% block items %}
+    <div style="text-align: center">
+                <a href="{% url 'user-trpo-lectures' %}" class="btn btn-success btn-lg">Лекции</a>
+                <a href="{% url 'trpo_practice' %}" class="btn btn-success btn-lg">Практики</a>
+            </div>
+        <a href="{% url 'trpo_students_marks' %}" class="btn btn-info">Просмотреть оценки</a>
+
+    <div style="text-align: center">
+        <table border="1px">
+            {% for prac in practice %}
+                <tr>
+                    <td><a href="{{ prac.id }}">{{ prac.name }}</a></td> <td>Дата: {{ prac.date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock items %}

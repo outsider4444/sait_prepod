@@ -1,8 +1,5 @@
 {% extends 'base.html' %}
 
-
-{% if user.is_authenticated %}
-
     {% block header_text %}
         Сделать разделение
     {% endblock header_text%}
@@ -10,9 +7,9 @@
 {% block content %}
 
     <div style="width: 80%; margin-left: 10%" >
-        <a href="{% url 'trpo_lectures' %}" class="btn btn-success btn-lg btn-block">МДК.02.01. Технология разработки программного обеспечения</a>
-        <a href="{% url 'pp0201_lecture' %}" class="btn btn-success btn-lg btn-block">МДК.02.01. Прикладное программирование</a>
-        <a href="{% url 'pp0102_lecture' %}" class="btn btn-success btn-lg btn-block">МДК.01.02. Прикладное программирование</a>
+        <a href="{% url 'admin-trpo_lecture' %}" class="btn btn-success btn-lg btn-block">МДК.02.01. Технология разработки программного обеспечения</a>
+        <a href="{% url 'admin-pp0201_lecture' %}" class="btn btn-success btn-lg btn-block">МДК.02.01. Прикладное программирование</a>
+        <a href="{% url 'admin-pp0102_lecture' %}" class="btn btn-success btn-lg btn-block">МДК.01.02. Прикладное программирование</a>
     </div>
 
 {#    <a href="{% url 'calendar_form' %}" class="btn btn-success">Выставить оценку</a><br><br>#}
@@ -20,6 +17,3 @@
 {#    <a href="{% url 'practices_list' %}" class="btn btn-success">Практики</a>#}
 {#    <a href="{% url 'users_list' %}" class="btn btn-success">Студенты</a>#}
 {% endblock content %}
-    {% else %}
-    Вы не авторизированы
-{% endif %}

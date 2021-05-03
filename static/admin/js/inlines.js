@@ -174,7 +174,7 @@
         addButton = options.addButton;
         addInlineAddButton();
 
-        // Show the add button if allowed to add more items.
+        // Show the add button if allowed to add more admin-items.
         // Note that max_num = None translates to a blank string.
         const showAddButton = maxForms.val() === '' || (maxForms.val() - totalForms.val()) > 0;
         if ($this.length && showAddButton) {

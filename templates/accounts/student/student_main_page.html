@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="width: 80%; margin-left: 10%" >
+        <a href="{% url 'user-trpo-lectures' %}" class="btn btn-success btn-lg btn-block">МДК.02.01. Технология разработки программного обеспечения</a>
+        <a href="{% url 'user-pp0201-lectures' %}" class="btn btn-success btn-lg btn-block">МДК.02.01. Прикладное программирование</a>
+        <a href="{% url 'user-pp0102-lectures' %}" class="btn btn-success btn-lg btn-block">МДК.01.02. Прикладное программирование</a>
+    </div>
+{% endblock content %}

@@ -72,7 +72,7 @@ class Migration(migrations.Migration):
                 ('file', models.FileField(upload_to='trpo/practices', verbose_name='Файл')),
                 ('name', models.CharField(max_length=100, verbose_name='Имя лекции')),
                 ('date', models.DateField(verbose_name='Дата')),
-                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.items', verbose_name='Код предмета')),
+                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.admin-items', verbose_name='Код предмета')),
             ],
             options={
                 'verbose_name': 'ТРПО Практика',
@@ -86,7 +86,7 @@ class Migration(migrations.Migration):
                 ('file', models.FileField(upload_to='trpo/lectures', verbose_name='Файл')),
                 ('name', models.CharField(max_length=100, verbose_name='Имя лекции')),
                 ('date', models.DateField(verbose_name='Дата')),
-                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.items', verbose_name='Код предмета')),
+                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.admin-items', verbose_name='Код предмета')),
             ],
             options={
                 'verbose_name': 'ТРПО Лекция',
@@ -100,7 +100,7 @@ class Migration(migrations.Migration):
                 ('file', models.FileField(upload_to='pp0201/practices', verbose_name='Файл')),
                 ('name', models.CharField(max_length=100, verbose_name='Имя лекции')),
                 ('date', models.DateField(verbose_name='Дата')),
-                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.items', verbose_name='Код предмета')),
+                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.admin-items', verbose_name='Код предмета')),
             ],
             options={
                 'verbose_name': 'ПП.02.01. Практика',
@@ -114,7 +114,7 @@ class Migration(migrations.Migration):
                 ('file', models.FileField(upload_to='pp0201/lectures', verbose_name='Файл')),
                 ('name', models.CharField(max_length=100, verbose_name='Имя лекции')),
                 ('date', models.DateField(verbose_name='Дата')),
-                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.items', verbose_name='Код предмета')),
+                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.admin-items', verbose_name='Код предмета')),
             ],
             options={
                 'verbose_name': 'ПП.02.01. Лекция',
@@ -128,7 +128,7 @@ class Migration(migrations.Migration):
                 ('file', models.FileField(upload_to='pp0102/practices', verbose_name='Файл')),
                 ('name', models.CharField(max_length=100, verbose_name='Имя лекции')),
                 ('date', models.DateField(verbose_name='Дата')),
-                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.items', verbose_name='Код предмета')),
+                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.admin-items', verbose_name='Код предмета')),
             ],
             options={
                 'verbose_name': 'ПП.01.02. Практика',
@@ -142,7 +142,7 @@ class Migration(migrations.Migration):
                 ('file', models.FileField(upload_to='pp0102/lectures', verbose_name='Файл')),
                 ('name', models.CharField(max_length=100, verbose_name='Имя лекции')),
                 ('date', models.DateField(verbose_name='Дата')),
-                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.items', verbose_name='Код предмета')),
+                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.admin-items', verbose_name='Код предмета')),
             ],
             options={
                 'verbose_name': 'ПП.01.02. Лекция',
@@ -156,7 +156,7 @@ class Migration(migrations.Migration):
                 ('date', models.DateField(verbose_name='Дата')),
                 ('mark', models.IntegerField(verbose_name='Оценка')),
                 ('group', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='my_sait.groups', verbose_name='Группа')),
-                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.items', verbose_name='Предмет')),
+                ('items_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_sait.admin-items', verbose_name='Предмет')),
                 ('users_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Код пользователя')),
             ],
             options={

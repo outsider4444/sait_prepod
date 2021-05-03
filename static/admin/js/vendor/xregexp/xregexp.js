@@ -3991,7 +3991,7 @@ XRegExp.replaceEach = function(str, replacements) {
  * @memberOf XRegExp
  * @param {String} str String to split.
  * @param {RegExp|String} separator Regex or string to use for separating the string.
- * @param {Number} [limit] Maximum number of items to include in the result array.
+ * @param {Number} [limit] Maximum number of admin-items to include in the result array.
  * @returns {Array} Array of substrings.
  * @example
  *
@@ -4396,7 +4396,7 @@ fixed.replace = function(search, replacement) {
  *
  * @memberOf String
  * @param {RegExp|String} separator Regex or string to use for separating the string.
- * @param {Number} [limit] Maximum number of items to include in the result array.
+ * @param {Number} [limit] Maximum number of admin-items to include in the result array.
  * @returns {Array} Array of substrings.
  */
 fixed.split = function(separator, limit) {

@@ -1,13 +1,13 @@
-{% extends 'items/base.html' %}
+{% extends 'admin-items/base.html' %}
 
 {% if user.is_authenticated %}
 {% block items %}
     <div style="text-align: center">
-                <a href="{% url 'trpo_lectures' %}" class="btn btn-success btn-lg">Лекции</a>
-                <a href="{% url 'trpo_practice' %}" class="btn btn-success btn-lg">Практики</a>
+                <a href="{% url 'admin-trpo_lecture' %}" class="btn btn-success btn-lg">Лекции</a>
+                <a href="{% url 'admin-trpo_practice' %}" class="btn btn-success btn-lg">Практики</a>
             </div>
-        <a href="{% url 'trpo_new_practice' %}" class="btn btn-info">Создать новую практику</a>
-        <a href="{% url 'trpo_students_marks' %}" class="btn btn-info">Просмотреть оценки</a>
+        <a href="{% url 'admin-trpo_new_practice' %}" class="btn btn-info">Создать новую практику</a>
+        <a href="{% url 'admin-trpo_students_marks' %}" class="btn btn-info">Просмотреть оценки</a>
 
     <div style="text-align: center">
         <table border="1px">
