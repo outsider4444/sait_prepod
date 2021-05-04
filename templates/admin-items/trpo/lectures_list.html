@@ -1,6 +1,5 @@
 {% extends 'admin-items/base.html' %}
 
-{% if user.is_authenticated %}
     {% block items %}
             <div style="text-align: center">
                 <a href="{% url 'admin-trpo_lecture' %}" class="btn btn-success btn-lg">Лекции</a>
@@ -19,6 +18,3 @@
         </table>
 </div>
     {% endblock items %}
-{% else %}
-    Вы не авторизированы
-{% endif %}

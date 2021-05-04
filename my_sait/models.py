@@ -47,6 +47,21 @@ class Items(models.Model):
 		verbose_name_plural = 'Предметы'
 
 
+class Marks(models.Model):
+	"""Календарь"""
+	date = models.DateField('Дата')
+	items_code = models.ForeignKey(Items, verbose_name="Предмет", on_delete=models.CASCADE)
+	users_code = models.ForeignKey(UserProfile, verbose_name="Код пользователя", on_delete=models.CASCADE)
+	mark = models.IntegerField('Оценка')
+
+	def __str__(self):
+		return str(self.date)
+
+	class Meta:
+		verbose_name = "Оценка"
+		verbose_name_plural = 'Оценки'
+
+
 class TrpoLectures(models.Model):
 	"""Лекции"""
 	file = models.FileField("Файл", upload_to='trpo/lectures')
@@ -136,18 +151,3 @@ class PP0102Practices(models.Model):
 		verbose_name = "ПП.01.02. Практика"
 		verbose_name_plural = 'ПП.01.02. Практики'
 
-
-class Marks(models.Model):
-	"""Календарь"""
-	date = models.DateField('Дата')
-	items_code = models.ForeignKey(Items, verbose_name="Предмет", on_delete=models.CASCADE)
-	group = models.ForeignKey(Groups, verbose_name="Группа", on_delete=models.PROTECT)
-	users_code = models.ForeignKey(UserProfile, verbose_name="Код пользователя", on_delete=models.CASCADE)
-	mark = models.IntegerField('Оценка')
-
-	def __str__(self):
-		return str(self.date)
-
-	class Meta:
-		verbose_name = "Оценка"
-		verbose_name_plural = 'Оценки'

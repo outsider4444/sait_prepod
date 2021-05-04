@@ -59,3 +59,13 @@ class Pp0102PracticesForm(forms.ModelForm):
     class Meta:
         model = PP0102Practices
         fields = '__all__'
+
+
+# Оценки
+class CreateMarksForm(forms.ModelForm):
+    class Meta:
+        model = Marks
+        fields = '__all__'
+        widgets = {
+            'date' : forms.DateInput(attrs={'type': 'date'})
+        }

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <a href="{% url 'admin-pp0102_students_marks_create' %}"> Создать новую оценку</a>
+    
+    <table border="1px">
+        <tr><td>Дата</td>
+            {% for date in delta_date %}
+                <td>{{ date }}</td>
+            {% endfor %}
+        </tr>
+    {% for student in students %}
+        <tr><td>{{ student.name }} {{ student.surname }}({{ student.group }})</td>
+        {% for date in date_days  %}
+            <td>
+                {% for mark in marks %}
+                    {% if mark.users_code.id == student.id %}
+                        {% if mark.date.day == date %}
+                            {{ mark.mark }}
+                    {% endif %}
+                    {% endif %}
+                {% endfor %}</td>
+
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+
+
+{% endblock %}

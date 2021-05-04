@@ -231,7 +231,8 @@ def admin_pp0102_New_practice(request):
 
 
 @login_required(login_url='login')
-def admin_trpo_users_marks_list(request):
+@allowed_users(allowed_roles=['admin'])
+def admin_trpo_marks_list(request):
     """Оценки за ТРПО"""
     marks = Marks.objects.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
     students = UserProfile.objects.filter(groups=2)
@@ -254,24 +255,114 @@ def admin_trpo_users_marks_list(request):
     ).order_by('date').distinct()
 
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date, "date_days ": date_days}
-    return render(request, 'marks/trpo_marks_list.html', context)
+    return render(request, 'admin-items/trpo/marks/trpo_marks_list.html', context)
 
 
-def pp0201_users_marks_list(request):
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def admin_trpo_marks_create(request):
+    item = Items.objects.get(name='МДК.02.01. Технология разработки программного обеспечения')
+    form = CreateMarksForm()
+    error = ""
+    if request.method == "POST":
+        form = CreateMarksForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('admin-pp0201_students_marks'))
+        else:
+            error = form.errors
+    return render(request, "admin-items/trpo/marks/forms/trpo_new_mark.html", {"form": form, "error": error, 'item': item})
+
+
+# ПП0201
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def admin_pp0201_marks_list(request):
     """Оценки за ПП0201"""
-    marks = Marks.objects.all()
+    marks = Marks.objects.filter(items_code__name='ПП.02.01. Прикладное программирование')
+    students = UserProfile.objects.filter(groups=2)
+    # получение всех дат текущего месяца
+    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    # месяц
+    date_month = datetime.today().month
+    # год
+    date_year = datetime.today().year
+    # дни
+    date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                 28, 29, 30, 31]
 
-    context = {"marks": marks, }
-    return render(request, '', context)
+    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+        del date_days[-1]
+
+    marks.filter(
+        Q(date__month=date_month) &
+        Q(date__year=date_year)
+    ).order_by('date').distinct()
+
+    context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date, "date_days ": date_days}
+    return render(request, 'admin-items/pp0201/marks/pp0201_marks_list.html', context)
 
 
-def pp0102_users_marks_list(request):
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def admin_pp0201_marks_create(request):
+    item = Items.objects.get(name='ПП.01.02. Прикладное программирование')
+    form = CreateMarksForm()
+    error = ""
+    if request.method == "POST":
+        form = CreateMarksForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('admin-pp0201_students_marks'))
+        else:
+            error = form.errors
+    return render(request, "admin-items/pp0201/marks/forms/pp0201_new_mark.html", {"form": form, "error": error, 'item': item})
+
+
+# ПП0102
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def admin_pp0102_marks_list(request):
     """Оценки за ПП0102"""
-    marks = Marks.objects.all()
+    marks = Marks.objects.filter(items_code__name='ПП.01.02. Прикладное программирование')
+    students = UserProfile.objects.filter(groups=2)
+    # получение всех дат текущего месяца
+    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    # месяц
+    date_month = datetime.today().month
+    # год
+    date_year = datetime.today().year
+    # дни
+    date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                 28, 29, 30, 31]
+
+    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+        del date_days[-1]
+
+    marks.filter(
+        Q(date__month=date_month) &
+        Q(date__year=date_year)
+    ).order_by('date').distinct()
+
+    context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date, "date_days ": date_days}
+    return render(request, 'admin-items/pp0102/marks/pp0102_marks_list.html', context)
 
 
-    context = {"marks": marks, }
-    return render(request, '', context)
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def admin_pp0102_marks_create(request):
+    item = Items.objects.get(name='ПП.01.02. Прикладное программирование')
+    form = CreateMarksForm()
+    error = ""
+    if request.method == "POST":
+        form = CreateMarksForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('admin-pp0102_students_marks'))
+        else:
+            error = form.errors
+    return render(request, "admin-items/pp0102/marks/forms/pp0102_new_mark.html", {"form": form, "error": error, 'item': item})
+
 
 
 # ДЛЯ СТУДЕНТА

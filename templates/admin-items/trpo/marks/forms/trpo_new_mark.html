@@ -1,0 +1,24 @@
+{% extends 'admin-items/base.html' %}
+
+{% block content %}
+    <form action="" method="post">
+{% csrf_token %}
+        <div>{{ form.items_code }}</div>
+        Дата: {{ form.date }}
+        Почта студента: {{ form.users_code }}
+        Оценка: {{ form.mark }}
+
+    <button type="submit">Подтвердить</button>
+
+    </form>
+
+    <script>
+        id_items_code = document.getElementById('id_items_code');
+        for(i=0; i<id_items_code.options.length; i++){
+            if(id_items_code.options[i].value == "{{ item.id }}"){
+                id_items_code.selectedIndex = i;
+            }
+        }
+    </script>
+
+{% endblock %}

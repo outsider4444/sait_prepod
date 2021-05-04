@@ -20,8 +20,22 @@ urlpatterns = [
     path('pp0201_lectures_list/trpo_new_practice', views.admin_pp0201_New_practice, name="admin-pp0201_new_practice"),
     path('pp0102_lectures_list/trpo_new_practice', views.admin_pp0102_New_practice, name="admin-pp0102_new_practice"),
 
-    # Оценки студентов по ТРПО
-    path('trpo/students_marks/', views.admin_trpo_users_marks_list, name="admin-trpo_students_marks"),
+
+
+    # Создание новой оценки по ТРПО
+    path('trpo/students_marks/create_new_marks', views.admin_trpo_marks_create, name="admin-trpo_students_marks_create"),
+    # Создание новой оценки по ПП0201
+    path('pp0201/students_marks/create_new_marks', views.admin_pp0201_marks_create, name="admin-pp0201_students_marks_create"),
+    # Создание новой оценки по ПП0102
+    path('pp0102/students_marks/create_new_marks', views.admin_pp0102_marks_create, name="admin-pp0102_students_marks_create"),
+
+
+    # Оценки для админа студентов по ТРПО
+    path('trpo/students_marks/', views.admin_trpo_marks_list, name="admin-trpo_students_marks"),
+    # ПП0201
+    path('pp0201/students_marks/', views.admin_pp0201_marks_list, name="admin-pp0201_students_marks"),
+    # ПП0102
+    path('pp0102/students_marks/', views.admin_pp0102_marks_list, name="admin-pp0102_students_marks"),
 
     # Список практик для админа
     path('trpo_practices_list/', views.admin_trpo_practice, name="admin-trpo_practice"),
