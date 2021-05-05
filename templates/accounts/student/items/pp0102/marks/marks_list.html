@@ -1,0 +1,29 @@
+{% extends 'accounts/student/items/base.html' %}
+
+{% block items %}
+    Таблица оценок студента {{ user.name }} {{ user.surname }} по предмету ПП.01.02. Прикладное программирование
+
+    <table border="1px">
+        <tr>
+            {% for date in delta_date %}
+                <td>{{ date }}</td>
+            {% endfor %}
+        </tr>
+    <tr>
+        {% for date in date_days  %}
+            <td>
+
+            {% for mark in marks %}
+                    {% if mark.users_code.id == user.id %}
+                        {% if mark.date.day == date %}
+                            {{ mark.mark }}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </td>
+        {% endfor %}
+    </tr>
+    </table>
+
+    {{ marks_list }}
+{% endblock items %}

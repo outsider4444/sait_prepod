@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, AbstractUser
 
 class Groups(models.Model):
 	"""Группы"""
-	code = models.IntegerField("Код группы", default=None)
+	code = models.IntegerField("Код группы", default=None, unique=False, blank=True, null=True)
 
 	def __str__(self):
 		return str(self.code)
@@ -19,7 +19,7 @@ class UserProfile(AbstractUser):
 	name = models.CharField('Имя', max_length=100)
 	surname = models.CharField('Фамилия', max_length=100)
 	username = models.CharField(blank=True, null=True, max_length=150)
-	group = models.OneToOneField(Groups, verbose_name='Группа', blank=True, null=True, on_delete=models.PROTECT)
+	group = models.OneToOneField(Groups, verbose_name='Группа', unique=False, blank=True, null=True, on_delete=models.PROTECT)
 	email = models.EmailField('Почта', max_length=100, unique=True)
 	password1 = models.CharField('Пароль1', max_length=100)
 	password2 = models.CharField('Пароль2', max_length=100)
@@ -48,7 +48,7 @@ class Items(models.Model):
 
 
 class Marks(models.Model):
-	"""Календарь"""
+	"""Оценки"""
 	date = models.DateField('Дата')
 	items_code = models.ForeignKey(Items, verbose_name="Предмет", on_delete=models.CASCADE)
 	users_code = models.ForeignKey(UserProfile, verbose_name="Код пользователя", on_delete=models.CASCADE)

@@ -1,13 +1,13 @@
-{% extends 'admin-items/base.html' %}
+{% extends 'accounts/student/items//base.html' %}
 
 {% if user.is_authenticated %}
     {% block items %}
             <div style="text-align: center">
-                <a href="{% url 'pp0102_lecture' %}" class="btn btn-success btn-lg">Лекции</a>
-                <a href="{% url 'pp0102_practice' %}" class="btn btn-success btn-lg">Практики</a>
+                <a href="{% url 'user-pp0102_lecture' %}" class="btn btn-success btn-lg">Лекции</a>
+                <a href="{% url 'user-pp0102_practice' %}" class="btn btn-success btn-lg">Практики</a>
             </div>
-        <a href="{% url 'pp0102_new_lecture' %}" class="btn btn-info">Создать новую лекцию</a>
 
+    <a href="{% url 'user-pp0102-marks' %}">Оценки студента</a>
 <div style="text-align: center">
 <table border="1px">
         {% for lec in lectures %}

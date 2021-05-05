@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.db.models import Q
-from django.http import HttpResponse, Http404, FileResponse
+from django.http import FileResponse
 import locale
 from datetime import date, timedelta, datetime
 
@@ -34,15 +34,17 @@ def registerPage(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            users = form.save()
+            user = form.save()
 
             group = Group.objects.get(name='student')
-            users.groups.add(group)
+            user.groups.add(group)
 
             username = form.cleaned_data.get('name')
             usersurname = form.cleaned_data.get('surname')
             messages.success(request, 'Пользователь ' + username + '' + usersurname + ' был создан')
+
             return redirect('login')
+
     context = {"form": form}
     return render(request, 'accounts/register.html', context)
 
@@ -85,7 +87,7 @@ def admin_main_page(request):
 @login_required(login_url='login')
 def admin_trpo_lecture(request):
     lectures = TrpoLectures.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
-    context = {"lectures": lectures,}
+    context = {"lectures": lectures, }
     return render(request, 'admin-items/trpo/lectures_list.html', context)
 
 
@@ -108,8 +110,9 @@ def admin_trpo_New_lecture(request):
 # Практики
 @login_required(login_url='login')
 def admin_trpo_practice(request):
-    practice = TrpoPractices.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
-    context = {"practice": practice,}
+    practice = TrpoPractices.objects.filter(
+        items_code__name="МДК.02.01. Технология разработки программного обеспечения")
+    context = {"practice": practice, }
     return render(request, 'admin-items/trpo/practices_list.html', context)
 
 
@@ -159,7 +162,7 @@ def admin_pp0201_New_lecture(request):
 @login_required(login_url='login')
 def admin_pp0201_practice(request):
     practice = PP0201Practices.objects.filter(items_code__name="ПП.02.01. Прикладное программирование")
-    context = {"practice": practice,}
+    context = {"practice": practice, }
     return render(request, 'admin-items/pp0201/practices_list.html', context)
 
 
@@ -210,7 +213,7 @@ def admin_pp0102_New_lecture(request):
 @login_required(login_url='login')
 def admin_pp0102_practice(request):
     practice = PP0102Practices.objects.filter(items_code__name="ПП.01.02. Прикладное программирование")
-    context = {"practice": practice,}
+    context = {"practice": practice, }
     return render(request, 'admin-items/pp0102/practices_list.html', context)
 
 
@@ -254,7 +257,8 @@ def admin_trpo_marks_list(request):
         Q(date__year=date_year)
     ).order_by('date').distinct()
 
-    context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date, "date_days ": date_days}
+    context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
+               "date_days ": date_days}
     return render(request, 'admin-items/trpo/marks/trpo_marks_list.html', context)
 
 
@@ -271,7 +275,8 @@ def admin_trpo_marks_create(request):
             return redirect(reverse('admin-pp0201_students_marks'))
         else:
             error = form.errors
-    return render(request, "admin-items/trpo/marks/forms/trpo_new_mark.html", {"form": form, "error": error, 'item': item})
+    return render(request, "admin-items/trpo/marks/forms/trpo_new_mark.html",
+                  {"form": form, "error": error, 'item': item})
 
 
 # ПП0201
@@ -299,7 +304,8 @@ def admin_pp0201_marks_list(request):
         Q(date__year=date_year)
     ).order_by('date').distinct()
 
-    context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date, "date_days ": date_days}
+    context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
+               "date_days ": date_days}
     return render(request, 'admin-items/pp0201/marks/pp0201_marks_list.html', context)
 
 
@@ -316,7 +322,8 @@ def admin_pp0201_marks_create(request):
             return redirect(reverse('admin-pp0201_students_marks'))
         else:
             error = form.errors
-    return render(request, "admin-items/pp0201/marks/forms/pp0201_new_mark.html", {"form": form, "error": error, 'item': item})
+    return render(request, "admin-items/pp0201/marks/forms/pp0201_new_mark.html",
+                  {"form": form, "error": error, 'item': item})
 
 
 # ПП0102
@@ -344,7 +351,8 @@ def admin_pp0102_marks_list(request):
         Q(date__year=date_year)
     ).order_by('date').distinct()
 
-    context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date, "date_days ": date_days}
+    context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
+               "date_days ": date_days}
     return render(request, 'admin-items/pp0102/marks/pp0102_marks_list.html', context)
 
 
@@ -361,16 +369,19 @@ def admin_pp0102_marks_create(request):
             return redirect(reverse('admin-pp0102_students_marks'))
         else:
             error = form.errors
-    return render(request, "admin-items/pp0102/marks/forms/pp0102_new_mark.html", {"form": form, "error": error, 'item': item})
-
+    return render(request, "admin-items/pp0102/marks/forms/pp0102_new_mark.html",
+                  {"form": form, "error": error, 'item': item})
 
 
 # ДЛЯ СТУДЕНТА
 
 
 # Страничка студента
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 def userPage(request):
-    context ={}
+    context = {}
     return render(request, 'accounts/student/student_main_page.html', context)
 
 
@@ -378,30 +389,158 @@ def userPage(request):
 
 # Лекции
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 def user_trpo_lecture(request):
+
     lectures = TrpoLectures.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
-    context = {"lectures": lectures,}
+    context = {"lectures": lectures, }
     return render(request, 'accounts/student/items/trpo/lectures_list.html', context)
+
+
+# Практики
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
+def user_trpo_practice(request):
+    practice = PP0102Practices.objects.filter(
+        items_code__name="МДК.02.01. Технология разработки программного обеспечения")
+    context = {"practice": practice, }
+    return render(request, 'admin-items/pp0102/practices_list.html', context)
+
+
+# Оценки
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
+def user_trpo_marks_list(request):
+    user = UserProfile.objects.get(email=request.user.email)
+    marks = Marks.objects.filter(
+        Q(items_code__name='МДК.02.01. Технология разработки программного обеспечения') &
+        Q(users_code=user)
+    )
+    # получение всех дат текущего месяца
+    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    # месяц
+    date_month = datetime.today().month
+    # год
+    date_year = datetime.today().year
+    # дни
+    date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                 28, 29, 30, 31]
+
+    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+        del date_days[-1]
+
+    marks.filter(
+        Q(date__month=date_month) &
+        Q(date__year=date_year)
+    ).order_by('date').distinct()
+
+    context = {"marks": marks, "user": user, "date_days": date_days, "delta_date": delta_date,
+               "date_days ": date_days}
+    return render(request, 'accounts/student/items/trpo/marks/marks_list.html', context)
 
 
 # ПП.02.01
 
 # Лекции
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 def user_pp0201_lecture(request):
     lectures = PP0201Lectures.objects.filter(items_code__name="ПП.02.01. Прикладное программирование")
     context = {"lectures": lectures, }
     return render(request, 'accounts/student/items/pp0201/lectures_list.html', context)
 
 
+# Практики
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
+def user_pp0201_practice(request):
+    practice = PP0102Practices.objects.filter(items_code__name="ПП.02.01. Прикладное программирование")
+    context = {"practice": practice, }
+    return render(request, 'admin-items/pp0102/practices_list.html', context)
+
+
+# Оценки
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
+def user_pp0201_marks_list(request):
+    user = UserProfile.objects.get(email=request.user.email)
+    marks = Marks.objects.filter(
+        Q(items_code__name='ПП.02.01. Прикладное программирование') &
+        Q(users_code=user)
+    )
+    # получение всех дат текущего месяца
+    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    # месяц
+    date_month = datetime.today().month
+    # год
+    date_year = datetime.today().year
+    # дни
+    date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                 28, 29, 30, 31]
+
+    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+        del date_days[-1]
+
+    marks.filter(
+        Q(date__month=date_month) &
+        Q(date__year=date_year)
+    ).order_by('date').distinct()
+
+    context = {"marks": marks, "user": user, "date_days": date_days, "delta_date": delta_date,
+               "date_days ": date_days}
+    return render(request, 'accounts/student/items/pp0201/marks/marks_list.html', context)
+
+
 # ПП.01.02
 
 # Лекции
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 def user_pp0102_lecture(request):
     lectures = PP0102Lectures.objects.filter(items_code__name="ПП.01.02. Прикладное программирование")
     context = {"lectures": lectures, }
     return render(request, 'accounts/student/items/pp0102/lectures_list.html', context)
+
+
+# Практики
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
+def user_pp0102_practice(request):
+    practice = PP0102Practices.objects.filter(items_code__name="ПП.01.02. Прикладное программирование")
+    context = {"practice": practice, }
+    return render(request, 'admin-items/pp0102/practices_list.html', context)
+
+
+# Оценки
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
+def user_pp0102_marks_list(request):
+    user = UserProfile.objects.get(email=request.user.email)
+    marks = Marks.objects.filter(
+        Q(items_code__name='ПП.01.02. Прикладное программирование') &
+        Q(users_code=user)
+    )
+    # получение всех дат текущего месяца
+    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    # месяц
+    date_month = datetime.today().month
+    # год
+    date_year = datetime.today().year
+    # дни
+    date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                 28, 29, 30, 31]
+
+    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+        del date_days[-1]
+
+    marks.filter(
+        Q(date__month=date_month) &
+        Q(date__year=date_year)
+    ).order_by('date').distinct()
+
+    context = {"marks": marks, "user": user, "date_days": date_days, "delta_date": delta_date,
+               "date_days ": date_days}
+    return render(request, 'accounts/student/items/pp0102/marks/marks_list.html', context)
 
 
 # ОБЩЕЕ
@@ -451,4 +590,3 @@ def pp0102_download_practice(request, pk):
     filename = obj.file.path
     response = FileResponse(open(filename, 'rb'))
     return response
-
