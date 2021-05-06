@@ -6,7 +6,7 @@
                 <a href="{% url 'user-pp0201-lecture' %}" class="btn btn-success btn-lg">Лекции</a>
                 <a href="{% url 'user-pp0201-practice' %}" class="btn btn-success btn-lg">Практики</a>
             </div>
-    <a href="{% url 'user-pp0201-marks' %}">Оценки студента</a>
+    <a class="btn btn-primary" href="{% url 'user-pp0201-marks' %}">Оценки студента</a>
 
         <table border="1px">
         {% for lec in lectures %}

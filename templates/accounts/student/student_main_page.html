@@ -2,8 +2,22 @@
 
 {% block content %}
     <div style="width: 80%; margin-left: 10%" >
-        <a href="{% url 'user-trpo-lecture' %}" class="btn btn-success btn-lg btn-block">МДК.02.01. Технология разработки программного обеспечения</a>
-        <a href="{% url 'user-pp0201-lecture' %}" class="btn btn-success btn-lg btn-block">МДК.02.01. Прикладное программирование</a>
-        <a href="{% url 'user-pp0102-lecture' %}" class="btn btn-success btn-lg btn-block">МДК.01.02. Прикладное программирование</a>
+
+        {% if user.group.code == 331 %}
+            <a href="{% url 'user-pp0201-lecture' %}" class="btn btn-success btn-lg btn-block">МДК.02.01. Прикладное программирование</a>
+            <a href="{% url 'user-trpo-lecture' %}" class="btn btn-success btn-lg btn-block">МДК.02.01. Технология разработки программного обеспечения</a>
+        {% endif %}
+        {% if user.group.code == 332 %}
+            <a href="{% url 'user-pp0201-lecture' %}" class="btn btn-success btn-lg btn-block">МДК.02.01. Прикладное программирование</a>
+            <a href="{% url 'user-trpo-lecture' %}" class="btn btn-success btn-lg btn-block">МДК.02.01. Технология разработки программного обеспечения</a>
+        {% endif %}
+
+        {% if user.group.code == 231 %}
+            <a href="{% url 'user-pp0102-lecture' %}" class="btn btn-success btn-lg btn-block">МДК.01.02. Прикладное программирование</a>
+        {% endif %}
+        {% if user.group.code == 232 %}
+            <a href="{% url 'user-pp0102-lecture' %}" class="btn btn-success btn-lg btn-block">МДК.01.02. Прикладное программирование</a>
+        {% endif %}
+
     </div>
 {% endblock content %}

@@ -5,7 +5,7 @@
         <a href="{% url 'user-trpo-lecture' %}" class="btn btn-success btn-lg">Лекции</a>
         <a href="{% url 'user-trpo_practice' %}" class="btn btn-success btn-lg">Практики</a>
     </div>
-    <a href="{% url 'user-trpo-marks' %}">Оценки студента</a>
+    <a class="btn btn-primary" href="{% url 'user-trpo-marks' %}">Оценки студента</a>
     <div style="text-align: center">
         <table border="1px">
             {% for lec in lectures %}

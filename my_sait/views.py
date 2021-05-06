@@ -144,7 +144,6 @@ def admin_pp0201_lecture(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def admin_pp0201_New_lecture(request):
-    # lecture_list = Lectures.objects.all()
     item = Items.objects.get(name='ПП.02.01. Прикладное программирование')
     form = Pp0201LecturesForm()
     error = ""
@@ -152,7 +151,7 @@ def admin_pp0201_New_lecture(request):
         form = Pp0201LecturesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('admin-pp0201_lectures'))
+            return redirect(reverse('admin-pp0201-lecture'))
         else:
             error = form.errors
     return render(request, "admin-items/pp0201/forms/lecture_new.html", {"form": form, "error": error, "item": item})
@@ -176,7 +175,7 @@ def admin_pp0201_New_practice(request):
         form = Pp0201PracticesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('admin-pp0201_lectures'))
+            return redirect(reverse('admin-pp0201-lecture'))
         else:
             error = "Форма неверно заполнена"
     return render(request, "admin-items/pp0201/forms/practice_new.html", {"form": form, "error": error, "item": item})
@@ -195,7 +194,6 @@ def admin_pp0102_lecture(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def admin_pp0102_New_lecture(request):
-    # lecture_list = Lectures.objects.all()
     item = Items.objects.get(name="ПП.01.02. Прикладное программирование")
     form = Pp0102LecturesForm()
     error = ""
@@ -203,7 +201,7 @@ def admin_pp0102_New_lecture(request):
         form = Pp0102LecturesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('admin-pp0102_lectures'))
+            return redirect(reverse('admin-pp0102-lecture'))
         else:
             error = form.errors
     return render(request, "admin-items/pp0102/forms/lecture_new.html", {"form": form, "error": error, "item": item})
@@ -227,7 +225,7 @@ def admin_pp0102_New_practice(request):
         form = Pp0102LecturesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('admin-pp0102_lectures'))
+            return redirect(reverse('admin-pp0102-lecture'))
         else:
             error = "Форма неверно заполнена"
     return render(request, "admin-items/pp0102/forms/practice_new.html", {"form": form, "error": error, "item": item})
@@ -277,6 +275,12 @@ def admin_trpo_marks_create(request):
             error = form.errors
     return render(request, "admin-items/trpo/marks/forms/trpo_new_mark.html",
                   {"form": form, "error": error, 'item': item})
+
+
+def load_group(request):
+    id_group = request.GET.get('id_group')
+    student_list = UserProfile.objects.filter(group=id_group).all()
+    return render(request, 'admin-items/trpo/marks/forms/student_dropdown_list_options.html', {'student_list': student_list})
 
 
 # ПП0201
@@ -381,7 +385,9 @@ def admin_pp0102_marks_create(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['student'])
 def userPage(request):
-    context = {}
+    user = request.user
+    user = UserProfile.objects.get(email=user.email)
+    context = {"user": user}
     return render(request, 'accounts/student/student_main_page.html', context)
 
 
