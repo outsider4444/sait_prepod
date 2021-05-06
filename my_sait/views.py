@@ -277,7 +277,7 @@ def admin_trpo_marks_create(request):
                   {"form": form, "error": error, 'item': item})
 
 
-# Ajax
+# AJAX
 def load_group(request):
     id_group = request.GET.get('id_group')
     student_list = UserProfile.objects.filter(group__code=id_group).all()

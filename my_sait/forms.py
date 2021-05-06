@@ -72,13 +72,15 @@ class CreateMarksForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['users_code'].queryset = Marks.objects.none()
+        self.fields['users_code'].queryset = UserProfile.objects.none()
+
+        print(self.data.get('group'))
 
         if 'group' in self.data:
             try:
                 group = int(self.data.get('group'))
-                self.fields['users_code'].queryset = Marks.objects.filter(users_code__group=group).order_by('users_code__name')
+                self.fields['users_code'].queryset = UserProfile.objects.filter(group__id=group).order_by('group__id')
             except (ValueError, TypeError):
-                pass  # invalid input from the client; ignore and fallback to empty City queryset
+                pass
         elif self.instance.pk:
-            self.fields['users_code'].queryset = self.instance.users_code.marks_set.order_by('users_code__name')
+            self.fields['users_code'].queryset = self.instance.group.userscode_set.order_by('group__id')
