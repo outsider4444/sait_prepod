@@ -201,7 +201,7 @@ def admin_pp0102_New_lecture(request):
         form = Pp0102LecturesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('admin-pp0102-lecture'))
+            return redirect(reverse('admin-main_page'))
         else:
             error = form.errors
     return render(request, "admin-items/pp0102/forms/lecture_new.html", {"form": form, "error": error, "item": item})
@@ -225,7 +225,7 @@ def admin_pp0102_New_practice(request):
         form = Pp0102LecturesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('admin-pp0102-lecture'))
+            return redirect(reverse('admin-main_page'))
         else:
             error = "Форма неверно заполнена"
     return render(request, "admin-items/pp0102/forms/practice_new.html", {"form": form, "error": error, "item": item})
@@ -270,7 +270,7 @@ def admin_trpo_marks_create(request):
         form = CreateMarksForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(reverse('admin-pp0201_students_marks'))
+            return redirect(reverse('admin-main_page'))
         else:
             error = form.errors
     return render(request, "admin-items/trpo/marks/forms/trpo_new_mark.html",
@@ -282,7 +282,7 @@ def load_group(request):
     id_group = request.GET.get('id_group')
     student_list = UserProfile.objects.filter(group__code=id_group).all()
 
-    return render(request, 'admin-items/trpo/marks/forms/student_dropdown_list_options.html', {'student_list': student_list})
+    return render(request, 'admin-items/student_dropdown_list_options.html', {'student_list': student_list})
 
 
 # ПП0201

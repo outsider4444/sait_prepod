@@ -1,7 +1,7 @@
 {% extends 'admin-items/base.html' %}
 
 {% block content %}
-    <form action="" method="post" id="id_create_mark" data-group-url="{% url 'ajax_load_groups' %}">
+    <form action="" method="post" id="id_create_mark" data-group-url="{% url 'ajax_trpo_load_groups' %}">
         {% csrf_token %}
         <div>{{ form.items_code }}</div>
         Дата: {{ form.date }} <br>

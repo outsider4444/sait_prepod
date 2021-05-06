@@ -36,11 +36,13 @@ urlpatterns = [
 
     # Создание новой оценки по ТРПО
     path('trpo/students_marks/create_new_marks', views.admin_trpo_marks_create, name="admin-trpo_students_marks_create"),
-    path('trpo/students_marks/student-dropdown', views.load_group, name="ajax_load_groups"),
+    path('trpo/students_marks/student-dropdown', views.load_group, name="ajax_trpo_load_groups"),
     # Создание новой оценки по ПП0201
     path('pp0201/students_marks/create_new_marks', views.admin_pp0201_marks_create, name="admin-pp0201_students_marks_create"),
+    path('pp0201/students_marks/student-dropdown', views.load_group, name="ajax_pp0201_load_groups"),
     # Создание новой оценки по ПП0102
     path('pp0102/students_marks/create_new_marks', views.admin_pp0102_marks_create, name="admin-pp0102_students_marks_create"),
+    path('pp0102/students_marks/student-dropdown', views.load_group, name="ajax_pp0102_load_groups"),
 
 
     # Оценки для админа по ТРПО
