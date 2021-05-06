@@ -51,23 +51,23 @@ urlpatterns = [
 
     # Список практик для студента
     path('user/trpo_practices_list/', views.user_trpo_practice, name="user-trpo_practice"),
-    path('user/pp0201_practices_list/', views.user_pp0201_practice, name="user-pp0201_practice"),
-    path('user/pp0102_practices_list/', views.user_pp0102_practice, name="user-pp0102_practice"),
+    path('user/pp0201_practices_list/', views.user_pp0201_practice, name="user-pp0201-practice"),
+    path('user/pp0102_practices_list/', views.user_pp0102_practice, name="user-pp0102-practice"),
 
     # Список практик для админа
-    path('trpo_practices_list/', views.admin_trpo_practice, name="admin-trpo_practice"),
-    path('pp0201_practices_list/', views.admin_pp0201_practice, name="admin-pp0201_practice"),
-    path('pp0102_practices_list/', views.admin_pp0102_practice, name="admin-pp0102_practice"),
+    path('trpo_practices_list/', views.admin_trpo_practice, name="admin-trpo-practice"),
+    path('pp0201_practices_list/', views.admin_pp0201_practice, name="admin-pp0201-practice"),
+    path('pp0102_practices_list/', views.admin_pp0102_practice, name="admin-pp0102-practice"),
 
     # Список лекций для студента
-    path('user/trpo_lectures_list', views.user_trpo_lecture, name='user-trpo-lectures'),
-    path('user/pp0201_lectures_list', views.user_pp0201_lecture, name='user-pp0201-lectures'),
-    path('user/pp0102_lectures_list', views.user_pp0102_lecture, name='user-pp0102-lectures'),
+    path('user/trpo_lectures_list', views.user_trpo_lecture, name='user-trpo-lecture'),
+    path('user/pp0201_lectures_list', views.user_pp0201_lecture, name='user-pp0201-lecture'),
+    path('user/pp0102_lectures_list', views.user_pp0102_lecture, name='user-pp0102-lecture'),
 
     # список лекций для админа
-    path('trpo_lectures_list/', views.admin_trpo_lecture, name="admin-trpo_lecture"),
-    path('pp0201_lectures_list/', views.admin_pp0201_lecture, name="admin-pp0201_lecture"),
-    path('pp0102_lectures_list/', views.admin_pp0102_lecture, name="admin-pp0102_lecture"),
+    path('trpo_lectures_list/', views.admin_trpo_lecture, name="admin-trpo-lecture"),
+    path('pp0201_lectures_list/', views.admin_pp0201_lecture, name="admin-pp0201-lecture"),
+    path('pp0102_lectures_list/', views.admin_pp0102_lecture, name="admin-pp0102-lecture"),
 
     path('user/', views.userPage, name='user-page'),
 

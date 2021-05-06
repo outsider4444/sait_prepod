@@ -3,8 +3,8 @@
 {% if user.is_authenticated %}
 {% block items %}
             <div style="text-align: center">
-                <a href="{% url 'admin-pp0102_lecture' %}" class="btn btn-success btn-lg">Лекции</a>
-                <a href="{% url 'admin-pp0102_practice' %}" class="btn btn-success btn-lg">Практики</a>
+                <a href="{% url 'admin-pp0102-lecture' %}" class="btn btn-success btn-lg">Лекции</a>
+                <a href="{% url 'admin-pp0102-practice' %}" class="btn btn-success btn-lg">Практики</a>
             </div>
         <a href="{% url 'admin-pp0102_new_practice' %}" class="btn btn-info">Создать новую практику</a>
         <a href="{% url 'admin-pp0102_students_marks' %}" class="btn btn-info">Просмотерть оценки</a>

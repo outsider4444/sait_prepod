@@ -125,7 +125,7 @@ def admin_trpo_New_practice(request):
         form = TrpoPracticesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('admin-trpo_practice'))
+            return redirect(reverse('admin-trpo-practice'))
         else:
             error = "Форма неверно заполнена"
     return render(request, "admin-items/trpo/forms/practice_new.html", {"form": form, "error": error, "item": item})
