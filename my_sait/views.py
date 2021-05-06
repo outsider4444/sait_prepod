@@ -277,9 +277,11 @@ def admin_trpo_marks_create(request):
                   {"form": form, "error": error, 'item': item})
 
 
+# Ajax
 def load_group(request):
     id_group = request.GET.get('id_group')
-    student_list = UserProfile.objects.filter(group=id_group).all()
+    student_list = UserProfile.objects.filter(group__code=id_group).all()
+
     return render(request, 'admin-items/trpo/marks/forms/student_dropdown_list_options.html', {'student_list': student_list})
 
 

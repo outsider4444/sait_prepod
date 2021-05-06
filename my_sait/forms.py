@@ -69,3 +69,16 @@ class CreateMarksForm(forms.ModelForm):
         widgets = {
             'date' : forms.DateInput(attrs={'type': 'date'})
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['users_code'].queryset = Marks.objects.none()
+
+        if 'group' in self.data:
+            try:
+                group = int(self.data.get('group'))
+                self.fields['users_code'].queryset = Marks.objects.filter(users_code__group=group).order_by('users_code__name')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['users_code'].queryset = self.instance.users_code.marks_set.order_by('users_code__name')

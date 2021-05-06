@@ -1,24 +1,23 @@
 {% extends 'admin-items/base.html' %}
 
 {% block content %}
-    <form action="" method="post" id="id_create_mark">
+    <form action="" method="post" id="id_create_mark" data-group-url="{% url 'ajax_load_groups' %}">
         {% csrf_token %}
         <div>{{ form.items_code }}</div>
         Дата: {{ form.date }} <br>
         Группа {{ form.group }} <br>
-        Почта студента: {{ form.users_code }} <br>
+        Студент: {{ form.users_code }} <br>
         Оценка: {{ form.mark }} <br>
         <button type="submit">Подтвердить</button>
 
     </form>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" data-group-url="{% url 'ajax_load_groups' %}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
-        id_items_code = document.getElementById('id_items_code');
-
         $("#id_group").change(function () {
             const url = $("#id_create_mark").attr("data-group-url");
             const id_group = $('#id_group option:selected').text();  // get the selected country ID from the HTML input
+            console.log(id_group)
 
             $.ajax({                       // initialize an AJAX request
                 url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
