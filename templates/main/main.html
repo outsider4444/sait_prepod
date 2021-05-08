@@ -1,9 +1,5 @@
 {% extends 'base.html' %}
 
-    {% block header_text %}
-        Сделать разделение
-    {% endblock header_text%}
-
 {% block content %}
 
     <div style="width: 80%; margin-left: 10%" >
@@ -12,8 +8,4 @@
         <a href="{% url 'admin-pp0102-lecture' %}" class="btn btn-success btn-lg btn-block">МДК.01.02. Прикладное программирование</a>
     </div>
 
-{#    <a href="{% url 'calendar_form' %}" class="btn btn-success">Выставить оценку</a><br><br>#}
-{#    <a href="{% url 'lectures_list' %}" class="btn btn-success">Лекции</a>#}
-{#    <a href="{% url 'practices_list' %}" class="btn btn-success">Практики</a>#}
-{#    <a href="{% url 'users_list' %}" class="btn btn-success">Студенты</a>#}
 {% endblock content %}

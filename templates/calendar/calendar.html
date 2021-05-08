@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-{% if user.is_authenticated %}
 {% block content %}
     <form action="" method="post">
         Дата: {{ form.date }} <br>
@@ -12,6 +11,3 @@
     </form>
 
 {% endblock content %}
-    {% else %}
-    Вы не авторизированы
-{% endif %}

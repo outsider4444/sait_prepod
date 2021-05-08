@@ -47,10 +47,13 @@ urlpatterns = [
 
     # Оценки для админа по ТРПО
     path('trpo/students_marks/', views.admin_trpo_marks_list, name="admin-trpo_students_marks"),
+    path('trpo/students_marks/students_list_table', views.load_trpo_marks_list, name="trpo-ajax"),
     # ПП0201
     path('pp0201/students_marks/', views.admin_pp0201_marks_list, name="admin-pp0201_students_marks"),
+    path('pp0201/students_marks/students_list_table', views.load_pp0201_marks_list, name="pp0201-ajax"),
     # ПП0102
     path('pp0102/students_marks/', views.admin_pp0102_marks_list, name="admin-pp0102_students_marks"),
+    path('pp0102/students_marks/students_list_table', views.load_pp0102_marks_list, name="pp0102-ajax"),
 
     # Список практик для студента
     path('user/trpo_practices_list/', views.user_trpo_practice, name="user-trpo_practice"),
@@ -72,7 +75,10 @@ urlpatterns = [
     path('pp0201_lectures_list/', views.admin_pp0201_lecture, name="admin-pp0201-lecture"),
     path('pp0102_lectures_list/', views.admin_pp0102_lecture, name="admin-pp0102-lecture"),
 
+    path('user/about-prepod', views.about, name="user-about-prepod"),
     path('user/', views.userPage, name='user-page'),
+
+    path('about/', views.about, name='admin-about-prepod'),
 
     path('login/', views.loginPage, name="login"),
     path('logout/', views.logoutUser, name="logout"),

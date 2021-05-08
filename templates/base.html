@@ -26,62 +26,42 @@
 
 </head>
 <body>
-<div id="page" class="page">
+<div id="page" class="page" style="height: auto">
 
-    <!-- main-content -->
-
-        <!-- header -->
-        <header class="header bg-dark" >
-            <div class="container-fluid px-lg-5">
-                <!-- nav -->
-                <nav class="py-4">
-                    <div id="logo">
-                        {% if request.user.is_staff %}
-                            <h1> <a href="{% url 'admin-main_page' %}" class="editContent" style="outline: none; outline-offset: -2px;
+    <header class="header bg-dark" style="position: relative" >
+        <div class="container-fluid px-lg-5">
+            <!-- nav -->
+            <nav class="py-4">
+                <div id="logo">
+                    {% if request.user.is_staff %}
+                        <h1> <a href="{% url 'admin-main_page' %}" class="editContent" style="outline: none; outline-offset: -2px;
                                  color: rgb(255, 255, 255); font-size: 40px;
                                   background-color: rgba(0, 0, 0, 0); font-family: &quot;Source Sans Pro&quot;
                                   , sans-serif;">Сайт преподавателя</a></h1>
-                        {% else %}
-                            <h1> <a href="{% url 'user-page' %}" class="editContent" style="outline: none; outline-offset: -2px;
+                    {% else %}
+                        <h1> <a href="{% url 'user-page' %}" class="editContent" style="outline: none; outline-offset: -2px;
                                  color: rgb(255, 255, 255); font-size: 40px;
                                   background-color: rgba(0, 0, 0, 0); font-family: &quot;Source Sans Pro&quot;
                                   , sans-serif;">Сайт преподавателя</a></h1>
-                        {% endif %}
-                    </div>
+                    {% endif %}
+                </div>
 
-                    <label for="drop" class="toggle">Menu</label>
-                    <input type="checkbox" id="drop">
-                    <ul class="menu mt-2">
-                        <li>{% include 'accounts/navbar_admin.html' %}</li>
-                        </ul>
-                </nav>
-                <!-- //nav -->
-            </div>
-        </header>
-        <!-- //header -->
-        <!--/banner-->
-        <div class="banner-info">
-                <p class="editContent" style="color: black">
-                    {% block header_text %}
-
-                    {% endblock header_text%}
-                </p>
-
-            {#        <div class="ban-buttons">#}
-            {##}
-            {#        </div>#}
+                <label for="drop" class="toggle">Menu</label>
+                <input type="checkbox" id="drop">
+                <ul class="menu mt-2">
+                    <li>{% include 'accounts/navbar.html' %}</li>
+                </ul>
+            </nav>
+            <!-- //nav -->
         </div>
-        <!--// banner-inner -->
-    </div>
-
+    </header>
+</div>
+<div style="margin-top: 10%">
     {% block content %}
 
     {% endblock content %}
-
-{#    {% include 'include/footer.html' %}#}
-    </div>
-<script src="{% static 'js/scripts.js' %}"></script>
-<script src="http://twitter.github.com/hogan.js/builds/3.0.1/hogan-3.0.1.js"></script>
-
+</div>
+{% include 'accounts/footer.html' %}
 </body>
+<script src="{% static 'js/scripts.js' %}"></script>
 </html>

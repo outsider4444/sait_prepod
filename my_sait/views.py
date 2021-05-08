@@ -260,6 +260,37 @@ def admin_trpo_marks_list(request):
     return render(request, 'admin-items/trpo/marks/trpo_marks_list.html', context)
 
 
+# AJAX ТРПО для вывода студентов группы
+def load_trpo_marks_list(request):
+    id_group = request.GET.get('id_group')
+
+    marks = Marks.objects.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
+    students = UserProfile.objects.filter(groups=2)
+    students = students.filter(group__code=id_group)
+    # получение всех дат текущего месяца
+    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    # месяц
+    date_month = datetime.today().month
+    # год
+    date_year = datetime.today().year
+    # дни
+    date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                 28, 29, 30, 31]
+
+    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+        del date_days[-1]
+
+    marks.filter(
+        Q(date__month=date_month) &
+        Q(date__year=date_year)
+    ).order_by('date').distinct()
+
+    context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
+               "date_days ": date_days}
+
+    return render(request, 'admin-items/student_table_list_options.html', context)
+
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def admin_trpo_marks_create(request):
@@ -315,6 +346,37 @@ def admin_pp0201_marks_list(request):
     return render(request, 'admin-items/pp0201/marks/pp0201_marks_list.html', context)
 
 
+# AJAX ПП0201 для вывода студентов группы
+def load_pp0201_marks_list(request):
+    id_group = request.GET.get('id_group')
+
+    marks = Marks.objects.filter(items_code__name='ПП.02.01. Прикладное программирование')
+    students = UserProfile.objects.filter(groups=2)
+    students = students.filter(group__code=id_group)
+    # получение всех дат текущего месяца
+    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    # месяц
+    date_month = datetime.today().month
+    # год
+    date_year = datetime.today().year
+    # дни
+    date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                 28, 29, 30, 31]
+
+    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+        del date_days[-1]
+
+    marks.filter(
+        Q(date__month=date_month) &
+        Q(date__year=date_year)
+    ).order_by('date').distinct()
+
+    context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
+               "date_days ": date_days}
+
+    return render(request, 'admin-items/student_table_list_options.html', context)
+
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def admin_pp0201_marks_create(request):
@@ -360,6 +422,37 @@ def admin_pp0102_marks_list(request):
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
                "date_days ": date_days}
     return render(request, 'admin-items/pp0102/marks/pp0102_marks_list.html', context)
+
+
+# AJAX ПП0102 для вывода студентов группы
+def load_pp0102_marks_list(request):
+    id_group = request.GET.get('id_group')
+
+    marks = Marks.objects.filter(items_code__name='ПП.01.02. Прикладное программирование')
+    students = UserProfile.objects.filter(groups=2)
+    students = students.filter(group__code=id_group)
+    # получение всех дат текущего месяца
+    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    # месяц
+    date_month = datetime.today().month
+    # год
+    date_year = datetime.today().year
+    # дни
+    date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                 28, 29, 30, 31]
+
+    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+        del date_days[-1]
+
+    marks.filter(
+        Q(date__month=date_month) &
+        Q(date__year=date_year)
+    ).order_by('date').distinct()
+
+    context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
+               "date_days ": date_days}
+
+    return render(request, 'admin-items/student_table_list_options.html', context)
 
 
 @login_required(login_url='login')
@@ -552,6 +645,12 @@ def user_pp0102_marks_list(request):
 
 
 # ОБЩЕЕ
+@login_required(login_url='login')
+def about(request):
+    context = {}
+    return render(request, 'main/about_prepod.html', context)
+
+
 @login_required(login_url='login')
 def trpo_download_lecture(request, pk):
     obj = TrpoLectures.objects.get(id=pk)

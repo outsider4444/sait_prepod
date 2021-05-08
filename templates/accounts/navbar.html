@@ -16,7 +16,10 @@
     <div class="collapse navbar-collapse" id="navbarNav">
     </div>
     {% if request.user.is_staff %}
+        <li><a href="{% url 'admin-about-prepod' %}">О преподавателе</a></li>
         <li><a href="{% url 'admin:index' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Панель администратора</a></li>
+    {% else %}
+        <li><a href="{% url 'user-about-prepod' %}">О преподавателе</a></li>
     {% endif %}
     <span class="hello-msg">Привет, {{ request.user.name }}</span>
     <span><a class="hello-msg" href="{% url 'logout' %}">Выйти</a></span>

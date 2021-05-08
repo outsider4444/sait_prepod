@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div style="margin-top: -10%; width: 100%;">
+    <img src="../../media/prepod_photos/NpP1nQgvoEQ.jpg" alt="Надеждина Алена Валерьевна" id="prepod_photo" class="img img-fluid" style="float: left">
+
+        <div style="float: left; margin-top: 10px" id="prepod_info">
+            Образование: <br>
+            Национальный исследовательский ядерный университет "МИФИ" <br>
+            <ol>
+                <li>Диплом о среднем профессиональном образовании по специальности "Программное обеспечение вычислительной техники и автоматизированных систем", присвоена квалификация - "Техник", 2012г.</li>
+                <li>Диплом бакалавра по направлению подготовки "230100 Информатика и вычислительная техника", 2015г.</li>
+                <li>Диплом магистра с отличием по направлению подготовки "09.04.01 Информатика и вычислительная техника", 2018г.</li>
+                <li>Диплом о профессиональной переподготовке по программе "Педагогика и психология", 2019г.</li>
+            </ol>
+        <p>Общий стаж: 6 лет</p>
+        <p><a href="mailto:alenka17117@mail.ru"></a> Email - alenka17117@mail.ru</p>
+            <p><a href="https://diti-mephi.ru">Сайт ДИТИ НИЯУ МИФИ</a></p>
+            <p>Наименование учебного заведения: Димитровградский инженерно-технологический институт НИЯУ МИФИ(ДИТИ НИЯУ МИФИ)</p>
+        </div >
+
+
+
+    </div>
+    <style>
+    @media(min-width: 320px) {
+        #prepod_photo{
+            width: 320px;
+            height: 400px;
+        }
+    }
+     @media(min-width: 375px) {
+        #prepod_photo{
+            width: 340px;
+            height: 420px;
+        }
+    }
+    @media(min-width: 400px) {
+        #prepod_photo{
+            width: 340px;
+            height: 420px;
+        }
+    }
+    @media(min-width: 768px) {
+        #prepod_photo{
+            width: 400px;
+            height: 550px;
+            position: center;
+        }
+        #prepod_info{
+            max-width: 368px;
+        }
+    }
+    @media(min-width: 1024px) {
+        #prepod_photo{
+            width: 450px;
+            height: 650px;
+        }
+        #prepod_info{
+            max-width: 500px;
+        }
+    }
+    @media(min-width: 1400px) {
+        #prepod_photo{
+            width: 600px;
+            height: 800px;
+        }
+        #prepod_info{
+            max-width: 600px;
+        }
+    }
+    </style>
+{% endblock content %}
