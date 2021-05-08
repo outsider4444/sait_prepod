@@ -58,7 +58,7 @@ def loginPage(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('admin-main_page')
+            return redirect("/")
         else:
             messages.info(request, 'Почта ИЛИ пароль не верны')
     context = {}
@@ -697,3 +697,7 @@ def pp0102_download_practice(request, pk):
     filename = obj.file.path
     response = FileResponse(open(filename, 'rb'))
     return response
+
+
+def resurces_view(request):
+    return render(request, 'accounts/resurces.html', {})
