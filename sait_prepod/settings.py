@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     "my_sait",
+    'my_sait.templatetags.poll_extras',
 ]
 
 MIDDLEWARE = [

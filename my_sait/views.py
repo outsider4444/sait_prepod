@@ -276,7 +276,39 @@ def admin_trpo_marks_list(request):
     return render(request, 'admin-items/trpo/marks/trpo_marks_list.html', context)
 
 
-def ReportUsedMaterialCalendar(request):
+# AJAX ТРПО для вывода студентов группы
+def load_trpo_marks_list(request):
+    id_group = request.GET.get('id_group')
+
+    marks = Marks.objects.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
+    students = UserProfile.objects.filter(groups=2)
+    students = students.filter(group__code=id_group)
+    # получение всех дат текущего месяца
+    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    # месяц
+    date_month = datetime.today().month
+    # год
+    date_year = datetime.today().year
+    # дни
+    date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                 28, 29, 30, 31]
+
+    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+        del date_days[-1]
+
+    marks.filter(
+        Q(date__month=date_month) &
+        Q(date__year=date_year)
+    ).order_by('date').distinct()
+
+    context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
+               "date_days ": date_days}
+
+    return render(request, 'admin-items/AJAX_student_table_list_options.html', context)
+
+
+
+def TRPOMarksCalendar(request):
     """ОЦЕНКИ по календарю"""
     # summa_used_material = 0
 
@@ -310,35 +342,37 @@ def ReportUsedMaterialCalendar(request):
     return render(request, 'admin-items/trpo/marks/trpo_marks_list-filtred.html', context)
 
 
-# AJAX ТРПО для вывода студентов группы
-def load_trpo_marks_list(request):
+def load_trpo_marks_calendar_filtred(request):
+    """ОЦЕНКИ по календарю"""
     id_group = request.GET.get('id_group')
 
-    marks = Marks.objects.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
-    students = UserProfile.objects.filter(groups=2)
-    students = students.filter(group__code=id_group)
-    # получение всех дат текущего месяца
-    delta_date = days_cur_month(strdate='%d %B %Yг.')
-    # месяц
-    date_month = datetime.today().month
-    # год
-    date_year = datetime.today().year
-    # дни
-    date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
-                 28, 29, 30, 31]
+    # дата начала
+    start_date = request.GET.get('start_date')
+    start_date = start_date.split("-")
+    start_date[0] = int(start_date[0])
+    start_date[1] = int(start_date[1])
+    start_date[2] = int(start_date[2])
+    # дата окончания
+    end_date = request.GET.get('end_date')
+    end_date = end_date.split("-")
+    end_date[0] = int(end_date[0])
+    end_date[1] = int(end_date[1])
+    end_date[2] = int(end_date[2])
 
-    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
-        del date_days[-1]
+    # дни для вывода
+    delta_days = calendar(s_date=start_date, e_date=end_date, strdate='%Y-%m-%d')
+    # календарь
+    delta_date = calendar(s_date=start_date, e_date=end_date, strdate='%d %B %Yг.')
 
-    marks.filter(
-        Q(date__month=date_month) &
-        Q(date__year=date_year)
-    ).order_by('date').distinct()
+    marks = Marks.objects.all()
+    marks = marks.filter(users_code=id_group)
+    mark_filter = MarksFilter(request.GET, queryset=marks)
+    marks = mark_filter.qs
 
-    context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days}
+    context = {"mark_filter": mark_filter, "marks": marks,
+               "delta_days": delta_days, "delta_date": delta_date,}
+    return render(request, 'admin-items/trpo/marks/trpo_marks_list-filtred.html', context)
 
-    return render(request, 'admin-items/student_table_list_options.html', context)
 
 
 @login_required(login_url='login')
@@ -424,7 +458,7 @@ def load_pp0201_marks_list(request):
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
                "date_days ": date_days}
 
-    return render(request, 'admin-items/student_table_list_options.html', context)
+    return render(request, 'admin-items/AJAX_student_table_list_options.html', context)
 
 
 @login_required(login_url='login')
@@ -502,7 +536,7 @@ def load_pp0102_marks_list(request):
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
                "date_days ": date_days}
 
-    return render(request, 'admin-items/student_table_list_options.html', context)
+    return render(request, 'admin-items/AJAX_student_table_list_options.html', context)
 
 
 @login_required(login_url='login')

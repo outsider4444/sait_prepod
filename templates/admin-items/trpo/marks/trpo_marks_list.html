@@ -12,21 +12,21 @@
         <option value="3">331</option>
         <option value="4">332</option>
     </select>
-<form action="{% url 'admin-trpo-filtred_students_marks' %}" method="get">
-    {% csrf_token %}
-    {{ mark_filter.form }}
-    <button type="submit" class="btn btn-primary">Поиск</button>
-</form>
+    <form action="{% url 'admin-trpo-filtred_students_marks' %}" method="get">
+        {% csrf_token %}
+        {{ mark_filter.form }}
+        <button type="submit">Поиск</button>
+    </form>
     <table border="1px" id="id_students_list">
         <tr><td>Дата</td>
-    {% for date in delta_date %}
-        <td>{{ date }}</td>
-    {% endfor %}
-</tr>
+            {% for date in delta_date %}
+                <td>{{ date }}</td>
+            {% endfor %}
+        </tr>
     </table>
-    
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    
+
     <script>
         $("#id_group_select").change(function () {
             const url = $("#id_group_select").attr("data-group-url");

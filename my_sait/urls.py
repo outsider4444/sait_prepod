@@ -47,8 +47,10 @@ urlpatterns = [
 
     # Оценки для админа по ТРПО
     path('administrator/trpo/students_marks/', views.admin_trpo_marks_list, name="admin-trpo_students_marks"),
-    path('administrator/trpo/students_marksfiltred/filtred', views.admin_trpo_marks_list, name="admin-trpo-filtred_students_marks"),
     path('administrator/trpo/students_marks/students_list_table', views.load_trpo_marks_list, name="trpo-ajax"),
+    path('administrator/trpo/students_marks/filtred', views.TRPOMarksCalendar, name="admin-trpo-filtred_students_marks"),
+    path('administrator/trpo/students_marks/students_list_table', views.load_trpo_marks_calendar_filtred, name="trpo-filtred-ajax"),
+
     # ПП0201
     path('administrator/pp0201/students_marks/', views.admin_pp0201_marks_list, name="admin-pp0201_students_marks"),
     path('administrator/pp0201/students_marks/students_list_table', views.load_pp0201_marks_list, name="pp0201-ajax"),

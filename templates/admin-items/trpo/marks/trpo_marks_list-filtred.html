@@ -1,38 +1,50 @@
 {% extends 'base.html' %}
+{% load poll_extras %}
 
 {% block content %}
-    <div style="width: 100%">
-        <a href="{% url 'used_material_report_month' %}" class="btn btn-success">Отчет за месяц</a>
-        <a href="{% url 'used_material_report_week' %}" class="btn btn-success">Отчет за неделю</a>
-        <a href="{% url 'used_material_report_today' %}" class="btn btn-success">Отчет за день</a>
-        <form action="{% url 'used_material_report_calendar' %}" method="get">
-            {% csrf_token %}
-            {{ report_used_material_filter.form }}
-            <button type="submit" class="btn btn-primary">Поиск</button>
-        </form>
-    </div>
+<select name="" id="id_group_select" data-group-url="{% url 'trpo-ajax' %}">
+        <option value="0">----------</option>
+        <option value="1">231</option>
+        <option value="2">232</option>
+        <option value="3">331</option>
+        <option value="4">332</option>
+    </select>
+    <form action="{% url 'admin-trpo-filtred_students_marks' %}" method="get">
+        {% csrf_token %}
+        {{ mark_filter.form }}
+        <button type="submit">Поиск</button>
+    </form>
 
-    <table border="1px" class="table table-bordered table-hover table-responsive">
+        <table border="1px" id="id_group_select" data-group-url="{% url 'trpo-filtred-ajax' %}">
     <tr>
         <td>Дата</td>
         {% for days in delta_date %}
             <td> {{ days }} </td>
         {% endfor %}
-        {% for nari in nariad.all|values:"material_code"|values:"code"|distinct %}
-            <tr>
-                <td>{{ nari }}</td>
-                {% for days in delta_days %}
-                    <td>
-                        {% for nariad_date in nariad %}
-                            {% if nariad_date.date|string == days %}
-                                {{ nariad_date.used_materials }}
-                            {% endif %}
-                        {% endfor %}
-                    </td>
-                {% endfor %}
-            </tr>
-            <tr><td>Всего:{{ summa_used_material }}</td></tr>
-        {% endfor %}
+
     </table>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+        $("#id_group_select").change(function () {
+            const url = $("#id_group_select").attr("data-group-url");
+            const id_group = $('#id_group_select option:selected').text();  // get the selected country ID from the HTML input
+            console.log(id_group)
+
+            $.ajax({                       // initialize an AJAX request
+                url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+                data: {
+                    'id_group': id_group       // add the country id to the GET parameters
+                },
+                success: function (data) {
+                    $("#id_students_list").html(data);  // replace the contents of the city input with the data that came from the server
+
+                }
+            });
+
+        });
+
+    </script>
 
 {% endblock content %}
