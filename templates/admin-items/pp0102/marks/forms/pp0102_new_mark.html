@@ -1,15 +1,14 @@
 {% extends 'admin-items/base.html' %}
 
 {% block content %}
-    <form action="" method="post" data-group-url="{% url 'ajax_pp0102_load_groups' %}">
-{% csrf_token %}
+    <form action="" method="post" id="id_create_mark" data-group-url="{% url 'ajax_pp0102_load_groups' %}">
+        {% csrf_token %}
         <div>{{ form.items_code }}</div>
         Дата: {{ form.date }} <br>
         Группа: {{ form.group }} <br>
         Студент: {{ form.users_code }} <br>
         Оценка: {{ form.mark }} <br>
 
-        <span>{{ error }}</span>
     <button type="submit">Подтвердить</button>
 
     </form>
@@ -32,6 +31,7 @@
             });
 
         });
+
         id_items_code = document.getElementById('id_items_code');
         for(i=0; i<id_items_code.options.length; i++){
             if(id_items_code.options[i].value == "{{ item.id }}"){
