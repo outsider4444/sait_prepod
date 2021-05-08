@@ -88,6 +88,7 @@ class CreateMarksForm(forms.ModelForm):
             'date' : forms.DateInput(attrs={'type': 'date'})
         }
 
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['users_code'].queryset = UserProfile.objects.none()
