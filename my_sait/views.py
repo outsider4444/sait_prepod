@@ -264,19 +264,21 @@ def admin_trpo_marks_list(request):
     while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
         del date_days[-1]
 
-    marks.filter(
+    marks = marks.filter(
         Q(date__month=date_month) &
         Q(date__year=date_year)
-    ).order_by('date').distinct()
+                         ).order_by('date')
+
+    print(marks)
 
     mark_filter = MarksFilter(request.GET, queryset=marks)
 
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days, "mark_filter": mark_filter}
+               "date_days ": date_days, "mark_filter": mark_filter, "date_month": date_month}
     return render(request, 'admin-items/trpo/marks/trpo_marks_list.html', context)
 
 
-# AJAX ТРПО для вывода студентов группы
+# AJAX ТРПО для вывода студентов группы в МЕСЯЦ
 def load_trpo_marks_list(request):
     id_group = request.GET.get('id_group')
 
@@ -296,10 +298,10 @@ def load_trpo_marks_list(request):
     while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
         del date_days[-1]
 
-    marks.filter(
+    marks = marks.filter(
         Q(date__month=date_month) &
         Q(date__year=date_year)
-    ).order_by('date').distinct()
+    ).order_by('date')
 
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
                "date_days ": date_days}
@@ -307,30 +309,34 @@ def load_trpo_marks_list(request):
     return render(request, 'admin-items/AJAX_student_table_list_options.html', context)
 
 
-
+# Оценки по КАЛЕНДАРЮ
 def TRPOMarksCalendar(request):
     """ОЦЕНКИ по календарю"""
     # summa_used_material = 0
+    group = request.GET.get('group')
 
     # дата начала
     start_date = request.GET.get('start_date')
-    start_date = start_date.split("-")
-    start_date[0] = int(start_date[0])
-    start_date[1] = int(start_date[1])
-    start_date[2] = int(start_date[2])
+    if start_date is not None:
+        start_date = start_date.split("-")
+        start_date[0] = int(start_date[0])
+        start_date[1] = int(start_date[1])
+        start_date[2] = int(start_date[2])
+
     # дата окончания
     end_date = request.GET.get('end_date')
-    end_date = end_date.split("-")
-    end_date[0] = int(end_date[0])
-    end_date[1] = int(end_date[1])
-    end_date[2] = int(end_date[2])
+    if end_date is not None:
+        end_date = end_date.split("-")
+        end_date[0] = int(end_date[0])
+        end_date[1] = int(end_date[1])
+        end_date[2] = int(end_date[2])
 
     # дни для вывода
     delta_days = calendar(s_date=start_date, e_date=end_date, strdate='%Y-%m-%d')
     # календарь
     delta_date = calendar(s_date=start_date, e_date=end_date, strdate='%d %B %Yг.')
 
-    marks = Marks.objects.all()
+    marks = Marks.objects.filter(group=group)
     mark_filter = MarksFilter(request.GET, queryset=marks)
     marks = mark_filter.qs
 
@@ -338,41 +344,8 @@ def TRPOMarksCalendar(request):
     #     summa_used_material += nari.used_materials
 
     context = {"mark_filter": mark_filter, "marks": marks,
-               "delta_days": delta_days, "delta_date": delta_date,}
+               "delta_days": delta_days, "delta_date": delta_date, }
     return render(request, 'admin-items/trpo/marks/trpo_marks_list-filtred.html', context)
-
-
-def load_trpo_marks_calendar_filtred(request):
-    """ОЦЕНКИ по календарю"""
-    id_group = request.GET.get('id_group')
-
-    # дата начала
-    start_date = request.GET.get('start_date')
-    start_date = start_date.split("-")
-    start_date[0] = int(start_date[0])
-    start_date[1] = int(start_date[1])
-    start_date[2] = int(start_date[2])
-    # дата окончания
-    end_date = request.GET.get('end_date')
-    end_date = end_date.split("-")
-    end_date[0] = int(end_date[0])
-    end_date[1] = int(end_date[1])
-    end_date[2] = int(end_date[2])
-
-    # дни для вывода
-    delta_days = calendar(s_date=start_date, e_date=end_date, strdate='%Y-%m-%d')
-    # календарь
-    delta_date = calendar(s_date=start_date, e_date=end_date, strdate='%d %B %Yг.')
-
-    marks = Marks.objects.all()
-    marks = marks.filter(users_code=id_group)
-    mark_filter = MarksFilter(request.GET, queryset=marks)
-    marks = mark_filter.qs
-
-    context = {"mark_filter": mark_filter, "marks": marks,
-               "delta_days": delta_days, "delta_date": delta_date,}
-    return render(request, 'admin-items/trpo/marks/trpo_marks_list-filtred.html', context)
-
 
 
 @login_required(login_url='login')
@@ -576,7 +549,6 @@ def userPage(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['student'])
 def user_trpo_lecture(request):
-
     lectures = TrpoLectures.objects.filter(items_code__name="МДК.02.01. Технология разработки программного обеспечения")
     context = {"lectures": lectures, }
     return render(request, 'accounts/student/items/trpo/lectures_list.html', context)

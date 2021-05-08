@@ -11,6 +11,7 @@ class MarksFilter(django_filters.FilterSet):
     end_date = django_filters.DateFilter(
         field_name="date", lookup_expr='lte', widget=DateInput(attrs={'type': 'date'})
     )
+    group = django_filters.ChoiceFilter(choices=FILTER_CHOICES)
 
     class Meta:
         model = Marks

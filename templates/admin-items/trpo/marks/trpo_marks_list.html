@@ -4,16 +4,15 @@
 
     <a href="{% url 'admin-trpo_students_marks_create' %}"> Создать новую оценку</a>
 
-
-    <select name="" id="id_group_select" data-group-url="{% url 'trpo-ajax' %}">
+    <form action="{% url 'admin-trpo-filtred_students_marks' %}" method="get">
+        {% csrf_token %}
+        <select name="" id="id_group_select" data-group-url="{% url 'trpo-ajax' %}">
         <option value="0">----------</option>
         <option value="1">231</option>
         <option value="2">232</option>
         <option value="3">331</option>
         <option value="4">332</option>
     </select>
-    <form action="{% url 'admin-trpo-filtred_students_marks' %}" method="get">
-        {% csrf_token %}
         {{ mark_filter.form }}
         <button type="submit">Поиск</button>
     </form>
@@ -30,16 +29,16 @@
     <script>
         $("#id_group_select").change(function () {
             const url = $("#id_group_select").attr("data-group-url");
-            const id_group = $('#id_group_select option:selected').text();  // get the selected country ID from the HTML input
+            const id_group = $('#id_group_select option:selected').text();
             console.log(id_group)
 
-            $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            $.ajax({
+                url: url,
                 data: {
-                    'id_group': id_group       // add the country id to the GET parameters
+                    'id_group': id_group,
                 },
                 success: function (data) {
-                    $("#id_students_list").html(data);  // replace the contents of the city input with the data that came from the server
+                    $("#id_students_list").html(data);
 
                 }
             });

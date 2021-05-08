@@ -30,7 +30,7 @@ class Pp0201LecturesForm(forms.ModelForm):
         model = PP0201Lectures
         fields = '__all__'
         widgets = {
-            'date' : forms.DateInput(attrs={'type': 'date'})
+            'date': forms.DateInput(attrs={'type': 'date'})
         }
 
 
@@ -41,7 +41,7 @@ class Pp0102LecturesForm(forms.ModelForm):
         model = PP0102Lectures
         fields = '__all__'
         widgets = {
-            'date' : forms.DateInput(attrs={'type': 'date'})
+            'date': forms.DateInput(attrs={'type': 'date'})
         }
 
 
@@ -53,7 +53,7 @@ class TrpoPracticesForm(forms.ModelForm):
         model = TrpoPractices
         fields = '__all__'
         widgets = {
-            'date' : forms.DateInput(attrs={'type': 'date'})
+            'date': forms.DateInput(attrs={'type': 'date'})
         }
 
 
@@ -64,7 +64,7 @@ class Pp0201PracticesForm(forms.ModelForm):
         model = PP0201Practices
         fields = '__all__'
         widgets = {
-            'date' : forms.DateInput(attrs={'type': 'date'})
+            'date': forms.DateInput(attrs={'type': 'date'})
         }
 
 
@@ -75,7 +75,7 @@ class Pp0102PracticesForm(forms.ModelForm):
         model = PP0102Practices
         fields = '__all__'
         widgets = {
-            'date' : forms.DateInput(attrs={'type': 'date'})
+            'date': forms.DateInput(attrs={'type': 'date'})
         }
 
 
@@ -85,9 +85,8 @@ class CreateMarksForm(forms.ModelForm):
         model = Marks
         fields = '__all__'
         widgets = {
-            'date' : forms.DateInput(attrs={'type': 'date'})
+            'date': forms.DateInput(attrs={'type': 'date'})
         }
-
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
