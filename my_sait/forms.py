@@ -18,6 +18,9 @@ class TrpoLecturesForm(forms.ModelForm):
     class Meta:
         model = TrpoLectures
         fields = '__all__'
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'})
+        }
 
 
 class Pp0201LecturesForm(forms.ModelForm):
@@ -26,6 +29,9 @@ class Pp0201LecturesForm(forms.ModelForm):
     class Meta:
         model = PP0201Lectures
         fields = '__all__'
+        widgets = {
+            'date' : forms.DateInput(attrs={'type': 'date'})
+        }
 
 
 class Pp0102LecturesForm(forms.ModelForm):
@@ -34,6 +40,9 @@ class Pp0102LecturesForm(forms.ModelForm):
     class Meta:
         model = PP0102Lectures
         fields = '__all__'
+        widgets = {
+            'date' : forms.DateInput(attrs={'type': 'date'})
+        }
 
 
 #  Практики
@@ -43,6 +52,9 @@ class TrpoPracticesForm(forms.ModelForm):
     class Meta:
         model = TrpoPractices
         fields = '__all__'
+        widgets = {
+            'date' : forms.DateInput(attrs={'type': 'date'})
+        }
 
 
 class Pp0201PracticesForm(forms.ModelForm):
@@ -51,6 +63,9 @@ class Pp0201PracticesForm(forms.ModelForm):
     class Meta:
         model = PP0201Practices
         fields = '__all__'
+        widgets = {
+            'date' : forms.DateInput(attrs={'type': 'date'})
+        }
 
 
 class Pp0102PracticesForm(forms.ModelForm):
@@ -59,6 +74,9 @@ class Pp0102PracticesForm(forms.ModelForm):
     class Meta:
         model = PP0102Practices
         fields = '__all__'
+        widgets = {
+            'date' : forms.DateInput(attrs={'type': 'date'})
+        }
 
 
 # Оценки

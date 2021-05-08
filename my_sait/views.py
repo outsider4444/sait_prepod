@@ -101,7 +101,7 @@ def admin_trpo_New_lecture(request):
         form = TrpoLecturesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('admin-trpo_lectures'))
+            return redirect(reverse('admin-main_page'))
         else:
             error = form.errors
     return render(request, "admin-items/trpo/forms/lecture_new.html", {"form": form, "error": error, "item": item})
@@ -125,7 +125,7 @@ def admin_trpo_New_practice(request):
         form = TrpoPracticesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('admin-trpo-practice'))
+            return redirect(reverse('admin-main_page'))
         else:
             error = "Форма неверно заполнена"
     return render(request, "admin-items/trpo/forms/practice_new.html", {"form": form, "error": error, "item": item})
@@ -151,7 +151,7 @@ def admin_pp0201_New_lecture(request):
         form = Pp0201LecturesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('admin-pp0201-lecture'))
+            return redirect(reverse('admin-main_page'))
         else:
             error = form.errors
     return render(request, "admin-items/pp0201/forms/lecture_new.html", {"form": form, "error": error, "item": item})
@@ -175,7 +175,7 @@ def admin_pp0201_New_practice(request):
         form = Pp0201PracticesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('admin-pp0201-lecture'))
+            return redirect(reverse('admin-main_page'))
         else:
             error = "Форма неверно заполнена"
     return render(request, "admin-items/pp0201/forms/practice_new.html", {"form": form, "error": error, "item": item})
