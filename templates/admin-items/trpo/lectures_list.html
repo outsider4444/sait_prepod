@@ -10,9 +10,12 @@
 
 <div style="text-align: center">
         <table border="1px">
+        <table border="1px">
         {% for lec in lectures %}
             <tr>
-            <td><a href="{{ lec.id }}">{{ lec.name }}</a></td> <td>Дата: {{ lec.date }}</td>
+                <td><a href="{{ lec.id }}_download">{{ lec.name }}</a></td>
+                <td>Дата: {{ lec.date }}</td>
+                <td><a href="{{ lec.id }}">Удалить</a></td>
             </tr>
             {% endfor %}
         </table>

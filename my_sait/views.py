@@ -10,6 +10,7 @@ from django.http import FileResponse
 import locale
 from datetime import date, timedelta, datetime
 import pandas
+from django.views.generic import DeleteView
 
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from .filter import MarksFilter
@@ -252,7 +253,7 @@ def admin_trpo_marks_list(request):
     marks = Marks.objects.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
     students = UserProfile.objects.filter(groups=2)
     # получение всех дат текущего месяца
-    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    delta_date = days_cur_month(strdate='%d.%m.%y')
     # месяц
     date_month = datetime.today().month
     # год
@@ -261,15 +262,13 @@ def admin_trpo_marks_list(request):
     date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
                  28, 29, 30, 31]
 
-    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+    while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
     marks = marks.filter(
         Q(date__month=date_month) &
         Q(date__year=date_year)
                          ).order_by('date')
-
-    print(marks)
 
     mark_filter = MarksFilter(request.GET, queryset=marks)
 
@@ -286,7 +285,7 @@ def load_trpo_marks_list(request):
     students = UserProfile.objects.filter(groups=2)
     students = students.filter(group__code=id_group)
     # получение всех дат текущего месяца
-    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    delta_date = days_cur_month(strdate='%d.%m.%y')
     # месяц
     date_month = datetime.today().month
     # год
@@ -295,7 +294,7 @@ def load_trpo_marks_list(request):
     date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
                  28, 29, 30, 31]
 
-    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+    while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
     marks = marks.filter(
@@ -334,7 +333,7 @@ def TRPOMarksCalendar(request):
     # дни для вывода
     delta_days = calendar(s_date=start_date, e_date=end_date, strdate='%Y-%m-%d')
     # календарь
-    delta_date = calendar(s_date=start_date, e_date=end_date, strdate='%d %B %Yг.')
+    delta_date = calendar(s_date=start_date, e_date=end_date, strdate='%d.%m.%y')
 
     marks = Marks.objects.filter(group=group)
     mark_filter = MarksFilter(request.GET, queryset=marks)
@@ -381,7 +380,7 @@ def admin_pp0201_marks_list(request):
     marks = Marks.objects.filter(items_code__name='ПП.02.01. Прикладное программирование')
     students = UserProfile.objects.filter(groups=2)
     # получение всех дат текущего месяца
-    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    delta_date = days_cur_month(strdate='%d.%m.%y')
     # месяц
     date_month = datetime.today().month
     # год
@@ -390,7 +389,7 @@ def admin_pp0201_marks_list(request):
     date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
                  28, 29, 30, 31]
 
-    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+    while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
     marks.filter(
@@ -411,7 +410,7 @@ def load_pp0201_marks_list(request):
     students = UserProfile.objects.filter(groups=2)
     students = students.filter(group__code=id_group)
     # получение всех дат текущего месяца
-    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    delta_date = days_cur_month(strdate='%d.%m.%y')
     # месяц
     date_month = datetime.today().month
     # год
@@ -420,7 +419,7 @@ def load_pp0201_marks_list(request):
     date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
                  28, 29, 30, 31]
 
-    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+    while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
     marks.filter(
@@ -459,7 +458,7 @@ def admin_pp0102_marks_list(request):
     marks = Marks.objects.filter(items_code__name='ПП.01.02. Прикладное программирование')
     students = UserProfile.objects.filter(groups=2)
     # получение всех дат текущего месяца
-    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    delta_date = days_cur_month(strdate='%d.%m.%y')
     # месяц
     date_month = datetime.today().month
     # год
@@ -468,7 +467,7 @@ def admin_pp0102_marks_list(request):
     date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
                  28, 29, 30, 31]
 
-    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+    while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
     marks.filter(
@@ -489,7 +488,7 @@ def load_pp0102_marks_list(request):
     students = UserProfile.objects.filter(groups=2)
     students = students.filter(group__code=id_group)
     # получение всех дат текущего месяца
-    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    delta_date = days_cur_month(strdate='%d.%m.%y')
     # месяц
     date_month = datetime.today().month
     # год
@@ -498,7 +497,7 @@ def load_pp0102_marks_list(request):
     date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
                  28, 29, 30, 31]
 
-    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+    while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
     marks.filter(
@@ -574,7 +573,7 @@ def user_trpo_marks_list(request):
         Q(users_code=user)
     )
     # получение всех дат текущего месяца
-    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    delta_date = days_cur_month(strdate='%d.%m.%y')
     # месяц
     date_month = datetime.today().month
     # год
@@ -583,7 +582,7 @@ def user_trpo_marks_list(request):
     date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
                  28, 29, 30, 31]
 
-    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+    while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
     marks.filter(
@@ -626,7 +625,7 @@ def user_pp0201_marks_list(request):
         Q(users_code=user)
     )
     # получение всех дат текущего месяца
-    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    delta_date = days_cur_month(strdate='%d.%m.%y')
     # месяц
     date_month = datetime.today().month
     # год
@@ -635,7 +634,7 @@ def user_pp0201_marks_list(request):
     date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
                  28, 29, 30, 31]
 
-    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+    while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
     marks.filter(
@@ -678,7 +677,7 @@ def user_pp0102_marks_list(request):
         Q(users_code=user)
     )
     # получение всех дат текущего месяца
-    delta_date = days_cur_month(strdate='%d %B %Yг.')
+    delta_date = days_cur_month(strdate='%d.%m.%y')
     # месяц
     date_month = datetime.today().month
     # год
@@ -687,7 +686,7 @@ def user_pp0102_marks_list(request):
     date_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
                  28, 29, 30, 31]
 
-    while date_days.__len__() != days_cur_month(strdate='%d %B %Yг.').__len__():
+    while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
     marks.filter(
@@ -713,6 +712,13 @@ def trpo_download_lecture(request, pk):
     filename = obj.file.path
     response = FileResponse(open(filename, 'rb'))
     return response
+
+
+class TrpoDeleteLectureView(DeleteView):
+    model = TrpoLectures
+    slug_field = 'id'
+    template_name = 'admin-items/trpo/lecture_delete.html'
+    success_url = '/administrator'
 
 
 @login_required(login_url='login')

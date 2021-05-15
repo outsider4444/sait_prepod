@@ -16,4 +16,4 @@ class MarksFilter(django_filters.FilterSet):
     class Meta:
         model = Marks
         fields = '__all__'
-        exclude = ['date', 'items_code', 'group', 'users_code', 'mark']
+        exclude = ['date', 'items_code', 'group', 'users_code', 'mark', 'comment']

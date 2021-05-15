@@ -16,13 +16,18 @@ urlpatterns = [
     path('user/pp0102_lectures_list/<int:pk>', views.pp0102_download_lecture, name="user-pp0102_lectures_download"),
     path('user/pp0102_practices_list/<int:pk>', views.pp0102_download_practice, name="user-pp0102_practice_download"),
 
+
+    # Удалить лекцию/практику
+    path('administrator/trpo_lectures_list/<int:pk>/', views.TrpoDeleteLectureView.as_view(), name="admin-trpo_lectures-delete"),
+
+
     # Скачать лекцию/практику преподу
-    path('administrator/trpo_lectures_list/<int:pk>', views.trpo_download_lecture, name="admin-trpo_lectures_download"),
-    path('administrator/trpo_practices_list/<int:pk>', views.trpo_download_practice, name="admin-trpo_practice_download"),
-    path('administrator/pp0201_lectures_list/<int:pk>', views.pp0201_download_lecture, name="admin-pp0201_lectures_download"),
-    path('administrator/pp0201_practices_list/<int:pk>', views.pp0201_download_practice, name="admin-pp0201_practice_download"),
-    path('administrator/pp0102_lectures_list/<int:pk>', views.pp0102_download_lecture, name="admin-pp0102_lectures_download"),
-    path('administrator/pp0102_practices_list/<int:pk>', views.pp0102_download_practice, name="admin-pp0102_practice_download"),
+    path('administrator/trpo_lectures_list/<int:pk>_download', views.trpo_download_lecture, name="admin-trpo_lectures_download"),
+    path('administrator/trpo_practices_list/<int:pk>_download', views.trpo_download_practice, name="admin-trpo_practice_download"),
+    path('administrator/pp0201_lectures_list/<int:pk>_download', views.pp0201_download_lecture, name="admin-pp0201_lectures_download"),
+    path('administrator/pp0201_practices_list/<int:pk>_download', views.pp0201_download_practice, name="admin-pp0201_practice_download"),
+    path('administrator/pp0102_lectures_list/<int:pk>_download', views.pp0102_download_lecture, name="admin-pp0102_lectures_download"),
+    path('administrator/pp0102_practices_list/<int:pk>_download', views.pp0102_download_practice, name="admin-pp0102_practice_download"),
 
     # Создание новой лекции
     path('administrator/trpo_lectures_list/trpo_new_lecture', views.admin_trpo_New_lecture, name="admin-trpo_new_lecture"),

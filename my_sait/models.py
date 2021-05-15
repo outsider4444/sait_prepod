@@ -63,6 +63,7 @@ class Marks(models.Model):
                               on_delete=models.CASCADE)
     users_code = models.ForeignKey(UserProfile, verbose_name="Код пользователя", on_delete=models.CASCADE)
     mark = models.IntegerField('Оценка')
+    comment = models.CharField('Комментарий', max_length=250)
 
     def __str__(self):
         return str(self.date)
@@ -118,7 +119,7 @@ class PP0102Lectures(models.Model):
 
 
 class TrpoPractices(models.Model):
-    """Лекции"""
+    """Практики"""
     file = models.FileField("Файл", upload_to='trpo/practices')
     name = models.CharField("Имя лекции", max_length=100)
     items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
@@ -133,7 +134,7 @@ class TrpoPractices(models.Model):
 
 
 class PP0201Practices(models.Model):
-    """Лекции"""
+    """Практики"""
     file = models.FileField("Файл", upload_to='pp0201/practices')
     name = models.CharField("Имя лекции", max_length=100)
     items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)
@@ -148,7 +149,7 @@ class PP0201Practices(models.Model):
 
 
 class PP0102Practices(models.Model):
-    """Лекции"""
+    """Практики"""
     file = models.FileField("Файл", upload_to='pp0102/practices')
     name = models.CharField("Имя лекции", max_length=100)
     items_code = models.ForeignKey(Items, verbose_name="Код предмета", on_delete=models.CASCADE)

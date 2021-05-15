@@ -10,13 +10,17 @@
         <button type="submit">Поиск</button>
     </form>
 
-    <table border="1px" id="id_students_list">
+    <table border="1px" id="id_students_list" class="table table-responsive">
+        <thead class="thead-dark">
         <tr>
-            <td>Дата</td>
-            {% for days in delta_date %}
-                <td> {{ days }} </td>
+            <th>#</th>
+            {% for date in delta_date %}
+                <th>{{ date }}</th>
             {% endfor %}
-            {% for stud in marks|values:"users_code"|distinct %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for stud in marks|values:"users_code"|distinct %}
                 <tr>
                     <td>{{ stud.name }} {{ stud.surname }}</td>
                     {% for days in delta_days %}
@@ -30,6 +34,7 @@
                     {% endfor %}
                 </tr>
             {% endfor %}
+        </tbody>
     </table>
 
     <script>
