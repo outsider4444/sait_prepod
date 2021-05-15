@@ -16,11 +16,6 @@ urlpatterns = [
     path('user/pp0102_lectures_list/<int:pk>', views.pp0102_download_lecture, name="user-pp0102_lectures_download"),
     path('user/pp0102_practices_list/<int:pk>', views.pp0102_download_practice, name="user-pp0102_practice_download"),
 
-
-    # Удалить лекцию/практику
-    path('administrator/trpo_lectures_list/<int:pk>/', views.TrpoDeleteLectureView.as_view(), name="admin-trpo_lectures-delete"),
-
-
     # Скачать лекцию/практику преподу
     path('administrator/trpo_lectures_list/<int:pk>_download', views.trpo_download_lecture, name="admin-trpo_lectures_download"),
     path('administrator/trpo_practices_list/<int:pk>_download', views.trpo_download_practice, name="admin-trpo_practice_download"),
@@ -28,6 +23,16 @@ urlpatterns = [
     path('administrator/pp0201_practices_list/<int:pk>_download', views.pp0201_download_practice, name="admin-pp0201_practice_download"),
     path('administrator/pp0102_lectures_list/<int:pk>_download', views.pp0102_download_lecture, name="admin-pp0102_lectures_download"),
     path('administrator/pp0102_practices_list/<int:pk>_download', views.pp0102_download_practice, name="admin-pp0102_practice_download"),
+
+
+    # Удалить лекцию/практику
+    path('administrator/trpo_lectures_list/<int:pk>/', views.TrpoDeleteLectureView.as_view(), name="admin-trpo_lectures-delete"),
+    path('administrator/trpo_practices_list/<int:pk>/', views.TrpoDeletePracticeView.as_view(), name="admin-trpo_practice-delete"),
+    path('administrator/pp0201_lectures_list/<int:pk>/', views.PP0201DeleteLectureView.as_view()),
+    path('administrator/pp0201_practices_list/<int:pk>/', views.PP0201DeletePracticeView.as_view()),
+    path('administrator/pp0102_lectures_list/<int:pk>/', views.PP0102DeleteLectureView.as_view()),
+    path('administrator/pp0102_practices_list/<int:pk>/', views.PP0102DeletePracticeView.as_view()),
+
 
     # Создание новой лекции
     path('administrator/trpo_lectures_list/trpo_new_lecture', views.admin_trpo_New_lecture, name="admin-trpo_new_lecture"),
@@ -58,9 +63,11 @@ urlpatterns = [
     # ПП0201
     path('administrator/pp0201/students_marks/', views.admin_pp0201_marks_list, name="admin-pp0201_students_marks"),
     path('administrator/pp0201/students_marks/students_list_table', views.load_pp0201_marks_list, name="pp0201-ajax"),
+    path('administrator/pp0201/students_marks/filtred', views.PP0201MarksCalendar, name="admin-pp0201-filtred_students_marks"),
     # ПП0102
     path('administrator/pp0102/students_marks/', views.admin_pp0102_marks_list, name="admin-pp0102_students_marks"),
     path('administrator/pp0102/students_marks/students_list_table', views.load_pp0102_marks_list, name="pp0102-ajax"),
+    path('administrator/pp0102/students_marks/filtred', views.PP0102MarksCalendar, name="admin-pp0201-filtred_students_marks"),
 
     # Список практик для студента
     path('user/trpo_practices_list/', views.user_trpo_practice, name="user-trpo_practice"),
@@ -88,11 +95,12 @@ urlpatterns = [
     path('user/', views.userPage, name='user-page'),
 
     path('administrator/resurces', views.resurces_view, name="admin-resurces"),
+    path("administrator/about-prepod", views.about, name="admin-about-prepod"),
     path("administrator/", views.admin_main_page, name="admin-main_page"),
 
     path('login/', views.loginPage, name="login"),
     path('logout/', views.logoutUser, name="logout"),
     path('register/', views.registerPage, name="register"),
 
-    path("", views.about, name='admin-about-prepod'),
+    path("", views.admin_main_page, name="admin-main_page"),
 ]

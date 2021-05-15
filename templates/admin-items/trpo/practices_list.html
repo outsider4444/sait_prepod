@@ -12,7 +12,9 @@
         <table border="1px">
             {% for prac in practice %}
                 <tr>
-                    <td><a href="{{ prac.id }}">{{ prac.name }}</a></td> <td>Дата: {{ prac.date }}</td>
+                    <td><a href="{{ prac.id }}_download">{{ prac.name }}</a></td>
+                    <td>Дата: {{ prac.date }}</td>
+                    <td><a href="{{ prac.id }}">Удалить</a></td>
                 </tr>
             {% endfor %}
         </table>

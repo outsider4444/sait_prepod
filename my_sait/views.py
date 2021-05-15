@@ -336,6 +336,7 @@ def TRPOMarksCalendar(request):
     delta_date = calendar(s_date=start_date, e_date=end_date, strdate='%d.%m.%y')
 
     marks = Marks.objects.filter(group=group)
+    marks = marks.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
     mark_filter = MarksFilter(request.GET, queryset=marks)
     marks = mark_filter.qs
 
@@ -397,8 +398,10 @@ def admin_pp0201_marks_list(request):
         Q(date__year=date_year)
     ).order_by('date').distinct()
 
+    mark_filter = MarksFilter(request.GET, queryset=marks)
+
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days}
+               "date_days ": date_days, "mark_filter":mark_filter}
     return render(request, 'admin-items/pp0201/marks/pp0201_marks_list.html', context)
 
 
@@ -431,6 +434,45 @@ def load_pp0201_marks_list(request):
                "date_days ": date_days}
 
     return render(request, 'admin-items/AJAX_student_table_list_options.html', context)
+
+
+def PP0201MarksCalendar(request):
+    """ОЦЕНКИ по календарю"""
+    # summa_used_material = 0
+    group = request.GET.get('group')
+
+    # дата начала
+    start_date = request.GET.get('start_date')
+    if start_date is not None:
+        start_date = start_date.split("-")
+        start_date[0] = int(start_date[0])
+        start_date[1] = int(start_date[1])
+        start_date[2] = int(start_date[2])
+
+    # дата окончания
+    end_date = request.GET.get('end_date')
+    if end_date is not None:
+        end_date = end_date.split("-")
+        end_date[0] = int(end_date[0])
+        end_date[1] = int(end_date[1])
+        end_date[2] = int(end_date[2])
+
+    # дни для вывода
+    delta_days = calendar(s_date=start_date, e_date=end_date, strdate='%Y-%m-%d')
+    # календарь
+    delta_date = calendar(s_date=start_date, e_date=end_date, strdate='%d.%m.%y')
+
+    marks = Marks.objects.filter(group=group)
+    marks = marks.filter(items_code__name='ПП.02.01. Прикладное программирование')
+    mark_filter = MarksFilter(request.GET, queryset=marks)
+    marks = mark_filter.qs
+
+    # for nari in nariad:
+    #     summa_used_material += nari.used_materials
+
+    context = {"mark_filter": mark_filter, "marks": marks,
+               "delta_days": delta_days, "delta_date": delta_date, }
+    return render(request, 'admin-items/pp0201/marks/pp0201_marks_list-filtred.html', context)
 
 
 @login_required(login_url='login')
@@ -470,13 +512,15 @@ def admin_pp0102_marks_list(request):
     while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
+    mark_filter = MarksFilter(request.GET, queryset=marks)
+
     marks.filter(
         Q(date__month=date_month) &
         Q(date__year=date_year)
     ).order_by('date').distinct()
 
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days}
+               "date_days ": date_days, "mark_filter": mark_filter}
     return render(request, 'admin-items/pp0102/marks/pp0102_marks_list.html', context)
 
 
@@ -500,15 +544,60 @@ def load_pp0102_marks_list(request):
     while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
+    mark_filter = MarksFilter(request.GET, queryset=marks)
+
     marks.filter(
         Q(date__month=date_month) &
         Q(date__year=date_year)
     ).order_by('date').distinct()
 
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days}
+               "date_days ": date_days, "mark_filter": mark_filter,}
 
     return render(request, 'admin-items/AJAX_student_table_list_options.html', context)
+
+
+def PP0102MarksCalendar(request):
+    """ОЦЕНКИ по календарю"""
+    # summa_used_material = 0
+    group = request.GET.get('group')
+    print(group)
+
+    # дата начала
+    start_date = request.GET.get('start_date')
+    if start_date is not None:
+        start_date = start_date.split("-")
+        start_date[0] = int(start_date[0])
+        start_date[1] = int(start_date[1])
+        start_date[2] = int(start_date[2])
+
+    # дата окончания
+    end_date = request.GET.get('end_date')
+    if end_date is not None:
+        end_date = end_date.split("-")
+        end_date[0] = int(end_date[0])
+        end_date[1] = int(end_date[1])
+        end_date[2] = int(end_date[2])
+
+    # дни для вывода
+    delta_days = calendar(s_date=start_date, e_date=end_date, strdate='%Y-%m-%d')
+    # календарь
+    delta_date = calendar(s_date=start_date, e_date=end_date, strdate='%d.%m.%y')
+
+    if group == '':
+        marks = Marks.objects.all().distinct()
+    else:
+        marks = Marks.objects.filter(group=group)
+    marks = marks.filter(items_code__name='ПП.01.02. Прикладное программирование')
+    mark_filter = MarksFilter(request.GET, queryset=marks)
+    marks = mark_filter.qs
+
+    # for nari in nariad:
+    #     summa_used_material += nari.used_materials
+
+    context = {"mark_filter": mark_filter, "marks": marks,
+               "delta_days": delta_days, "delta_date": delta_date, }
+    return render(request, 'admin-items/pp0201/marks/pp0201_marks_list-filtred.html', context)
 
 
 @login_required(login_url='login')
@@ -717,7 +806,7 @@ def trpo_download_lecture(request, pk):
 class TrpoDeleteLectureView(DeleteView):
     model = TrpoLectures
     slug_field = 'id'
-    template_name = 'admin-items/trpo/lecture_delete.html'
+    template_name = 'admin-items/lecture_delete.html'
     success_url = '/administrator'
 
 
@@ -729,12 +818,26 @@ def trpo_download_practice(request, pk):
     return response
 
 
+class TrpoDeletePracticeView(DeleteView):
+    model = TrpoPractices
+    slug_field = 'id'
+    template_name = 'admin-items/practice_delete.html'
+    success_url = '/administrator'
+
+
 @login_required(login_url='login')
 def pp0201_download_lecture(request, pk):
     obj = PP0201Lectures.objects.get(id=pk)
     filename = obj.file.path
     response = FileResponse(open(filename, 'rb'))
     return response
+
+
+class PP0201DeleteLectureView(DeleteView):
+    model = PP0201Lectures
+    slug_field = 'id'
+    template_name = 'admin-items/lecture_delete.html'
+    success_url = '/administrator'
 
 
 @login_required(login_url='login')
@@ -745,6 +848,13 @@ def pp0201_download_practice(request, pk):
     return response
 
 
+class PP0201DeletePracticeView(DeleteView):
+    model = PP0201Practices
+    slug_field = 'id'
+    template_name = 'admin-items/practice_delete.html'
+    success_url = '/administrator'
+
+
 @login_required(login_url='login')
 def pp0102_download_lecture(request, pk):
     obj = PP0102Lectures.objects.get(id=pk)
@@ -753,12 +863,26 @@ def pp0102_download_lecture(request, pk):
     return response
 
 
+class PP0102DeleteLectureView(DeleteView):
+    model = PP0102Lectures
+    slug_field = 'id'
+    template_name = 'admin-items/lecture_delete.html'
+    success_url = '/administrator'
+
+
 @login_required(login_url='login')
 def pp0102_download_practice(request, pk):
     obj = PP0102Practices.objects.get(id=pk)
     filename = obj.file.path
     response = FileResponse(open(filename, 'rb'))
     return response
+
+
+class PP0102DeletePracticeView(DeleteView):
+    model = PP0102Practices
+    slug_field = 'id'
+    template_name = 'admin-items/practice_delete.html'
+    success_url = '/administrator'
 
 
 def resurces_view(request):
