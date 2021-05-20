@@ -2,7 +2,7 @@
 {% load poll_extras %}
 
 {% block content %}
-    <a href="{% url 'admin-trpo_students_marks_create' %}"> Создать новую оценку</a>
+    <a href="{% url 'admin-trpo_students_marks_create' %}" class="btn btn-primary"> Создать новую оценку</a>
 
     <form action="{% url 'admin-trpo-filtred_students_marks' %}" method="get">
         {% csrf_token %}
@@ -10,7 +10,7 @@
         <button type="submit">Поиск</button>
     </form>
 
-    <table border="1px" id="id_students_list" class="table table-responsive">
+    <table id="id_students_list" class="table table-responsive">
         <thead class="thead-dark">
         <tr>
             <th>#</th>
@@ -47,10 +47,8 @@
     </table>
 
     <script>
-    let id_start_date = document.getElementById('id_start_date');
-    id_start_date.required = true;
-    let id_end_date = document.getElementById('id_end_date');
-    id_start_date.required = true;
+    let id_start_date = document.getElementById('id_start_date');id_start_date.required = true;
+    let id_end_date = document.getElementById('id_end_date');id_start_date.required = true;
     id_group = document.getElementById('id_group');
 
     </script>

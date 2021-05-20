@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <a href="{% url 'admin-trpo_students_marks_create' %}"> Создать новую оценку</a>
+    <a href="{% url 'admin-trpo_students_marks_create' %}" class="btn btn-primary">Создать новую оценку</a>
 
     <input id="btn-search" type="button" value="Поиск по дате" onclick="change_btn_search()">
 
@@ -25,7 +25,7 @@
         </form>
     </div>
 
-    <table border="1px" id="id_students_list" class="table table-responsive">
+    <table id="id_students_list" class="table table-responsive">
         <thead class="thead-dark">
         <tr>
             <th>#</th>
@@ -106,5 +106,8 @@
     id_start_date.required = true;
     let id_end_date = document.getElementById('id_end_date');
     id_start_date.required = true;
+    let id_groupid_group = document.getElementById('id_group');
+    id_group.required = true;
+
     </script>
 {% endblock %}

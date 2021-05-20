@@ -1,18 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-
+    <div class="row justify-content-center">
+    <div class="col-lg-4">
     <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-        Название предмета: {{ form.items_code }}
+        <div hidden>Название предмета: {{ form.items_code }}</div>
         Название практики: {{ form.name }} <br>
         Файл практики: {{ form.file }} <br>
         Дата: {{ form.date }} <br>
     <span>{{ error }}</span>
     <button type="submit" class="btn btn-success">Подтвердить</button>
     </form>
-
+    </div>
+    </div>
 
     <script>
+        let id_name = document.getElementById('id_name'); id_name.className = 'form-control';
+        let id_file = document.getElementById('id_file'); id_file.className = 'form-control';
+        let id_date = document.getElementById('id_date'); id_date.className = 'form-control';
+
     //Скрытый <select> для редактирования календаря
     let items_code = document.getElementById("id_items_code");
     for(i=0; i<items_code.options.length; i++){
