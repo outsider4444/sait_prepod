@@ -1,22 +1,63 @@
 {% extends 'admin-items/base.html' %}
 
     {% block items %}
-            <div style="text-align: center">
+        <style>
+            .pressed-button {
+                text-decoration: none;
+                display: inline-block;
+                padding: 12px 40px;
+                margin: 10px 20px;
+                border-radius: 30px;
+                background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
+                background-position: 100% 0;
+                background-size: 200% 200%;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 1rem;
+                font-weight: 300;
+                color: white;
+                box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
+                transition: .5s;
+            }
+            .pressed-button:hover {
+                box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
+                background-position: 0 0;
+            }
+        </style>
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="justify-content-center" style="margin-top: 20px">
                 <a href="{% url 'admin-trpo-lecture' %}" class="btn btn-success btn-lg">Лекции</a>
                 <a href="{% url 'admin-trpo-practice' %}" class="btn btn-success btn-lg">Практики</a>
             </div>
-        <a href="{% url 'admin-trpo_new_lecture' %}" class="btn btn-info">Создать новую лекцию</a>
-        <a href="{% url 'admin-trpo_students_marks' %}" class="btn btn-info">Просмотреть оценки</a>
+        </div>
 
-<div style="text-align: center">
-        <table border="1px">
-        {% for lec in lectures %}
-            <tr>
-                <td><a href="{{ lec.id }}_download">{{ lec.name }}</a></td>
-                <td>Дата: {{ lec.date }}</td>
-                <td><a href="{{ lec.id }}">Удалить</a></td>
-            </tr>
-            {% endfor %}
-        </table>
-</div>
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="justify-content-center" style="margin-top: 20px">
+                <a href="{% url 'admin-trpo_new_lecture' %}" class="pressed-button">Создать новую лекцию</a>
+                <a href="{% url 'admin-trpo_students_marks' %}" class="pressed-button">Просмотреть оценки</a>
+            </div>
+        </div>
+
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="justify-content-center" style="margin-top: 20px">
+                <table class="table table-responsive">
+                    <thead class="thead-dark">
+                    <th>Название лекции</th>
+                    <th>Дата создания</th>
+                    <th>Удалить</th>
+                    </thead>
+                    <tbody>
+                    {% for lec in lectures %}
+                        <tr>
+                            <td><a href="{{ lec.id }}_download">{{ lec.name }}</a></td>
+                            <td>Дата: {{ lec.date }}</td>
+                            <td><a href="{{ lec.id }}">Удалить</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
     {% endblock items %}

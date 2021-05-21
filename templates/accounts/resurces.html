@@ -1,57 +1,114 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div style="color: grey; float: left;">
-    <a href="https://fipi.ru/"> <img src="../../media/links/fipi.jpg" id="fipi"></a>
-    <a href="https://www.lbz.ru/metodist/iumk/informatics/er.php"> <img src="../../media/links/binom.jpg" id="" ></a></a>
-    <a href="https://college.ru/informatika/index.html"> <img src="../../media/links/college_ru.jpg" id="" ></a></a>
-    <a href="https://inf.1sept.ru/"> <img src="../../media/links/informatikA.jpg" id="" ></a></a>
-    <a href="https://interneturok.ru/"> <img src="../../media/links/internetUrok.jpg" id="interneturok" ></a></a>
-    <a href="http://www.klyaksa.net/"> <img src="../../media/links/klaksa.jpg" id="" ></a></a>
-    <a href="http://school-collection.edu.ru/"> <img src="../../media/links/obraz_resurces.jpg" id=""> </a></a>
-    <a href="https://urok.1sept.ru/информатика"> <img src="../../media/links/openUrok.jpg" id="" ></a></a>
-    <a href="http://pascalabc.net/"> <img src="../../media/links/paskalABC.jpg" id="" ></a></a>
-    <a href="https://pedsovet.org/"> <img src="../../media/links/Pedsovet.jpg" id="pedsovet" ></a></a>
+    <div class="row justify-content-center">
+        <div class="col-lg-4">
+            <table class="table">
+                <thead class="thead-dark">
+                <th>Название</th>
+                <th>Ссылка</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Сайт ФИПИ</td>
+                    <td><a href="https://fipi.ru/">https://fipi.ru/</a></td>
+                </tr>
+                <tr>
+                    <td>Бином: Электронные ресурсы по информатике</td>
+                    <td><a href="https://www.lbz.ru/metodist/iumk/informatics/er.php">https://www.lbz.ru/metodist/iumk/informatics/er.php</a></td>
+                </tr>
+                <tr>
+                    <td>Подготовка к ЕГЭ по информатике</td>
+                    <td><a href="https://college.ru/informatika/index.html">https://college.ru/informatika/index.html</a></td>
+                </tr>
+                <tr>
+                    <td>Журнал "Информатика"</td>
+                    <td><a href="https://inf.1sept.ru/">https://inf.1sept.ru/</a></td>
+                </tr>
+                <tr>
+                    <td>Библиотека видеоуроков по школьной программе InternetUrok.ru</td>
+                    <td><a href="https://interneturok.ru/">https://interneturok.ru/</a></td>
+                </tr>
+                <tr>
+                    <td>Клякс@.net</td>
+                    <td><a href="http://www.klyaksa.net/">http://www.klyaksa.net/</a></td>
+                </tr>
+                <tr>
+                    <td>ЕДИНАЯ КОЛЛЕКЦИЯ ЦИФРОВЫХ ОБРАЗОВАТЕЛЬНЫХ РЕСУРСОВ</td>
+                    <td><a href="http://school-collection.edu.ru/">http://school-collection.edu.ru/</a></td>
+                </tr>
+                <tr>
+                    <td>Открытый урок: Первое сентября</td>
+                    <td><a href="https://urok.1sept.ru/информатика">https://urok.1sept.ru/информатика</a></td>
+                </tr>
+                <tr>
+                    <td>Система программирования PascalABC.NET</td>
+                    <td><a href="http://pascalabc.net/">http://pascalabc.net/</a></td>
+                </tr>
+                <tr>
+                    <td>Педсовет: Новости образования, педагогика, практика и методика улучшения педагогов</td>
+                    <td><a href="https://pedsovet.org/">https://pedsovet.org/</a></td>
+                </tr>
+                <tr>
+                    <td>Бесплатные видеоуроки и другие полезные материалы для учителей</td>
+                    <td><a href="https://videouroki.net/blog/">https://videouroki.net/blog/</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{#<div style="color: grey; float: left;">#}
+{#    <a href="https://fipi.ru/"> <img src="../../media/links/fipi.jpg" id="fipi"></a>#}
+{#    <a href="https://www.lbz.ru/metodist/iumk/informatics/er.php"> <img src="../../media/links/binom.jpg" id="" ></a></a>#}
+{#    <a href="https://college.ru/informatika/index.html"> <img src="../../media/links/college_ru.jpg" id="" ></a></a>#}
+{#    <a href="https://inf.1sept.ru/"> <img src="../../media/links/informatikA.jpg" id="" ></a></a>#}
+{#    <a href="https://interneturok.ru/"> <img src="../../media/links/internetUrok.jpg" id="interneturok" ></a></a>#}
+{#    <a href="http://www.klyaksa.net/"> <img src="../../media/links/klaksa.jpg" id="" ></a></a>#}
+{#    <a href="http://school-collection.edu.ru/"> <img src="../../media/links/obraz_resurces.jpg" id=""> </a></a>#}
+{#    <a href="https://urok.1sept.ru/информатика"> <img src="../../media/links/openUrok.jpg" id="" ></a></a>#}
+{#    <a href="http://pascalabc.net/"> <img src="../../media/links/paskalABC.jpg" id="" ></a></a>#}
+{#    <a href="https://pedsovet.org/"> <img src="../../media/links/Pedsovet.jpg" id="pedsovet" ></a></a>#}
     <a href="https://videouroki.net/blog/"> <img src="../../media/links/videouroki.jpg" id="videouroki" ></a></a>
-
-    <style>
-        @media(min-width: 320px){
-            #fipi{
-                width: 200px;
-                height: 150px;
-            }
-            #interneturok{
-                height: 100px;
-                width: 300px;
-            }
-            #videouroki{
-                height: 100px;
-                width: 200px;
-            }
-        }
-
-        @media(min-width: 160px){
-            img{
-                margin-left: 20px;
-            }
-            #fipi{
-                width: 300px;
-                height: 150px;
-            }
-            #pedsovet{
-                width: 200px;
-                height: 200px;
-            }
-            #videouroki{
-                height: 100px;
-                width: 400px;
-            }
-            #interneturok{
-                height: 100px;
-                width: 400px;
-            }
-        }
-
-    </style>
-</div>
+{##}
+{#    <style>#}
+{#        @media(min-width: 320px){#}
+{#            #fipi{#}
+{#                width: 200px;#}
+{#                height: 150px;#}
+{#            }#}
+{#            #interneturok{#}
+{#                height: 100px;#}
+{#                width: 300px;#}
+{#            }#}
+{#            #videouroki{#}
+{#                height: 100px;#}
+{#                width: 200px;#}
+{#            }#}
+{#        }#}
+{##}
+{#        @media(min-width: 160px){#}
+{#            img{#}
+{#                margin-left: 20px;#}
+{#            }#}
+{#            #fipi{#}
+{#                width: 300px;#}
+{#                height: 150px;#}
+{#            }#}
+{#            #pedsovet{#}
+{#                width: 200px;#}
+{#                height: 200px;#}
+{#            }#}
+{#            #videouroki{#}
+{#                height: 100px;#}
+{#                width: 400px;#}
+{#            }#}
+{#            #interneturok{#}
+{#                height: 100px;#}
+{#                width: 400px;#}
+{#            }#}
+{#        }#}
+{##}
+{#    </style>#}
+{#</div>#}
 {% endblock %}
