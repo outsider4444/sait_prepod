@@ -33,6 +33,16 @@
                     </td>
                 {% endfor %}
             </tr>
+            <tr>
+                <td>Средний балл</td>
+                <td>
+                    {% for key, values in dic_sr_ball.items %}
+                        {% if key == stud.id %}
+                            {{ values }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
         {% endfor %}
 {#        <tr><td>Комментарий</td>{% for days in delta_days %}#}
 {#            <td>#}

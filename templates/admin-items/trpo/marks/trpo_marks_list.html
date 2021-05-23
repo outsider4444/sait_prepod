@@ -56,7 +56,7 @@
                     <td>Средний балл</td>
                     <td>
                         {% for key, values in dic_sr_ball.items %}
-                            {% if key == stud %}
+                            {% if key == stud.id %}
                                 {{ values }}
                             {% endif %}
                         {% endfor %}

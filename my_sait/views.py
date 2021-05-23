@@ -284,7 +284,7 @@ def admin_trpo_marks_list(request):
             sr_ball = mark_val / delete_val
         print(f'{student}. Сумма:{mark_val}')
         print(f'{student}. Ср. балл :{sr_ball}')
-        dic_sr_ball[student] = sr_ball
+        dic_sr_ball[student.id] = sr_ball
         delete_val = 0
         mark_val = 0
         sr_ball = 0
@@ -323,10 +323,31 @@ def load_trpo_marks_list(request):
         Q(date__year=date_year)
     ).order_by('date')
 
-    marks = marks.filter(group__id=id_group)
+    marks = marks.filter(group__code=id_group)
+
+    mark_val = 0
+    delete_val = 0
+    sr_ball = 0
+    dic_sr_ball = {}
+
+    for student in students:
+        for mark in marks:
+            if mark.users_code == student:
+                mark_val += mark.mark
+                delete_val += 1
+        if delete_val != 0:
+            sr_ball = mark_val / delete_val
+        print(f'{student}. Сумма:{mark_val}')
+        print(f'{student}. Ср. балл :{sr_ball}')
+        dic_sr_ball[student.id] = sr_ball
+        delete_val = 0
+        mark_val = 0
+        sr_ball = 0
+
+    print(dic_sr_ball)
 
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days}
+               "date_days ": date_days, "dic_sr_ball": dic_sr_ball}
 
     return render(request, 'admin-items/AJAX_student_table_list_options.html', context)
 
@@ -336,6 +357,9 @@ def TRPOMarksCalendar(request):
     """ОЦЕНКИ по календарю"""
     # summa_used_material = 0
     group = request.GET.get('group')
+
+    students = UserProfile.objects.filter(groups=2)
+    students = students.filter(group__code=group)
 
     # дата начала
     start_date = request.GET.get('start_date')
@@ -363,11 +387,27 @@ def TRPOMarksCalendar(request):
     mark_filter = MarksFilter(request.GET, queryset=marks)
     marks = mark_filter.qs
 
-    # for nari in nariad:
-    #     summa_used_material += nari.used_materials
+    mark_val = 0
+    delete_val = 0
+    sr_ball = 0
+    dic_sr_ball = {}
+
+    for student in students:
+        for mark in marks:
+            if mark.users_code == student:
+                mark_val += mark.mark
+                delete_val += 1
+        if delete_val != 0:
+            sr_ball = mark_val / delete_val
+        print(f'{student}. Сумма:{mark_val}')
+        print(f'{student}. Ср. балл :{sr_ball}')
+        dic_sr_ball[student.id] = sr_ball
+        delete_val = 0
+        mark_val = 0
+        sr_ball = 0
 
     context = {"mark_filter": mark_filter, "marks": marks,
-               "delta_days": delta_days, "delta_date": delta_date, }
+               "delta_days": delta_days, "delta_date": delta_date, "dic_sr_ball": dic_sr_ball}
     return render(request, 'admin-items/trpo/marks/trpo_marks_list-filtred.html', context)
 
 
