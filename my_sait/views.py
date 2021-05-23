@@ -251,7 +251,7 @@ def admin_pp0102_New_practice(request):
 def admin_trpo_marks_list(request):
     """Оценки за ТРПО"""
     marks = Marks.objects.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
-    students = UserProfile.objects.filter(groups=2)
+    students = UserProfile.objects.all()
     # получение всех дат текущего месяца
     delta_date = days_cur_month(strdate='%d.%m.%y')
     # месяц
@@ -301,6 +301,8 @@ def load_trpo_marks_list(request):
         Q(date__month=date_month) &
         Q(date__year=date_year)
     ).order_by('date')
+
+    marks = marks.filter(group__id=id_group)
 
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
                "date_days ": date_days}

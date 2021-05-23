@@ -63,7 +63,7 @@ class Marks(models.Model):
                               on_delete=models.CASCADE)
     users_code = models.ForeignKey(UserProfile, verbose_name="Код пользователя", on_delete=models.CASCADE)
     mark = models.IntegerField('Оценка')
-    comment = models.CharField('Комментарий', max_length=250)
+    comment = models.CharField('Комментарий', max_length=250, blank=True, null=True)
 
     def __str__(self):
         return str(self.date)
