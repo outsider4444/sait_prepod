@@ -270,10 +270,31 @@ def admin_trpo_marks_list(request):
         Q(date__year=date_year)
                          ).order_by('date')
 
+    mark_val = 0
+    delete_val = 0
+    sr_ball = 0
+    dic_sr_ball = {}
+
+    for student in students:
+        for mark in marks:
+            if mark.users_code == student:
+                mark_val += mark.mark
+                delete_val += 1
+        if delete_val != 0:
+            sr_ball = mark_val / delete_val
+        print(f'{student}. Сумма:{mark_val}')
+        print(f'{student}. Ср. балл :{sr_ball}')
+        dic_sr_ball[student] = sr_ball
+        delete_val = 0
+        mark_val = 0
+        sr_ball = 0
+
+    print(dic_sr_ball)
+
     mark_filter = MarksFilter(request.GET, queryset=marks)
 
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days, "mark_filter": mark_filter, "date_month": date_month}
+               "date_days ": date_days, "mark_filter": mark_filter, "date_month": date_month, "dic_sr_ball": dic_sr_ball}
     return render(request, 'admin-items/trpo/marks/trpo_marks_list.html', context)
 
 
