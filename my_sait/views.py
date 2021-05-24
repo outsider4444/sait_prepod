@@ -355,11 +355,10 @@ def load_trpo_marks_list(request):
 # Оценки по КАЛЕНДАРЮ
 def TRPOMarksCalendar(request):
     """ОЦЕНКИ по календарю"""
-    # summa_used_material = 0
     group = request.GET.get('group')
 
     students = UserProfile.objects.filter(groups=2)
-    students = students.filter(group__code=group)
+    students = students.filter(group__id=group)
 
     # дата начала
     start_date = request.GET.get('start_date')
@@ -387,20 +386,24 @@ def TRPOMarksCalendar(request):
     mark_filter = MarksFilter(request.GET, queryset=marks)
     marks = mark_filter.qs
 
+    student_marks = Marks.objects.filter(group=group)
+    student_marks = student_marks.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
+
     mark_val = 0
     delete_val = 0
     sr_ball = 0
     dic_sr_ball = {}
-
     for student in students:
         for mark in marks:
-            if mark.users_code == student:
-                mark_val += mark.mark
-                delete_val += 1
-        if delete_val != 0:
-            sr_ball = mark_val / delete_val
-        print(f'{student}. Сумма:{mark_val}')
-        print(f'{student}. Ср. балл :{sr_ball}')
+            for student_mark in student_marks:
+                if student_mark.users_code.id == student.id:
+                    if mark.date == student_mark.date:
+                        mark_val += mark.mark
+                        delete_val += 1
+            if delete_val != 0:
+                sr_ball = mark_val / delete_val
+                print(f'{student}. Сумма:{mark_val}')
+                print(f'{student}. Ср. балл :{sr_ball}')
         dic_sr_ball[student.id] = sr_ball
         delete_val = 0
         mark_val = 0
@@ -414,6 +417,7 @@ def TRPOMarksCalendar(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def admin_trpo_marks_create(request):
+    """Новая оценка ТРПО"""
     item = Items.objects.get(name='МДК.02.01. Технология разработки программного обеспечения')
     form = CreateMarksForm()
     error = ""
@@ -442,7 +446,8 @@ def load_group(request):
 def admin_pp0201_marks_list(request):
     """Оценки за ПП0201"""
     marks = Marks.objects.filter(items_code__name='ПП.02.01. Прикладное программирование')
-    students = UserProfile.objects.filter(groups=2)
+
+    students = UserProfile.objects.all()
     # получение всех дат текущего месяца
     delta_date = days_cur_month(strdate='%d.%m.%y')
     # месяц
@@ -456,22 +461,40 @@ def admin_pp0201_marks_list(request):
     while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
-    marks.filter(
+    marks = marks.filter(
         Q(date__month=date_month) &
         Q(date__year=date_year)
-    ).order_by('date').distinct()
+    ).order_by('date')
+
+    mark_val = 0
+    delete_val = 0
+    sr_ball = 0
+    dic_sr_ball = {}
+
+    for student in students:
+        for mark in marks:
+            if mark.users_code == student:
+                mark_val += mark.mark
+                delete_val += 1
+        if delete_val != 0:
+            sr_ball = mark_val / delete_val
+        dic_sr_ball[student.id] = sr_ball
+        delete_val = 0
+        mark_val = 0
+        sr_ball = 0
 
     mark_filter = MarksFilter(request.GET, queryset=marks)
 
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days, "mark_filter":mark_filter}
+               "date_days ": date_days, "mark_filter": mark_filter, "date_month": date_month,
+               "dic_sr_ball": dic_sr_ball}
     return render(request, 'admin-items/pp0201/marks/pp0201_marks_list.html', context)
 
 
 # AJAX ПП0201 для вывода студентов группы
 def load_pp0201_marks_list(request):
-    id_group = request.GET.get('id_group')
 
+    id_group = request.GET.get('id_group')
     marks = Marks.objects.filter(items_code__name='ПП.02.01. Прикладное программирование')
     students = UserProfile.objects.filter(groups=2)
     students = students.filter(group__code=id_group)
@@ -488,22 +511,45 @@ def load_pp0201_marks_list(request):
     while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
-    marks.filter(
+    marks = marks.filter(
         Q(date__month=date_month) &
         Q(date__year=date_year)
-    ).order_by('date').distinct()
+    ).order_by('date')
+
+    marks = marks.filter(group__code=id_group)
+
+    mark_val = 0
+    delete_val = 0
+    sr_ball = 0
+    dic_sr_ball = {}
+
+    for student in students:
+        for mark in marks:
+            if mark.users_code == student:
+                mark_val += mark.mark
+                delete_val += 1
+        if delete_val != 0:
+            sr_ball = mark_val / delete_val
+        print(f'{student}. Сумма:{mark_val}')
+        print(f'{student}. Ср. балл :{sr_ball}')
+        dic_sr_ball[student.id] = sr_ball
+        delete_val = 0
+        mark_val = 0
+        sr_ball = 0
+
+    print(dic_sr_ball)
 
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days}
-
+               "date_days ": date_days, "dic_sr_ball": dic_sr_ball}
     return render(request, 'admin-items/AJAX_student_table_list_options.html', context)
 
 
 def PP0201MarksCalendar(request):
     """ОЦЕНКИ по календарю"""
-    # summa_used_material = 0
     group = request.GET.get('group')
-
+    marks = Marks.objects.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
+    students = UserProfile.objects.filter(groups=2)
+    students = students.filter(group__code=group)
     # дата начала
     start_date = request.GET.get('start_date')
     if start_date is not None:
@@ -511,7 +557,6 @@ def PP0201MarksCalendar(request):
         start_date[0] = int(start_date[0])
         start_date[1] = int(start_date[1])
         start_date[2] = int(start_date[2])
-
     # дата окончания
     end_date = request.GET.get('end_date')
     if end_date is not None:
@@ -530,18 +575,38 @@ def PP0201MarksCalendar(request):
     mark_filter = MarksFilter(request.GET, queryset=marks)
     marks = mark_filter.qs
 
-    # for nari in nariad:
-    #     summa_used_material += nari.used_materials
+    student_marks = Marks.objects.filter(group=group)
+    student_marks = student_marks.filter(items_code__name='ПП.02.01. Прикладное программирование')
+
+    mark_val = 0
+    delete_val = 0
+    sr_ball = 0
+    dic_sr_ball = {}
+    for student in students:
+        for mark in marks:
+            for student_mark in student_marks:
+                if student_mark.users_code.id == student.id:
+                    if mark.date == student_mark.date:
+                        mark_val += mark.mark
+                        delete_val += 1
+            if delete_val != 0:
+                sr_ball = mark_val / delete_val
+                print(f'{student}. Сумма:{mark_val}')
+                print(f'{student}. Ср. балл :{sr_ball}')
+        dic_sr_ball[student.id] = sr_ball
+        delete_val = 0
+        mark_val = 0
+        sr_ball = 0
 
     context = {"mark_filter": mark_filter, "marks": marks,
-               "delta_days": delta_days, "delta_date": delta_date, }
+               "delta_days": delta_days, "delta_date": delta_date, "dic_sr_ball": dic_sr_ball}
     return render(request, 'admin-items/pp0201/marks/pp0201_marks_list-filtred.html', context)
 
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def admin_pp0201_marks_create(request):
-    item = Items.objects.get(name='ПП.01.02. Прикладное программирование')
+    item = Items.objects.get(name='ПП.02.01. Прикладное программирование')
     form = CreateMarksForm()
     error = ""
     if request.method == "POST":
@@ -582,8 +647,27 @@ def admin_pp0102_marks_list(request):
         Q(date__year=date_year)
     ).order_by('date').distinct()
 
+    mark_val = 0
+    delete_val = 0
+    sr_ball = 0
+    dic_sr_ball = {}
+
+    for student in students:
+        for mark in marks:
+            if mark.users_code == student:
+                mark_val += mark.mark
+                delete_val += 1
+        if delete_val != 0:
+            sr_ball = mark_val / delete_val
+        print(f'{student}. Сумма:{mark_val}')
+        print(f'{student}. Ср. балл :{sr_ball}')
+        dic_sr_ball[student.id] = sr_ball
+        delete_val = 0
+        mark_val = 0
+        sr_ball = 0
+
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days, "mark_filter": mark_filter}
+               "date_days ": date_days, "mark_filter": mark_filter, "dic_sr_ball": dic_sr_ball}
     return render(request, 'admin-items/pp0102/marks/pp0102_marks_list.html', context)
 
 
@@ -607,24 +691,44 @@ def load_pp0102_marks_list(request):
     while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
-    mark_filter = MarksFilter(request.GET, queryset=marks)
-
-    marks.filter(
+    marks = marks.filter(
         Q(date__month=date_month) &
         Q(date__year=date_year)
-    ).order_by('date').distinct()
+    ).order_by('date')
+
+    marks = marks.filter(group__code=id_group)
+
+    mark_val = 0
+    delete_val = 0
+    sr_ball = 0
+    dic_sr_ball = {}
+
+    for student in students:
+        for mark in marks:
+            if mark.users_code == student:
+                mark_val += mark.mark
+                delete_val += 1
+        if delete_val != 0:
+            sr_ball = mark_val / delete_val
+        print(f'{student}. Сумма:{mark_val}')
+        print(f'{student}. Ср. балл :{sr_ball}')
+        dic_sr_ball[student.id] = sr_ball
+        delete_val = 0
+        mark_val = 0
+        sr_ball = 0
+
+    print(dic_sr_ball)
 
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days, "mark_filter": mark_filter,}
+               "date_days ": date_days, "dic_sr_ball": dic_sr_ball}
 
     return render(request, 'admin-items/AJAX_student_table_list_options.html', context)
 
 
 def PP0102MarksCalendar(request):
     """ОЦЕНКИ по календарю"""
-    # summa_used_material = 0
     group = request.GET.get('group')
-    print(group)
+    students = UserProfile.objects.all()
 
     # дата начала
     start_date = request.GET.get('start_date')
@@ -655,11 +759,29 @@ def PP0102MarksCalendar(request):
     mark_filter = MarksFilter(request.GET, queryset=marks)
     marks = mark_filter.qs
 
-    # for nari in nariad:
-    #     summa_used_material += nari.used_materials
+    student_marks = Marks.objects.filter(group=group)
+    student_marks = student_marks.filter(items_code__name='ПП.01.02. Прикладное программирование')
+
+    mark_val = 0
+    delete_val = 0
+    sr_ball = 0
+    dic_sr_ball = {}
+    for student in students:
+        for mark in marks:
+            for student_mark in student_marks:
+                if student_mark.users_code.id == student.id:
+                    if mark.date == student_mark.date:
+                        mark_val += mark.mark
+                        delete_val += 1
+            if delete_val != 0:
+                sr_ball = mark_val / delete_val
+        dic_sr_ball[student.id] = sr_ball
+        delete_val = 0
+        mark_val = 0
+        sr_ball = 0
 
     context = {"mark_filter": mark_filter, "marks": marks,
-               "delta_days": delta_days, "delta_date": delta_date, }
+               "delta_days": delta_days, "delta_date": delta_date, "dic_sr_ball": dic_sr_ball }
     return render(request, 'admin-items/pp0201/marks/pp0201_marks_list-filtred.html', context)
 
 
