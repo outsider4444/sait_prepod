@@ -17,6 +17,8 @@ from .filter import MarksFilter
 from .forms import *
 from .models import *
 
+locale.setlocale(locale.LC_ALL, ('RU', 'UTF8'))
+
 
 # Текущий месяц и его даты
 def days_cur_month(strdate):
@@ -268,7 +270,7 @@ def admin_trpo_marks_list(request):
     marks = marks.filter(
         Q(date__month=date_month) &
         Q(date__year=date_year)
-                         ).order_by('date')
+    ).order_by('date')
 
     mark_val = 0
     delete_val = 0
@@ -294,7 +296,8 @@ def admin_trpo_marks_list(request):
     mark_filter = MarksFilter(request.GET, queryset=marks)
 
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days, "mark_filter": mark_filter, "date_month": date_month, "dic_sr_ball": dic_sr_ball}
+               "date_days ": date_days, "mark_filter": mark_filter, "date_month": date_month,
+               "dic_sr_ball": dic_sr_ball}
     return render(request, 'admin-items/trpo/marks/trpo_marks_list.html', context)
 
 
@@ -493,7 +496,6 @@ def admin_pp0201_marks_list(request):
 
 # AJAX ПП0201 для вывода студентов группы
 def load_pp0201_marks_list(request):
-
     id_group = request.GET.get('id_group')
     marks = Marks.objects.filter(items_code__name='ПП.02.01. Прикладное программирование')
     students = UserProfile.objects.filter(groups=2)
@@ -781,7 +783,7 @@ def PP0102MarksCalendar(request):
         sr_ball = 0
 
     context = {"mark_filter": mark_filter, "marks": marks,
-               "delta_days": delta_days, "delta_date": delta_date, "dic_sr_ball": dic_sr_ball }
+               "delta_days": delta_days, "delta_date": delta_date, "dic_sr_ball": dic_sr_ball}
     return render(request, 'admin-items/pp0201/marks/pp0201_marks_list-filtred.html', context)
 
 

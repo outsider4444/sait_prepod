@@ -3,21 +3,13 @@
 <html lang="ru">
 <head>
     <link rel="shortcut icon" href="../media/logo.png" type="image/x-icon">
-    <!-- //Meta tag Keywords -->
     <title>{% block title %}  {% endblock title %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- //Meta tag Keywords -->
-    <!-- Custom-Files -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <!-- Bootstrap-Core-CSS -->
-    <!--/ Style-CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all">
-    <!--// Style-CSS -->
-    <!-- font-awesome-icons -->
     <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
-    <!-- //font-awesome-icons -->
-    <!-- /Fonts -->
+    <link rel="stylesheet" href="{% static 'css/buttons-styles.css' %}" type="text/css" media="all">
     <link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700"
           rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900"
@@ -27,12 +19,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
-    <!-- //Fonts -->
 </head>
 <body>
 <nav class="navbar navbar-expand-sm fixed-top navbar-dark bg-dark" style="z-index: 3">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler " style="background-color: #343a40; border: 0" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-bars" style="display: block; color: white"></i>
     </button>
     {% if request.user.is_staff %}
         <a class="navbar-brand" href="{% url 'admin-main_page' %}">Сайт преподавателя</a>
@@ -51,6 +42,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'admin-about-prepod' %}">О преподавателе</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin-about-prepod' %}">Справка</a>
+                </li>
             {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'user-page' %}">Предметы</a>
@@ -60,6 +54,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'user-about-prepod' %}">О преподавателе</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user-about-prepod' %}">Справка</a>
                 </li>
             {% endif %}
         </ul>
@@ -71,11 +68,8 @@
                         <i class="fa fa-user"></i> {{ request.user.name }} </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
                         {% if request.user.is_staff %}
-                            <a class="dropdown-item" href="{% url 'admin:index' %}">Справка</a>
                             <a class="dropdown-item" href="{% url 'admin:index' %}">Панель администратора</a>
                             <a class="dropdown-item" href="{% url 'register' %}">Зарегистрировать</a>
-                            {% else %}
-                            <a class="dropdown-item" href="{% url 'admin:index' %}">Справка</a>
                         {% endif %}
                         <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
                     </div>
@@ -91,7 +85,6 @@
     {% endblock content %}
 </div>
 
-
 {% include 'accounts/footer.html' %}
 </body>
 <script src="{% static 'js/scripts.js' %}"></script>
@@ -103,20 +96,16 @@
     #particles-js{
         position: fixed;
         z-index: 1;
-        left:0;
-        top:0;
         width: 100%;
     {#background: linear-gradient(90deg,#F24645  ,#4F00BC );#}
         background-color: black;
     }
     .count-particles{
-        max-width: 800px;
+        {#max-width: 800px;#}
         box-sizing: border-box;
         position: relative;
         z-index: 2;
         margin: 50px auto;
-        text-align:center;
-        font-size: 29px;
 
     }
 
@@ -259,4 +248,9 @@
     };
     requestAnimationFrame(update);
 </script>
+<style>
+    tbody{
+        color: white;
+    }
+</style>
 </html>
