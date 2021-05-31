@@ -3,6 +3,9 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
+    # Фильтр оценок студентов
+    path('user/trpo_lectures_list/marks/filtred', views.user_pp0201_marks_filter, name="user-trpo-marks-filter"),
+
     # Оценки студентов
     path('user/trpo_lectures_list/marks', views.user_trpo_marks_list, name="user-trpo-marks"),
     path('user/pp0201_lectures_list/marks', views.user_pp0201_marks_list, name="user-pp0201-marks"),
@@ -91,10 +94,12 @@ urlpatterns = [
 
 
     path('user/resurces', views.resurces_view, name="user-resurces"),
+    path("user/help_page", views.show_help_page, name="user-help_page"),
     path('user/about-prepod', views.about, name="user-about-prepod"),
     path('user/', views.userPage, name='user-page'),
 
     path('administrator/resurces', views.resurces_view, name="admin-resurces"),
+    path("administrator/help_page", views.show_help_page, name="admin-help_page"),
     path("administrator/about-prepod", views.about, name="admin-about-prepod"),
     path("administrator/", views.admin_main_page, name="admin-main_page"),
 
