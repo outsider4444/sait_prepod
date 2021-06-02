@@ -4,7 +4,9 @@ from . import views
 
 urlpatterns = [
     # Фильтр оценок студентов
-    path('user/trpo_lectures_list/marks/filtred', views.user_pp0201_marks_filter, name="user-trpo-marks-filter"),
+    path('user/trpo_lectures_list/marks/filtred', views.user_trpo_marks_filter, name="user-trpo-marks-filter"),
+    path('user/pp0201_lectures_list/marks/filtred', views.user_pp0201_marks_filter, name="user-pp0201-marks-filter"),
+    path('user/pp0102_lectures_list/marks/filtred', views.user_pp0102_marks_filter, name="user-pp0102-marks-filter"),
 
     # Оценки студентов
     path('user/trpo_lectures_list/marks', views.user_trpo_marks_list, name="user-trpo-marks"),

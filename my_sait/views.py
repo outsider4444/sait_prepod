@@ -1,4 +1,3 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -18,8 +17,6 @@ from .forms import *
 from .models import *
 
 
-
-
 # Текущий месяц и его даты
 def days_cur_month(strdate):
     locale.setlocale(locale.LC_ALL, ('RU', 'UTF8'))
@@ -37,7 +34,6 @@ def days_cur_month(strdate):
 # Календарь
 def calendar(s_date, e_date, strdate):
     locale.setlocale(locale.LC_ALL, ('RU', 'UTF8'))
-    locale.setlocale(locale.LC_ALL, "")
     start_date = datetime(s_date[0], s_date[1], s_date[2])
     end_date = datetime(e_date[0], e_date[1], e_date[2])
 
@@ -423,7 +419,7 @@ def TRPOMarksCalendar(request):
 
     context = {"mark_filter": mark_filter, "marks": marks,
                "delta_days": delta_days, "delta_date": delta_date, "dic_sr_ball": dic_sr_ball,
-               "new_start_date": new_start_date, "new_end_date": new_end_date,}
+               "new_start_date": new_start_date, "new_end_date": new_end_date, }
     return render(request, 'admin-items/trpo/marks/trpo_marks_list-filtred.html', context)
 
 
@@ -745,19 +741,17 @@ def PP0102MarksCalendar(request):
 
     # дата начала
     start_date = request.GET.get('start_date')
-    if start_date is not None:
-        start_date = start_date.split("-")
-        start_date[0] = int(start_date[0])
-        start_date[1] = int(start_date[1])
-        start_date[2] = int(start_date[2])
+    start_date = start_date.split("-")
+    start_date[0] = int(start_date[0])
+    start_date[1] = int(start_date[1])
+    start_date[2] = int(start_date[2])
 
     # дата окончания
     end_date = request.GET.get('end_date')
-    if end_date is not None:
-        end_date = end_date.split("-")
-        end_date[0] = int(end_date[0])
-        end_date[1] = int(end_date[1])
-        end_date[2] = int(end_date[2])
+    end_date = end_date.split("-")
+    end_date[0] = int(end_date[0])
+    end_date[1] = int(end_date[1])
+    end_date[2] = int(end_date[2])
 
     # дни для вывода
     delta_days = calendar(s_date=start_date, e_date=end_date, strdate='%Y-%m-%d')
@@ -898,6 +892,57 @@ def user_trpo_marks_list(request):
     return render(request, 'accounts/student/items/trpo/marks/marks_list.html', context)
 
 
+# Студенты оценки по календарю
+def user_trpo_marks_filter(request):
+    """ОЦЕНКИ по календарю"""
+    user = UserProfile.objects.get(email=request.user.email)
+    marks = Marks.objects.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
+    # дата начала
+    start_date = request.GET.get('start_date')
+    start_date = start_date.split("-")
+    start_date[0] = int(start_date[0])
+    start_date[1] = int(start_date[1])
+    start_date[2] = int(start_date[2])
+    # дата окончания
+    end_date = request.GET.get('end_date')
+    end_date = end_date.split("-")
+    end_date[0] = int(end_date[0])
+    end_date[1] = int(end_date[1])
+    end_date[2] = int(end_date[2])
+
+    # дни для вывода
+    delta_days = calendar(s_date=start_date, e_date=end_date, strdate='%Y-%m-%d')
+    # календарь
+    delta_date = calendar(s_date=start_date, e_date=end_date, strdate='%d.%m.%y')
+
+    marks = Marks.objects.filter(users_code=user)
+    marks = marks.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
+    mark_filter = UserMarksFilter(request.GET, queryset=marks)
+    marks = mark_filter.qs
+    print(marks)
+
+    student_marks = Marks.objects.filter(users_code=user)
+    student_marks = student_marks.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
+
+    mark_val = 0
+    delete_val = 0
+    sr_ball = 0
+    dic_sr_ball = {}
+
+    for mark in marks:
+        if mark.users_code == user:
+            mark_val += mark.mark
+            delete_val += 1
+        if delete_val != 0:
+            sr_ball = mark_val / delete_val
+        dic_sr_ball[user.id] = sr_ball
+
+    context = {"mark_filter": mark_filter, "marks": marks, "start_date": start_date,
+               "end_date": end_date, "delta_days": delta_days, "delta_date": delta_date, "sr_ball": sr_ball,
+               "dic_sr_ball": dic_sr_ball}
+    return render(request, 'accounts/student/items/trpo/marks/marks_list_filtred.html', context)
+
+
 # ПП.02.01
 
 # Лекции
@@ -961,7 +1006,7 @@ def user_pp0201_marks_list(request):
         dic_sr_ball[user.id] = sr_ball
 
     context = {"marks": marks, "user": user, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days, "sr_ball":sr_ball, "mark_filter":mark_filter}
+               "date_days ": date_days, "sr_ball": sr_ball, "mark_filter": mark_filter}
     return render(request, 'accounts/student/items/pp0201/marks/marks_list.html', context)
 
 
@@ -1010,8 +1055,8 @@ def user_pp0201_marks_filter(request):
             sr_ball = mark_val / delete_val
         dic_sr_ball[user.id] = sr_ball
 
-    context = {"mark_filter": mark_filter, "marks": marks,
-               "delta_days": delta_days, "delta_date": delta_date, "sr_ball":sr_ball, "dic_sr_ball": dic_sr_ball}
+    context = {"mark_filter": mark_filter, "marks": marks,"start_date": start_date, "end_date": end_date,
+               "delta_days": delta_days, "delta_date": delta_date, "sr_ball": sr_ball, "dic_sr_ball": dic_sr_ball}
     return render(request, 'accounts/student/items/pp0201/marks/marks_list_filtred.html', context)
 
 
@@ -1078,6 +1123,57 @@ def user_pp0102_marks_list(request):
     context = {"marks": marks, "user": user, "date_days": date_days, "delta_date": delta_date,
                "date_days ": date_days, "sr_ball": sr_ball}
     return render(request, 'accounts/student/items/pp0102/marks/marks_list.html', context)
+
+
+# Оценки по фильтру
+def user_pp0102_marks_filter(request):
+    """ОЦЕНКИ по календарю"""
+    user = UserProfile.objects.get(email=request.user.email)
+    marks = Marks.objects.filter(items_code__name='ПП.01.02. Прикладное программирование')
+    # дата начала
+    start_date = request.GET.get('start_date')
+    start_date = start_date.split("-")
+    start_date[0] = int(start_date[0])
+    start_date[1] = int(start_date[1])
+    start_date[2] = int(start_date[2])
+    # дата окончания
+    end_date = request.GET.get('end_date')
+    end_date = end_date.split("-")
+    end_date[0] = int(end_date[0])
+    end_date[1] = int(end_date[1])
+    end_date[2] = int(end_date[2])
+
+    # дни для вывода
+    delta_days = calendar(s_date=start_date, e_date=end_date, strdate='%Y-%m-%d')
+    # календарь
+    delta_date = calendar(s_date=start_date, e_date=end_date, strdate='%d.%m.%y')
+
+    marks = Marks.objects.filter(users_code=user)
+    marks = marks.filter(items_code__name='ПП.01.02. Прикладное программирование')
+    mark_filter = UserMarksFilter(request.GET, queryset=marks)
+    marks = mark_filter.qs
+    print(marks)
+
+    student_marks = Marks.objects.filter(users_code=user)
+    student_marks = student_marks.filter(items_code__name='ПП.01.02. Прикладное программирование')
+
+    mark_val = 0
+    delete_val = 0
+    sr_ball = 0
+    dic_sr_ball = {}
+
+    for mark in marks:
+        if mark.users_code == user:
+            mark_val += mark.mark
+            delete_val += 1
+        if delete_val != 0:
+            sr_ball = mark_val / delete_val
+        dic_sr_ball[user.id] = sr_ball
+
+    context = {"mark_filter": mark_filter, "marks": marks,"start_date": start_date, "end_date": end_date,
+               "delta_days": delta_days, "delta_date": delta_date, "sr_ball": sr_ball, "dic_sr_ball": dic_sr_ball}
+    return render(request, 'accounts/student/items/pp0102/marks/marks_list_filtred.html', context)
+
 
 
 # ОБЩЕЕ
