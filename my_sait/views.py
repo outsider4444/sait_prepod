@@ -1175,7 +1175,6 @@ def user_pp0102_marks_filter(request):
     return render(request, 'accounts/student/items/pp0102/marks/marks_list_filtred.html', context)
 
 
-
 # ОБЩЕЕ
 @login_required(login_url='login')
 def about(request):
