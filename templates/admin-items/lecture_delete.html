@@ -1,10 +1,14 @@
 {% extends 'admin-items/base.html' %}
 
 {% block content %}
-    <form method="post" enctype="multipart/form-data" >
-        {% csrf_token %}
-        <h3 >Вы действительно хотите удалить лекцию?</h3>
-        <button type="submit" >Удалить</button>
-    </form>
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <form method="post" enctype="multipart/form-data" style="color: white;">
+                {% csrf_token %}
+                <h3 >Вы действительно хотите удалить лекцию?</h3>
+                <button type="submit" class="pressed-button-pink" >Удалить</button>
+            </form>
+        </div>
+    </div>
 
 {% endblock %}
