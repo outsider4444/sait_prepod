@@ -11,8 +11,8 @@
     </div>
     <a href="{% url 'admin-trpo_students_marks_create' %}" class="pressed-button-blue">Создать новую оценку</a>
 
-    <div id="calendar-search" style="color: white;">
-        <form action="{% url 'admin-trpo-filtred_students_marks' %}" method="get">
+<div id="calendar-search" style="color: white;">
+        <form action="{% url 'user-trpo-marks-filter' %}" method="get">
             {% csrf_token %}
             <div class="form-row" style="width: 100%;">
                 <div class="form-group col-md-4">
@@ -22,10 +22,6 @@
                 <div class="form-group col-md-4">
                     <label for="inputPassword4">Дата меньше или равна:</label>
                     {{ mark_filter.form.end_date }}
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputPassword4">{{ mark_filter.form.group.label }}</label>
-                    {{ mark_filter.form.group }}
                 </div>
                 <button type="submit" class="pressed-button-green">Поиск</button>
             </div>
@@ -80,6 +76,5 @@
         let id_group = document.getElementById('id_group'); id_group.className = 'form-control';id_group.required = true;
         id_group.removeChild(id_group.querySelector('[value="3"]'));
         id_group.removeChild(id_group.querySelector('[value="4"]'));
-
     </script>
 {% endblock %}

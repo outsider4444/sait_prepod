@@ -866,10 +866,15 @@ def user_trpo_marks_list(request):
     while date_days.__len__() != days_cur_month(strdate='%d.%m.%y').__len__():
         del date_days[-1]
 
-    marks.filter(
+    marks = marks.filter(
         Q(date__month=date_month) &
         Q(date__year=date_year)
     ).order_by('date').distinct()
+    print(marks)
+
+    student_marks = Marks.objects.filter(users_code=user)
+    student_marks = student_marks.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
+    mark_filter = UserMarksFilter(request.GET, queryset=marks)
 
     mark_val = 0
     delete_val = 0
@@ -877,22 +882,22 @@ def user_trpo_marks_list(request):
     dic_sr_ball = {}
 
     for mark in marks:
-        if mark.users_code == user:
-            mark_val += mark.mark
-            delete_val += 1
-    if delete_val != 0:
-        sr_ball = mark_val / delete_val
-    dic_sr_ball[user.id] = sr_ball
-    delete_val = 0
-    mark_val = 0
-    sr_ball = 0
+        for student_mark in student_marks:
+            if student_mark.users_code.id == user.id:
+                if mark.date == student_mark.date:
+                    mark_val += mark.mark
+                    delete_val += 1
+        if delete_val != 0:
+            sr_ball = mark_val / delete_val
 
     context = {"marks": marks, "user": user, "date_days": date_days, "delta_date": delta_date,
-               "date_days ": date_days, "sr_ball": sr_ball}
+               "date_days ": date_days, "sr_ball": sr_ball, "mark_filter":mark_filter}
     return render(request, 'accounts/student/items/trpo/marks/marks_list.html', context)
 
 
 # Студенты оценки по календарю
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 def user_trpo_marks_filter(request):
     """ОЦЕНКИ по календарю"""
     user = UserProfile.objects.get(email=request.user.email)
@@ -919,7 +924,6 @@ def user_trpo_marks_filter(request):
     marks = marks.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
     mark_filter = UserMarksFilter(request.GET, queryset=marks)
     marks = mark_filter.qs
-    print(marks)
 
     student_marks = Marks.objects.filter(users_code=user)
     student_marks = student_marks.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
@@ -930,12 +934,13 @@ def user_trpo_marks_filter(request):
     dic_sr_ball = {}
 
     for mark in marks:
-        if mark.users_code == user:
-            mark_val += mark.mark
-            delete_val += 1
+        for student_mark in student_marks:
+            if student_mark.users_code.id == user.id:
+                if mark.date == student_mark.date:
+                    mark_val += mark.mark
+                    delete_val += 1
         if delete_val != 0:
             sr_ball = mark_val / delete_val
-        dic_sr_ball[user.id] = sr_ball
 
     context = {"mark_filter": mark_filter, "marks": marks, "start_date": start_date,
                "end_date": end_date, "delta_days": delta_days, "delta_date": delta_date, "sr_ball": sr_ball,
@@ -992,18 +997,22 @@ def user_pp0201_marks_list(request):
 
     mark_filter = UserMarksFilter(request.GET, queryset=marks)
 
+    student_marks = Marks.objects.filter(users_code=user)
+    student_marks = student_marks.filter(items_code__name='ПП.02.01. Прикладное программирование')
+
     mark_val = 0
     delete_val = 0
     sr_ball = 0
     dic_sr_ball = {}
 
     for mark in marks:
-        if mark.users_code == user:
-            mark_val += mark.mark
-            delete_val += 1
+        for student_mark in student_marks:
+            if student_mark.users_code.id == user.id:
+                if mark.date == student_mark.date:
+                    mark_val += mark.mark
+                    delete_val += 1
         if delete_val != 0:
             sr_ball = mark_val / delete_val
-        dic_sr_ball[user.id] = sr_ball
 
     context = {"marks": marks, "user": user, "date_days": date_days, "delta_date": delta_date,
                "date_days ": date_days, "sr_ball": sr_ball, "mark_filter": mark_filter}
@@ -1011,6 +1020,8 @@ def user_pp0201_marks_list(request):
 
 
 # Оценки по фильтру
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 def user_pp0201_marks_filter(request):
     """ОЦЕНКИ по календарю"""
     user = UserProfile.objects.get(email=request.user.email)
@@ -1048,12 +1059,13 @@ def user_pp0201_marks_filter(request):
     dic_sr_ball = {}
 
     for mark in marks:
-        if mark.users_code == user:
-            mark_val += mark.mark
-            delete_val += 1
+        for student_mark in student_marks:
+            if student_mark.users_code.id == user.id:
+                if mark.date == student_mark.date:
+                    mark_val += mark.mark
+                    delete_val += 1
         if delete_val != 0:
             sr_ball = mark_val / delete_val
-        dic_sr_ball[user.id] = sr_ball
 
     context = {"mark_filter": mark_filter, "marks": marks,"start_date": start_date, "end_date": end_date,
                "delta_days": delta_days, "delta_date": delta_date, "sr_ball": sr_ball, "dic_sr_ball": dic_sr_ball}
@@ -1107,18 +1119,22 @@ def user_pp0102_marks_list(request):
         Q(date__year=date_year)
     ).order_by('date').distinct()
 
+    student_marks = Marks.objects.filter(users_code=user)
+    student_marks = student_marks.filter(items_code__name='ПП.01.02. Прикладное программирование')
+
     mark_val = 0
     delete_val = 0
     sr_ball = 0
     dic_sr_ball = {}
 
     for mark in marks:
-        if mark.users_code == user:
-            mark_val += mark.mark
-            delete_val += 1
+        for student_mark in student_marks:
+            if student_mark.users_code.id == user.id:
+                if mark.date == student_mark.date:
+                    mark_val += mark.mark
+                    delete_val += 1
         if delete_val != 0:
             sr_ball = mark_val / delete_val
-        dic_sr_ball[user.id] = sr_ball
 
     context = {"marks": marks, "user": user, "date_days": date_days, "delta_date": delta_date,
                "date_days ": date_days, "sr_ball": sr_ball}
@@ -1126,6 +1142,8 @@ def user_pp0102_marks_list(request):
 
 
 # Оценки по фильтру
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 def user_pp0102_marks_filter(request):
     """ОЦЕНКИ по календарю"""
     user = UserProfile.objects.get(email=request.user.email)
@@ -1163,12 +1181,13 @@ def user_pp0102_marks_filter(request):
     dic_sr_ball = {}
 
     for mark in marks:
-        if mark.users_code == user:
-            mark_val += mark.mark
-            delete_val += 1
+        for student_mark in student_marks:
+            if student_mark.users_code.id == user.id:
+                if mark.date == student_mark.date:
+                    mark_val += mark.mark
+                    delete_val += 1
         if delete_val != 0:
             sr_ball = mark_val / delete_val
-        dic_sr_ball[user.id] = sr_ball
 
     context = {"mark_filter": mark_filter, "marks": marks,"start_date": start_date, "end_date": end_date,
                "delta_days": delta_days, "delta_date": delta_date, "sr_ball": sr_ball, "dic_sr_ball": dic_sr_ball}

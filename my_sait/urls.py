@@ -4,22 +4,22 @@ from . import views
 
 urlpatterns = [
     # Фильтр оценок студентов
-    path('user/trpo_lectures_list/marks/filtred', views.user_trpo_marks_filter, name="user-trpo-marks-filter"),
-    path('user/pp0201_lectures_list/marks/filtred', views.user_pp0201_marks_filter, name="user-pp0201-marks-filter"),
-    path('user/pp0102_lectures_list/marks/filtred', views.user_pp0102_marks_filter, name="user-pp0102-marks-filter"),
+    path('user/trpo/marks/filtred', views.user_trpo_marks_filter, name="user-trpo-marks-filter"),
+    path('user/pp0201//marks/filtred', views.user_pp0201_marks_filter, name="user-pp0201-marks-filter"),
+    path('user/pp0102/marks/filtred', views.user_pp0102_marks_filter, name="user-pp0102-marks-filter"),
 
     # Оценки студентов
-    path('user/trpo_lectures_list/marks', views.user_trpo_marks_list, name="user-trpo-marks"),
-    path('user/pp0201_lectures_list/marks', views.user_pp0201_marks_list, name="user-pp0201-marks"),
-    path('user/pp0102_lectures_list/marks', views.user_pp0102_marks_list, name="user-pp0102-marks"),
+    path('user/trpo/marks', views.user_trpo_marks_list, name="user-trpo-marks"),
+    path('user/pp0201/marks', views.user_pp0201_marks_list, name="user-pp0201-marks"),
+    path('user/pp0102/marks', views.user_pp0102_marks_list, name="user-pp0102-marks"),
 
     # Скачать лекцию/практику студенту
-    path('user/trpo_lectures_list/<int:pk>', views.trpo_download_lecture, name="user-trpo_lectures_download"),
-    path('user/trpo_practices_list/<int:pk>', views.trpo_download_practice, name="user-trpo_practice_download"),
-    path('user/pp0201_lectures_list/<int:pk>', views.pp0201_download_lecture, name="user-pp0201_lectures_download"),
-    path('user/pp0201_practices_list/<int:pk>', views.pp0201_download_practice, name="user-pp0201_practice_download"),
-    path('user/pp0102_lectures_list/<int:pk>', views.pp0102_download_lecture, name="user-pp0102_lectures_download"),
-    path('user/pp0102_practices_list/<int:pk>', views.pp0102_download_practice, name="user-pp0102_practice_download"),
+    path('user/trpo/lectures_list/<int:pk>', views.trpo_download_lecture, name="user-trpo_lectures_download"),
+    path('user/trpo/practices_list/<int:pk>', views.trpo_download_practice, name="user-trpo_practice_download"),
+    path('user/pp0201/lectures_list/<int:pk>', views.pp0201_download_lecture, name="user-pp0201_lectures_download"),
+    path('user/pp0201/practices_list/<int:pk>', views.pp0201_download_practice, name="user-pp0201_practice_download"),
+    path('user/pp0102/lectures_list/<int:pk>', views.pp0102_download_lecture, name="user-pp0102_lectures_download"),
+    path('user/pp0102/practices_list/<int:pk>', views.pp0102_download_practice, name="user-pp0102_practice_download"),
 
     # Скачать лекцию/практику преподу
     path('administrator/trpo_lectures_list/<int:pk>_download', views.trpo_download_lecture, name="admin-trpo_lectures_download"),
@@ -75,9 +75,9 @@ urlpatterns = [
     path('administrator/pp0102/students_marks/filtred', views.PP0102MarksCalendar, name="admin-pp0201-filtred_students_marks"),
 
     # Список практик для студента
-    path('user/trpo_practices_list/', views.user_trpo_practice, name="user-trpo_practice"),
-    path('user/pp0201_practices_list/', views.user_pp0201_practice, name="user-pp0201-practice"),
-    path('user/pp0102_practices_list/', views.user_pp0102_practice, name="user-pp0102-practice"),
+    path('user/trpo/practices_list', views.user_trpo_practice, name="user-trpo_practice"),
+    path('user/pp0201/practices_list', views.user_pp0201_practice, name="user-pp0201-practice"),
+    path('user/pp0102/practices_list', views.user_pp0102_practice, name="user-pp0102-practice"),
 
     # Список практик для админа
     path('administrator/trpo_practices_list/', views.admin_trpo_practice, name="admin-trpo-practice"),
@@ -85,9 +85,9 @@ urlpatterns = [
     path('administrator/pp0102_practices_list/', views.admin_pp0102_practice, name="admin-pp0102-practice"),
 
     # Список лекций для студента
-    path('user/trpo_lectures_list', views.user_trpo_lecture, name='user-trpo-lecture'),
-    path('user/pp0201_lectures_list', views.user_pp0201_lecture, name='user-pp0201-lecture'),
-    path('user/pp0102_lectures_list', views.user_pp0102_lecture, name='user-pp0102-lecture'),
+    path('user/trpo/lectures_list', views.user_trpo_lecture, name='user-trpo-lecture'),
+    path('user/pp0201/lectures_list', views.user_pp0201_lecture, name='user-pp0201-lecture'),
+    path('user/pp0102/lectures_list', views.user_pp0102_lecture, name='user-pp0102-lecture'),
 
     # список лекций для админа
     path('administrator/trpo_lectures_list/', views.admin_trpo_lecture, name="admin-trpo-lecture"),

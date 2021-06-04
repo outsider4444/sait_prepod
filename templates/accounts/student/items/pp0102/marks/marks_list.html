@@ -1,7 +1,7 @@
 {% extends 'accounts/student/items/base.html' %}
 
 {% block items %}
-        <div class="container h-100">
+    <div class="container h-100">
         <div class="row h-100 justify-content-center align-items-center">
             <h3 style="color: #fff; margin-top: 50px; text-align: center">
                 Таблица оценок студента {{ user.name }} {{ user.surname }} по предмету ПП.01.02. Прикладное программирование
@@ -66,4 +66,8 @@
             </tbody>
         </table>
     </div>
+    <script>
+        let id_start_date = document.getElementById('id_start_date'); id_start_date.className = 'form-control';id_start_date.required = true;
+        let id_end_date = document.getElementById('id_end_date'); id_end_date.className = 'form-control';id_end_date.required = true;
+    </script>
 {% endblock items %}

@@ -28,7 +28,7 @@
     {% if request.user.is_staff %}
         <a class="navbar-brand" href="{% url 'admin-main_page' %}">Сайт преподавателя</a>
     {% else %}
-        <a class="navbar-brand" href="#">Сайт преподавателя</a>
+        <a class="navbar-brand" href="{% url 'user-page' %}">Сайт преподавателя</a>
     {% endif %}
     <div class="collapse navbar-collapse" id="nav-content">
         <ul class="navbar-nav">
