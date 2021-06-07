@@ -561,18 +561,19 @@ def PP0201MarksCalendar(request):
     students = students.filter(group__code=group)
     # дата начала
     start_date = request.GET.get('start_date')
-    if start_date is not None:
-        start_date = start_date.split("-")
-        start_date[0] = int(start_date[0])
-        start_date[1] = int(start_date[1])
-        start_date[2] = int(start_date[2])
+    new_start_date = start_date
+    start_date = start_date.split("-")
+    start_date[0] = int(start_date[0])
+    start_date[1] = int(start_date[1])
+    start_date[2] = int(start_date[2])
+
     # дата окончания
     end_date = request.GET.get('end_date')
-    if end_date is not None:
-        end_date = end_date.split("-")
-        end_date[0] = int(end_date[0])
-        end_date[1] = int(end_date[1])
-        end_date[2] = int(end_date[2])
+    new_end_date = end_date
+    end_date = end_date.split("-")
+    end_date[0] = int(end_date[0])
+    end_date[1] = int(end_date[1])
+    end_date[2] = int(end_date[2])
 
     # дни для вывода
     delta_days = calendar(s_date=start_date, e_date=end_date, strdate='%Y-%m-%d')
@@ -607,7 +608,7 @@ def PP0201MarksCalendar(request):
         mark_val = 0
         sr_ball = 0
 
-    context = {"mark_filter": mark_filter, "marks": marks,
+    context = {"mark_filter": mark_filter, "marks": marks, "new_start_date":new_start_date, "new_end_date":new_end_date,
                "delta_days": delta_days, "delta_date": delta_date, "dic_sr_ball": dic_sr_ball}
     return render(request, 'admin-items/pp0201/marks/pp0201_marks_list-filtred.html', context)
 
@@ -741,6 +742,7 @@ def PP0102MarksCalendar(request):
 
     # дата начала
     start_date = request.GET.get('start_date')
+    new_start_date = start_date
     start_date = start_date.split("-")
     start_date[0] = int(start_date[0])
     start_date[1] = int(start_date[1])
@@ -748,6 +750,7 @@ def PP0102MarksCalendar(request):
 
     # дата окончания
     end_date = request.GET.get('end_date')
+    new_end_date = end_date
     end_date = end_date.split("-")
     end_date[0] = int(end_date[0])
     end_date[1] = int(end_date[1])
@@ -787,7 +790,7 @@ def PP0102MarksCalendar(request):
         mark_val = 0
         sr_ball = 0
 
-    context = {"mark_filter": mark_filter, "marks": marks,
+    context = {"mark_filter": mark_filter, "marks": marks, "new_start_date":new_start_date, "new_end_date":new_end_date,
                "delta_days": delta_days, "delta_date": delta_date, "dic_sr_ball": dic_sr_ball}
     return render(request, 'admin-items/pp0102/marks/pp0102_marks_list-filtred.html', context)
 

@@ -15,7 +15,7 @@
         <div class="form-row">
             <div class="form-group col-md-2">
                 <div id="div-select-ajax">
-                    <label for=""style="color: white;">Группа:</label><select name="" id="id_group_select" data-group-url="{% url 'pp0201-ajax' %}">
+                    <label for="" style="color: white;">Группа:</label><select name="" id="id_group_select" data-group-url="{% url 'pp0201-ajax' %}">
                     <option value="0">----------</option>
                     <option value="1">331</option>
                     <option value="2">332</option>
@@ -148,7 +148,7 @@
             console.log(id_group)
 
             $.ajax({
-                url: url
+                url: url,
                 data: {
                     'id_group': id_group
                 },

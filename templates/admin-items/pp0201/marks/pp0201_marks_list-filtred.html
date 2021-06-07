@@ -12,7 +12,7 @@
 
     <a href="{% url 'admin-pp0201_students_marks_create' %}" class="pressed-button-blue"> Создать новую оценку</a>
 
-    <div id="calendar-search" style="color: white;">
+<div id="calendar-search" style="color: white;">
         <form action="{% url 'admin-pp0201-filtred_students_marks' %}" method="get">
             {% csrf_token %}
             <div class="form-row" style="width: 100%;">
@@ -119,32 +119,12 @@
             </tbody>
         </table>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <script>
-        let id_group_select = document.getElementById('id_group_select'); id_group_select.className = 'form-control';
         let id_start_date = document.getElementById('id_start_date'); id_start_date.className = 'form-control';id_start_date.required = true;
         let id_end_date = document.getElementById('id_end_date'); id_end_date.className = 'form-control';id_end_date.required = true;
         let id_group = document.getElementById('id_group'); id_group.className = 'form-control';id_group.required = true;
         id_group.removeChild(id_group.querySelector('[value="3"]'));
         id_group.removeChild(id_group.querySelector('[value="4"]'));
-        id_start_date.required = true;
-        $("#id_group_select").change(function () {
-            const url = $("#id_group_select").attr("data-group-url");
-            const id_group = $('#id_group_select option:selected').text();
-            console.log(id_group)
-
-            $.ajax({
-                url: url,
-                data: {
-                    'id_group': id_group
-                },
-                success: function (data) {
-                    $("#id_students_list").html(data);
-
-                }
-            });
-
-        });
     </script>
 {% endblock %}

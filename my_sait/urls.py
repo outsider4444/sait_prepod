@@ -72,7 +72,7 @@ urlpatterns = [
     # ПП0102
     path('administrator/pp0102/students_marks/', views.admin_pp0102_marks_list, name="admin-pp0102_students_marks"),
     path('administrator/pp0102/students_marks/students_list_table', views.load_pp0102_marks_list, name="pp0102-ajax"),
-    path('administrator/pp0102/students_marks/filtred', views.PP0102MarksCalendar, name="admin-pp0201-filtred_students_marks"),
+    path('administrator/pp0102/students_marks/filtred', views.PP0102MarksCalendar, name="admin-pp0102-filtred_students_marks"),
 
     # Список практик для студента
     path('user/trpo/practices_list', views.user_trpo_practice, name="user-trpo_practice"),
