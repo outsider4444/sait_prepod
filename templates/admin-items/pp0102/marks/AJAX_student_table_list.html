@@ -11,7 +11,7 @@
     </thead>
     <tbody style="color: white;">
     {% for stud in marks|values:"users_code"|distinct %}
-        {% if stud.group.code == 331 %}<tr style="border: 2px">
+        {% if stud.group.code == 231 %}<tr style="border: 2px">
             <td>{{ stud.name }} {{ stud.surname }}({{ stud.group }})</td>
             <td>
                 {% for key, values in dic_sr_ball.items %}
@@ -45,7 +45,7 @@
                 {% endfor %}
             </tr>
         {% endif %}
-        {% if stud.group.code == 332 %}<tr>
+        {% if stud.group.code == 232 %}<tr>
             <td>{{ stud.name }} {{ stud.surname }}({{ stud.group }})</td>
             <td>
                 {% for key, values in dic_sr_ball.items %}
