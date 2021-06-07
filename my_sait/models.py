@@ -66,7 +66,7 @@ class Marks(models.Model):
     comment = models.CharField('Комментарий', max_length=250, blank=True, default='')
 
     def __str__(self):
-        return str(self.date)
+        return str(self.users_code) + " | " + str(self.date) + " | " + str(self.mark)
 
     class Meta:
         verbose_name = "Оценка"
