@@ -556,7 +556,7 @@ def load_pp0201_marks_list(request):
 def PP0201MarksCalendar(request):
     """ОЦЕНКИ по календарю"""
     group = request.GET.get('group')
-    marks = Marks.objects.filter(items_code__name='МДК.02.01. Технология разработки программного обеспечения')
+    marks = Marks.objects.filter(items_code__name='ПП.02.01. Прикладное программирование')
     students = UserProfile.objects.filter(groups=2)
     students = students.filter(group__code=group)
     # дата начала
@@ -731,7 +731,7 @@ def load_pp0102_marks_list(request):
     context = {"marks": marks, "students": students, "date_days": date_days, "delta_date": delta_date,
                "date_days ": date_days, "dic_sr_ball": dic_sr_ball}
 
-    return render(request, 'admin-items/trpo/marks/AJAX_student_table_list.html', context)
+    return render(request, 'admin-items/pp0102/marks/AJAX_student_table_list.html', context)
 
 
 def PP0102MarksCalendar(request):
@@ -789,7 +789,7 @@ def PP0102MarksCalendar(request):
 
     context = {"mark_filter": mark_filter, "marks": marks,
                "delta_days": delta_days, "delta_date": delta_date, "dic_sr_ball": dic_sr_ball}
-    return render(request, 'admin-items/pp0201/marks/pp0201_marks_list-filtred.html', context)
+    return render(request, 'admin-items/pp0102/marks/pp0102_marks_list-filtred.html', context)
 
 
 @login_required(login_url='login')

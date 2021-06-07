@@ -17,8 +17,8 @@
                 <div id="div-select-ajax">
                     <label for=""style="color: white;">Группа:</label><select name="" id="id_group_select" data-group-url="{% url 'pp0201-ajax' %}">
                     <option value="0">----------</option>
-                    <option value="3">331</option>
-                    <option value="4">332</option>
+                    <option value="1">331</option>
+                    <option value="2">332</option>
                 </select>
                 </div>
             </div>
@@ -59,7 +59,7 @@
             </thead>
             <tbody style="color: white;">
             {% for stud in marks|values:"users_code"|distinct %}
-                {% if stud.group.code == 231 %}<tr style="border: 2px">
+                {% if stud.group.code == 331 %}<tr style="border: 2px">
                     <td>{{ stud.name }} {{ stud.surname }}({{ stud.group }})</td>
                     <td>
                         {% for key, values in dic_sr_ball.items %}
@@ -93,7 +93,7 @@
                         {% endfor %}
                     </tr>
                 {% endif %}
-                {% if stud.group.code == 232 %}<tr>
+                {% if stud.group.code == 332 %}<tr>
                     <td>{{ stud.name }} {{ stud.surname }}({{ stud.group }})</td>
                     <td>
                         {% for key, values in dic_sr_ball.items %}
@@ -139,21 +139,21 @@
         let id_start_date = document.getElementById('id_start_date'); id_start_date.className = 'form-control';id_start_date.required = true;
         let id_end_date = document.getElementById('id_end_date'); id_end_date.className = 'form-control';id_end_date.required = true;
         let id_group = document.getElementById('id_group'); id_group.className = 'form-control';id_group.required = true;
-        id_group.removeChild(id_group.querySelector('[value="1"]'));
-        id_group.removeChild(id_group.querySelector('[value="2"]'));
+        id_group.removeChild(id_group.querySelector('[value="3"]'));
+        id_group.removeChild(id_group.querySelector('[value="4"]'));
         id_start_date.required = true;
         $("#id_group_select").change(function () {
             const url = $("#id_group_select").attr("data-group-url");
-            const id_group = $('#id_group_select option:selected').text();  // get the selected country ID from the HTML input
+            const id_group = $('#id_group_select option:selected').text();
             console.log(id_group)
 
-            $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            $.ajax({
+                url: url
                 data: {
-                    'id_group': id_group       // add the country id to the GET parameters
+                    'id_group': id_group
                 },
                 success: function (data) {
-                    $("#id_students_list").html(data);  // replace the contents of the city input with the data that came from the server
+                    $("#id_students_list").html(data);
 
                 }
             });

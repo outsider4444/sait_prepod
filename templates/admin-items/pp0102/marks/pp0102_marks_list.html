@@ -18,8 +18,8 @@
                     <label for=""style="color: white;"> Группа:</label>
                     <select name="" id="id_group_select" data-group-url="{% url 'pp0102-ajax' %}">
                         <option value="0">----------</option>
-                        <option value="1">231</option>
-                        <option value="2">232</option>
+                        <option value="3">231</option>
+                        <option value="4">232</option>
                     </select>
                 </div>
             </div>
@@ -59,7 +59,7 @@
             </thead>
             <tbody style="color: white;">
     {% for stud in marks|values:"users_code"|distinct %}
-        {% if stud.group.code == 331 %}<tr style="border: 2px">
+        {% if stud.group.code == 231 %}<tr style="border: 2px">
             <td>{{ stud.name }} {{ stud.surname }}({{ stud.group }})</td>
             <td>
                 {% for key, values in dic_sr_ball.items %}
@@ -93,7 +93,7 @@
                 {% endfor %}
             </tr>
         {% endif %}
-        {% if stud.group.code == 332 %}<tr>
+        {% if stud.group.code == 232 %}<tr>
             <td>{{ stud.name }} {{ stud.surname }}({{ stud.group }})</td>
             <td>
                 {% for key, values in dic_sr_ball.items %}
@@ -140,8 +140,8 @@
         let id_start_date = document.getElementById('id_start_date'); id_start_date.className = 'form-control';id_start_date.required = true;
         let id_end_date = document.getElementById('id_end_date'); id_end_date.className = 'form-control';id_end_date.required = true;
         let id_group = document.getElementById('id_group'); id_group.className = 'form-control';id_group.required = true;
-        id_group.removeChild(id_group.querySelector('[value="3"]'));
-        id_group.removeChild(id_group.querySelector('[value="4"]'));
+        id_group.removeChild(id_group.querySelector('[value="1"]'));
+        id_group.removeChild(id_group.querySelector('[value="2"]'));
         $("#id_group_select").change(function () {
             const url = $("#id_group_select").attr("data-group-url");
             const id_group = $('#id_group_select option:selected').text();

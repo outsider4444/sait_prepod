@@ -5,7 +5,7 @@
     <div class="container h-100">
         <div class="row h-100 justify-content-center align-items-center">
             <h3 style="color: #fff; margin-top: 50px; text-align: center">Просмотр оценок по предмету
-                "ПП.02.01. Технология разработки программного обеспечения" с {{ new_start_date }} по {{ new_end_date }}
+                "ПП.01.02. Технология разработки программного обеспечения" с {{ new_start_date }} по {{ new_end_date }}
             </h3>
         </div>
     </div>
@@ -40,7 +40,6 @@
                 {% for date in delta_date %}
                     <th>{{ date }}</th>
                 {% endfor %}
-
             </tr>
             </thead>
             <tbody style="color: white;">
@@ -122,8 +121,8 @@
         let id_start_date = document.getElementById('id_start_date'); id_start_date.className = 'form-control';id_start_date.required = true;
         let id_end_date = document.getElementById('id_end_date'); id_end_date.className = 'form-control';id_end_date.required = true;
         let id_group = document.getElementById('id_group'); id_group.className = 'form-control';id_group.required = true;
-        id_group.removeChild(id_group.querySelector('[value="3"]'));
-        id_group.removeChild(id_group.querySelector('[value="4"]'));
+        id_group.removeChild(id_group.querySelector('[value="1"]'));
+        id_group.removeChild(id_group.querySelector('[value="2"]'));
 
     </script>
 {% endblock content %}

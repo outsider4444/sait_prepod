@@ -126,21 +126,21 @@
         let id_start_date = document.getElementById('id_start_date'); id_start_date.className = 'form-control';id_start_date.required = true;
         let id_end_date = document.getElementById('id_end_date'); id_end_date.className = 'form-control';id_end_date.required = true;
         let id_group = document.getElementById('id_group'); id_group.className = 'form-control';id_group.required = true;
-        id_group.removeChild(id_group.querySelector('[value="1"]'));
-        id_group.removeChild(id_group.querySelector('[value="2"]'));
+        id_group.removeChild(id_group.querySelector('[value="3"]'));
+        id_group.removeChild(id_group.querySelector('[value="4"]'));
         id_start_date.required = true;
         $("#id_group_select").change(function () {
             const url = $("#id_group_select").attr("data-group-url");
-            const id_group = $('#id_group_select option:selected').text();  // get the selected country ID from the HTML input
+            const id_group = $('#id_group_select option:selected').text();
             console.log(id_group)
 
-            $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            $.ajax({
+                url: url,
                 data: {
-                    'id_group': id_group       // add the country id to the GET parameters
+                    'id_group': id_group
                 },
                 success: function (data) {
-                    $("#id_students_list").html(data);  // replace the contents of the city input with the data that came from the server
+                    $("#id_students_list").html(data);
 
                 }
             });

@@ -39,7 +39,7 @@
                         {{ form.comment }}
                     </div>
                 </div>
-<span>{{ error }}</span>
+                <span>{{ error }}</span>
                 <button type="submit" class="pressed-button-green">Подтвердить</button>
 
             </form>
@@ -60,13 +60,13 @@
             const id_group = $('#id_group option:selected').text();  // get the selected country ID from the HTML input
             console.log(id_group)
 
-            $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            $.ajax({
+                url: url,
                 data: {
-                    'id_group': id_group       // add the country id to the GET parameters
+                    'id_group': id_group
                 },
                 success: function (data) {
-                    $("#id_users_code").html(data);  // replace the contents of the city input with the data that came from the server
+                    $("#id_users_code").html(data);
 
                 }
             });
