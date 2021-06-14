@@ -456,7 +456,7 @@ def admin_pp0201_marks_list(request):
     """Оценки за ПП0201"""
     marks = Marks.objects.filter(items_code__name='ПП.02.01. Прикладное программирование')
 
-students = UserProfile.objects.filter(Q(group__code=331) | Q(group__code=332))
+    students = UserProfile.objects.filter(Q(group__code=331) | Q(group__code=332))
     # получение всех дат текущего месяца
     delta_date = days_cur_month(strdate='%d.%m.%y')
     # месяц
